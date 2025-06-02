@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import { Link } from "@remix-run/react"
 import type { MetaFunction } from "@remix-run/node"
+import { certifications, education, experiences, skills } from "~/constants"
 
 export const meta: MetaFunction = () => {
   return [
@@ -93,7 +94,7 @@ export default function ResumePage() {
           </h2>
         </div>
         <div className="space-y-6">
-          {experience.map((exp, index) => (
+          {experiences.map((exp, index) => (
             <Card
               key={index}
               className="border-0 shadow-sm bg-white dark:bg-slate-900 dark:border dark:border-slate-800"
