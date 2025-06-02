@@ -30,10 +30,58 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-soft-blue-500 dark:bg-soft-blue-400 rounded-full flex items-center justify-center">
-              <span className="text-white font-medium text-sm">A</span>
+            <div className="text-slate-900 dark:text-white w-8 h-8">
+              <svg
+                width="53"
+                height="53"
+                viewBox="0 0 53 53"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-full h-full"
+              >
+                <rect
+                  x="14.1106"
+                  y="12.1107"
+                  width="3.27452"
+                  height="26.4791"
+                  rx="1.63726"
+                  fill="currentColor"
+                  stroke="currentColor"
+                />
+                <rect
+                  x="23.5"
+                  y="29.5"
+                  width="3"
+                  height="9"
+                  rx="1.5"
+                  transform="rotate(90 23.5 29.5)"
+                  fill="currentColor"
+                  stroke="currentColor"
+                />
+                <rect
+                  x="34.8727"
+                  y="12.1107"
+                  width="3.27452"
+                  height="26.4791"
+                  rx="1.63726"
+                  fill="currentColor"
+                  stroke="currentColor"
+                />
+                <rect
+                  x="13.7058"
+                  y="13.8778"
+                  width="3.27452"
+                  height="34.0956"
+                  rx="1.63726"
+                  transform="rotate(-41.5521 13.7058 13.8778)"
+                  fill="currentColor"
+                  stroke="currentColor"
+                />
+                <circle cx="26.5" cy="26.5" r="24.5" stroke="currentColor" strokeWidth="4" />
+              </svg>
             </div>
-            {/*<span className="font-medium text-slate-800 dark:text-white">Aldi Nugraha</span>*/}
+
+            <span className="font-medium text-slate-800 dark:text-white">Aldi Nugraha</span>
           </Link>
 
           {/* Desktop Navigation */}

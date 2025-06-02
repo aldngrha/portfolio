@@ -8,6 +8,7 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
   // ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "icon", href: "/logo1.svg", type: "image/x-icon" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
