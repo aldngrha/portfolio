@@ -10,10 +10,13 @@ import {
   GraduationCap,
   Award,
   Briefcase,
+  LoaderCircle,
 } from "lucide-react"
 import { Link } from "@remix-run/react"
 import type { MetaFunction } from "@remix-run/node"
 import { certifications, education, experiences, skills } from "~/constants"
+import { toast } from "sonner"
+import { useState } from "react"
 
 export const meta: MetaFunction = () => {
   return [
@@ -27,6 +30,40 @@ export const meta: MetaFunction = () => {
 }
 
 export default function ResumePage() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  async function downloadFileFromUrl(url: string, filename: string) {
+    try {
+      setIsLoading(true)
+      const response = await fetch(url)
+      if (!response.ok) throw new Error("Network response was not ok")
+
+      const blob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = downloadUrl
+      a.download = filename || "download.pdf"
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      window.URL.revokeObjectURL(downloadUrl)
+
+      toast.success("Successfully download resume!")
+    } catch (error) {
+      console.error("Download failed:", error)
+      toast.error("Download failed. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleDownload = () => {
+    downloadFileFromUrl(
+      "https://kmjlymleaovyuvintnha.supabase.co/storage/v1/object/public/gallery-images//CV%20ALDI%20NUGRAHA.pdf",
+      "Aldi Nugraha Resume.pdf"
+    )
+  }
+
   return (
     <>
       <section className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
@@ -36,9 +73,22 @@ export default function ResumePage() {
             Frontend Developer & Software Engineer
           </p>
         </div>
-        <Button className="bg-sky-600 hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500 text-white rounded-full">
-          <Download className="w-4 h-4 mr-2" />
-          Download PDF
+        <Button
+          onClick={handleDownload}
+          disabled={isLoading}
+          className="bg-sky-600 hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500 text-white rounded-full"
+        >
+          {isLoading ? (
+            <>
+              <LoaderCircle className="animate-spin mr-2" />
+              Loading ...
+            </>
+          ) : (
+            <>
+              <Download className="w-4 h-4 mr-2" />
+              Download PDF
+            </>
+          )}
         </Button>
       </section>
 
