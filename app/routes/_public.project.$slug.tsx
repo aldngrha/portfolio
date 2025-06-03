@@ -2,11 +2,42 @@ import { Button } from "~/components/ui/button"
 import { Card, CardContent } from "~/components/ui/card"
 import { Badge } from "~/components/ui/badge"
 import { ArrowLeft, Github, ExternalLink, Calendar, Users } from "lucide-react"
-import { LoaderFunctionArgs } from "@remix-run/node"
-import { Link } from "@remix-run/react"
-import { project } from "~/constants"
+import { Link, useParams } from "@remix-run/react"
+import { projects } from "~/constants"
+import type { MetaFunction } from "@remix-run/node"
 
-export default function ProjectDetailPage({ params }: LoaderFunctionArgs) {
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Project Detail - Portfolio" },
+    {
+      name: "description",
+      content:
+        "Explore the technical details and creative solutions behind this project, crafted by Aldi Nugraha using modern technologies to solve real challenges.",
+    },
+  ]
+}
+
+export default function ProjectDetailPage() {
+  const { slug } = useParams()
+
+  const project = projects.find((p) => p.slug === slug)
+
+  if (!project) {
+    return (
+      <div className="text-center py-16">
+        <h2 className="text-2xl font-light text-slate-800 dark:text-white mb-4">
+          Project Not Found
+        </h2>
+        <p className="text-lg text-slate-600 dark:text-slate-300">
+          The project you are looking for does not exist.
+        </p>
+        <Button variant="outline" asChild className="mt-6">
+          <Link to="/projects">Back to Projects</Link>
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="mb-8">
@@ -44,25 +75,29 @@ export default function ProjectDetailPage({ params }: LoaderFunctionArgs) {
         </div>
 
         <div className="flex justify-center space-x-4 mb-8">
-          <Button
-            asChild
-            className="bg-sky-600 hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500 text-white rounded-full"
-          >
-            <Link to="#" target="_blank">
-              <ExternalLink className="w-4 h-4 mr-2" />
-              Live Demo
-            </Link>
-          </Button>
-          <Button
-            variant="outline"
-            asChild
-            className="border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30 rounded-full"
-          >
-            <Link to="#" target="_blank">
-              <Github className="w-4 h-4 mr-2" />
-              View Code
-            </Link>
-          </Button>
+          {project.link && (
+            <Button
+              asChild
+              className="bg-sky-600 hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500 text-white rounded-full"
+            >
+              <Link to={project.link} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Live Demo
+              </Link>
+            </Button>
+          )}
+          {project.github && (
+            <Button
+              variant="outline"
+              asChild
+              className="border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/30 rounded-full"
+            >
+              <Link to={project.github} target="_blank" rel="noopener noreferrer">
+                <Github className="w-4 h-4 mr-2" />
+                View Code
+              </Link>
+            </Button>
+          )}
         </div>
       </section>
 

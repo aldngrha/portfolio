@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f60f030f-46e6-4ebe-8383-0e39943ce054" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/shared/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/shared/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/root.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +63,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/components" />
       <recent name="$PROJECT_DIR$/app/routes" />
       <recent name="$PROJECT_DIR$/app/routes/_public+" />
       <recent name="$PROJECT_DIR$/app/routes/(root)" />
@@ -101,7 +100,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748868019166</updated>
-      <workItem from="1748868021098" duration="11577000" />
+      <workItem from="1748868021098" duration="32485000" />
     </task>
     <servers />
   </component>

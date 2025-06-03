@@ -3,9 +3,10 @@ import { Card, CardContent } from "~/components/ui/card"
 import { Input } from "~/components/ui/input"
 import { Textarea } from "~/components/ui/textarea"
 import { Label } from "~/components/ui/label"
-import { Mail, MapPin, Clock, Send } from "lucide-react"
-import { Link } from "@remix-run/react"
-import type { MetaFunction } from "@remix-run/node"
+import { Mail, MapPin, Clock, Send, AlertCircle, CheckCircle } from "lucide-react"
+import { Form, Link, useNavigation, useSearchParams } from "@remix-run/react"
+import { ActionFunction, MetaFunction, redirect } from "@remix-run/node"
+import { sendContactEmail } from "~/services/send-email"
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,12 +14,68 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Aldi Nugraha's personal portfolio — software engineer passionate about cutting-edge tech and clean code.",
+        "Get in touch with Aldi Nugraha — software engineer ready to collaborate, innovate, and build the future together.",
     },
   ]
 }
 
+const rateLimitMap = new Map<string, { count: number; lastRequest: number }>()
+
+const RATE_LIMIT_WINDOW = 60 * 1000 // 1 menit
+const MAX_REQUESTS = 3
+
+export const action: ActionFunction = async ({ request }) => {
+  const ip =
+    request.headers.get("x-forwarded-for") || request.headers.get("remote-addr") || "unknown"
+
+  const now = Date.now()
+  const record = rateLimitMap.get(ip) || { count: 0, lastRequest: now }
+
+  if (now - record.lastRequest > RATE_LIMIT_WINDOW) {
+    record.count = 0
+    record.lastRequest = now
+  }
+
+  record.count++
+  rateLimitMap.set(ip, record)
+
+  if (record.count > MAX_REQUESTS) {
+    return redirect("/contact?error=Too many requests. Please wait a minute and try again.")
+  }
+
+  const formData = await request.formData()
+
+  const honeypot = formData.get("website")
+  if (honeypot) {
+    return redirect("/contact?error=Spam detected.")
+  }
+
+  const name = formData.get("name")?.toString().trim() || ""
+  const email = formData.get("email")?.toString().trim() || ""
+  const subject = formData.get("subject")?.toString().trim() || ""
+  const message = formData.get("message")?.toString().trim() || ""
+
+  if (!name || !email || !subject || !message) {
+    return redirect("/contact?error=Please fill all the fields")
+  }
+
+  const result = await sendContactEmail({ name, email, subject, message })
+
+  if (result.success) {
+    return redirect("/contact?success=Message sent successfully!")
+  } else {
+    return redirect(`/contact?error=${encodeURIComponent(result.error || "Unknown error")}`)
+  }
+}
+
 export default function ContactPage() {
+  const [searchParams] = useSearchParams()
+  const success = searchParams.get("success")
+  const error = searchParams.get("error")
+
+  const navigation = useNavigation()
+  const isSubmitting = navigation.state === "submitting"
+
   return (
     <>
       <section className="text-center mb-16">
@@ -38,8 +95,22 @@ export default function ContactPage() {
               <h2 className="text-2xl font-light text-slate-800 dark:text-white mb-6">
                 Send a Message
               </h2>
+              {success && (
+                <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-start space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                  <p className="text-green-800 dark:text-green-200 text-sm">{success}</p>
+                </div>
+              )}
 
-              <form className="space-y-6">
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-start space-x-3">
+                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                  <p className="text-red-800 dark:text-red-200 text-sm">
+                    Failed to send message: {error}
+                  </p>
+                </div>
+              )}
+              <Form method="post" id="contact-form" className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="name" className="text-slate-700 dark:text-slate-300">
@@ -47,6 +118,8 @@ export default function ContactPage() {
                     </Label>
                     <Input
                       id="name"
+                      required
+                      name="name"
                       placeholder="Your name"
                       className="mt-2 border-sky-200 dark:border-sky-800 focus:border-sky-400 dark:focus:border-sky-500 bg-white dark:bg-slate-900 dark:text-white"
                     />
@@ -57,7 +130,9 @@ export default function ContactPage() {
                     </Label>
                     <Input
                       id="email"
+                      required
                       type="email"
+                      name="email"
                       placeholder="your@email.com"
                       className="mt-2 border-sky-200 dark:border-sky-800 focus:border-sky-400 dark:focus:border-sky-500 bg-white dark:bg-slate-900 dark:text-white"
                     />
@@ -70,6 +145,8 @@ export default function ContactPage() {
                   </Label>
                   <Input
                     id="subject"
+                    required
+                    name="subject"
                     placeholder="What's this about?"
                     className="mt-2 border-sky-200 dark:border-sky-800 focus:border-sky-400 dark:focus:border-sky-500 bg-white dark:bg-slate-900 dark:text-white"
                   />
@@ -81,19 +158,39 @@ export default function ContactPage() {
                   </Label>
                   <Textarea
                     id="message"
+                    name="message"
+                    required
                     placeholder="Tell me about your project or idea..."
                     className="mt-2 min-h-32 border-sky-200 dark:border-sky-800 focus:border-sky-400 dark:focus:border-sky-500 bg-white dark:bg-slate-900 dark:text-white"
                   />
                 </div>
+                <input
+                  type="text"
+                  name="website"
+                  className="hidden"
+                  placeholder="Leave this field empty"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
 
                 <Button
                   type="submit"
-                  className="bg-sky-600 hover:bg-sky-700 dark:bg-sky-600 dark:hover:bg-sky-500 text-white rounded-full px-8"
+                  disabled={isSubmitting}
+                  className="bg-soft-blue-600 hover:bg-soft-blue-700 dark:bg-soft-blue-600 dark:hover:bg-soft-blue-500 text-white rounded-full px-8 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-4 h-4 mr-2" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
-              </form>
+              </Form>
             </CardContent>
           </Card>
         </div>

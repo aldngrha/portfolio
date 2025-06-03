@@ -1,6 +1,6 @@
-import { Header } from "~/components/shared/Header"
+import { Header } from "~/components/Header"
 import { Outlet } from "@remix-run/react"
-import Footer from "~/components/shared/Footer"
+import Footer from "~/components/Footer"
 
 export default function PublicLayout() {
   return (

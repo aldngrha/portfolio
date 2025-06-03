@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Aldi Nugraha's personal portfolio — software engineer passionate about cutting-edge tech and clean code.",
+        "Explore the comprehensive resume of Aldi Nugraha, highlighting expertise in modern development, project leadership, and technical innovation.",
     },
   ]
 }
@@ -68,15 +68,15 @@ export default function ResumePage() {
                 <div className="flex flex-wrap gap-6 text-sm text-slate-600 dark:text-slate-300">
                   <div className="flex items-center space-x-1">
                     <Mail className="w-4 h-4" />
-                    <span>aldi.nugraha@email.com</span>
+                    <span>aldi.nugrahatk@gmail.com</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <MapPin className="w-4 h-4" />
-                    <span>Jakarta, Indonesia</span>
+                    <span>Bandar Lampung, Indonesia</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Globe className="w-4 h-4" />
-                    <span>aldinugraha.dev</span>
+                    <Link to="/">aldinugraha.me</Link>
                   </div>
                 </div>
               </div>
@@ -240,13 +240,7 @@ export default function ResumePage() {
               </div>
               <div>
                 <p className="font-medium text-slate-800 dark:text-white">English</p>
-                <p className="text-sm text-slate-600 dark:text-slate-300">
-                  Professional Proficiency
-                </p>
-              </div>
-              <div>
-                <p className="font-medium text-slate-800 dark:text-white">Mandarin</p>
-                <p className="text-sm text-slate-600 dark:text-slate-300">Basic</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Conversation</p>
               </div>
             </div>
           </CardContent>

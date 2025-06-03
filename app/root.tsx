@@ -2,13 +2,24 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/reac
 import type { LinksFunction } from "@remix-run/node"
 
 import styles from "./tailwind.css?url"
-import { ThemeProvider } from "~/components/shared/ThemeProvider"
+import { ThemeProvider } from "~/components/ThemeProvider"
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
   // ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  { rel: "icon", href: "/logo1.svg", type: "image/x-icon" },
+  {
+    rel: "icon",
+    href: "/logog.svg",
+    type: "image/svg+xml",
+    media: "(prefers-color-scheme: light)",
+  },
+  {
+    rel: "icon",
+    href: "/logo1.svg",
+    type: "image/svg+xml",
+    media: "(prefers-color-scheme: dark)",
+  },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",

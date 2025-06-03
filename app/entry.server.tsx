@@ -10,9 +10,13 @@ import type { AppLoadContext, EntryContext } from "@remix-run/node"
 import { createReadableStreamFromReadable } from "@remix-run/node"
 import { RemixServer } from "@remix-run/react"
 import { isbot } from "isbot"
+import { createPagesFunctionHandler } from "@remix-run/cloudflare-pages"
 import { renderToPipeableStream } from "react-dom/server"
+import * as build from "@remix-run/dev/server-build"
 
 const ABORT_DELAY = 5_000
+
+export const onRequest = createPagesFunctionHandler({ build })
 
 export default function handleRequest(
   request: Request,

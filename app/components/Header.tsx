@@ -2,7 +2,7 @@ import { Link, useLocation } from "@remix-run/react"
 import { useState } from "react"
 import { Moon, Sun, Menu, X } from "lucide-react"
 
-import { Button } from "../ui/button"
+import { Button } from "./ui/button"
 import { useTheme } from "./ThemeProvider"
 
 export function Header() {
@@ -29,7 +29,7 @@ export function Header() {
     <header className="bg-white dark:bg-slate-900 border-b border-soft-blue-100 dark:border-soft-blue-900/40 sticky top-0 z-50 backdrop-blur-sm bg-white/95 dark:bg-slate-900/95">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/public" className="flex items-center space-x-2">
             <div className="text-slate-900 dark:text-white w-8 h-8">
               <svg
                 width="53"

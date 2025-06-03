@@ -5,13 +5,13 @@ import {
   Mail,
   Download,
   ArrowRight,
-  Music,
-  Coffee,
-  Palette,
   Code,
   Heart,
   Lightbulb,
   Users,
+  Gamepad,
+  Activity,
+  BookOpen,
 } from "lucide-react"
 import { Link } from "@remix-run/react"
 import type { MetaFunction } from "@remix-run/node"
@@ -23,7 +23,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Aldi Nugraha's personal portfolio — software engineer passionate about cutting-edge tech and clean code.",
+        "Discover the story behind Aldi Nugraha, a software engineer driven by curiosity, creativity, and a mission to transform ideas into impactful technology.",
     },
   ]
 }
@@ -52,21 +52,22 @@ export default function AboutPage() {
 
   const interests = [
     {
-      icon: <Music className="w-5 h-5 text-soft-blue-600 dark:text-soft-blue-400" />,
-      title: "Electronic Music",
+      icon: <Gamepad className="w-5 h-5 text-soft-blue-600 dark:text-soft-blue-400" />,
+      title: "Gaming",
       description:
-        "I love exploring ambient soundscapes and discovering new artists during late-night coding sessions.",
+        "Whether it's story-driven adventures or fast-paced tactical games, I game to recharge and stay sharp under pressure.",
     },
     {
-      icon: <Palette className="w-5 h-5 text-soft-blue-600 dark:text-soft-blue-400" />,
-      title: "Digital Design",
+      icon: <BookOpen className="w-5 h-5 text-soft-blue-600 dark:text-soft-blue-400" />,
+      title: "Reading",
       description:
-        "Creating minimalist posters and experimenting with typography is my creative outlet.",
+        "From tech blogs to sci-fi novels, reading fuels my curiosity and expands how I think about the world (and code).",
     },
     {
-      icon: <Coffee className="w-5 h-5 text-soft-blue-600 dark:text-soft-blue-400" />,
-      title: "Coffee Brewing",
-      description: "I'm on a journey to perfect the art of pour-over coffee, one cup at a time.",
+      icon: <Activity className="w-5 h-5 text-soft-blue-600 dark:text-soft-blue-400" />,
+      title: "Staying Active",
+      description:
+        "Whether it’s running or light workouts, moving keeps my mind fresh and helps me stay balanced beyond the screen.",
     },
   ]
   return (
@@ -130,7 +131,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
               {techSkills.map((skill, index) => (
                 <div key={index} className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 bg-soft-blue-50 dark:bg-soft-blue-900/30 rounded-full flex items-center justify-center mb-3">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3">
                     <img src={skill.icon || "/placeholder.svg"} alt={skill.name} />
                   </div>
                   <span className="text-sm text-slate-600 dark:text-slate-300">{skill.name}</span>

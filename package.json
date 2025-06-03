@@ -9,12 +9,15 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
     "format": "prettier --write .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "deploy": "wrangler pages deploy ./public --project-name=portfolio"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@remix-run/cloudflare": "^2.16.8",
+    "@remix-run/cloudflare-pages": "^2.16.8",
     "@remix-run/node": "^2.16.8",
     "@remix-run/react": "^2.16.8",
     "@remix-run/serve": "^2.16.8",
@@ -24,6 +27,7 @@
     "lucide-react": "^0.511.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "resend": "^4.5.1",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
