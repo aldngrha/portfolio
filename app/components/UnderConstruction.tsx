@@ -33,18 +33,18 @@ export default function UnderConstruction({
   const content = (
     <div className={`text-center ${className}`}>
       {/* Construction Animation */}
-      <div className="relative mb-8 mx-auto">
+      <div className="relative mb-16 mx-auto">
         <div className="w-24 h-24 mx-auto bg-soft-blue-100 dark:bg-soft-blue-900/50 rounded-full flex items-center justify-center">
           <HardHat className="w-12 h-12 text-soft-blue-500 dark:text-soft-blue-400" />
         </div>
 
         {/* Animated Elements */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute left-[9.5rem] -bottom-8 md:left-[23.5rem] transform -translate-x-1/2 -translate-y-1/2">
           <div className="relative">
             <Wrench className="w-6 h-6 text-soft-blue-400 dark:text-soft-blue-500 animate-bounce" />
           </div>
         </div>
-        <div className="absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4">
+        <div className="absolute right-[37%] -bottom-4 md:right-[23rem] transform translate-x-1/4 translate-y-1/4">
           <div className="w-8 h-8 bg-soft-blue-100 dark:bg-soft-blue-900/50 rounded-full flex items-center justify-center">
             <AlertTriangle className="w-4 h-4 text-soft-blue-500 dark:text-soft-blue-400" />
           </div>

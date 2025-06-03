@@ -129,20 +129,30 @@ export default function ProjectsPage() {
                         View Details →
                       </Link>
                       <div className="flex space-x-2">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="p-2 text-slate-500 dark:text-slate-400 hover:text-soft-blue-600 dark:hover:text-soft-blue-400"
-                        >
-                          <Github className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="p-2 text-slate-500 dark:text-slate-400 hover:text-soft-blue-600 dark:hover:text-soft-blue-400"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </Button>
+                        {project.github && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="p-2 text-slate-500 dark:text-slate-400 hover:text-soft-blue-600 dark:hover:text-soft-blue-400"
+                            asChild
+                          >
+                            <Link to={project.github} target="_blank" rel="noopener noreferrer">
+                              <Github className="w-4 h-4" />
+                            </Link>
+                          </Button>
+                        )}
+                        {project.link && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="p-2 text-slate-500 dark:text-slate-400 hover:text-soft-blue-600 dark:hover:text-soft-blue-400"
+                            asChild
+                          >
+                            <Link to={project.link} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="w-4 h-4" />
+                            </Link>
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </CardContent>

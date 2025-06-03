@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
 
 export default function NotFound() {
   return (
-    <div className="text-center h-screen flex flex-col justify-center items-center">
+    <div className="text-center h-screen flex flex-col justify-center items-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       {/* 404 Illustration */}
       <div className="mb-12">
         <div className="relative">
@@ -43,20 +43,20 @@ export default function NotFound() {
 
       {/* Error Message */}
       <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-light text-slate-800 dark:text-white mb-4">
+        <h1 className="text-3xl md:text-5xl font-light text-slate-800 dark:text-white mb-4">
           Page Not Found
         </h1>
         <div className="w-16 h-px bg-soft-blue-200 dark:bg-soft-blue-800 mx-auto mb-6"></div>
-        <p className="text-lg text-slate-600 dark:text-slate-300 mb-4 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 mb-4 max-w-2xl mx-auto leading-relaxed">
           Oops! The page you&apos;re looking for seems to have wandered off into the digital void.
         </p>
-        <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+        <p className="text-slate-500 text-sm md:text-base dark:text-slate-400 max-w-xl mx-auto">
           Don&lsquo;t worry though – let&apos;s get you back on track with some helpful links below.
         </p>
       </div>
 
       {/* Quick Actions */}
-      <div className="mb-12">
+      <div className="mb-5 md:mb-12">
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <Button
             asChild
@@ -81,7 +81,7 @@ export default function NotFound() {
       {/* Quick Links */}
 
       {/* Fun Fact */}
-      <div className="mt-12 text-center">
+      <div className="mt-2 md:mt-12 text-center">
         <p className="text-sm text-slate-400 dark:text-slate-500">
           Fun fact: HTTP 404 errors were named after room 404 at CERN, where the original web
           servers were located.

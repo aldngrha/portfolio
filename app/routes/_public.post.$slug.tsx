@@ -28,7 +28,7 @@ export default function PostDetailPage() {
         title="Coming Soon"
         description="We're working hard to bring you an amazing new feature. Stay tuned for updates!"
         estimatedDate="July 2025"
-        className="absolute top-1/2 -translate-y-1/2 left-1/4 right-1/4"
+        className="absolute top-1/2 -translate-y-1/2 md:left-1/4 md:right-1/4"
         showNotify={false}
       />
     </div>
