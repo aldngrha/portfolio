@@ -70,9 +70,15 @@ export default function ProjectDetailPage() {
           </p>
         </div>
 
-        <div className="aspect-video bg-gradient-to-br from-sky-50 to-sky-100 dark:from-sky-900/20 dark:to-sky-900/40 rounded-lg mb-8 flex items-center justify-center">
-          <span className="text-sky-400 dark:text-sky-500">Project Screenshot</span>
-        </div>
+        {project.image ? (
+          <div className="aspect-video rounded-lg mb-8">
+            <img src={project.image} alt={project.title} className="aspect-video rounded-lg " />
+          </div>
+        ) : (
+          <div className="aspect-video bg-gradient-to-br from-sky-50 to-sky-100 dark:from-sky-900/20 dark:to-sky-900/40 rounded-lg mb-8 flex items-center justify-center">
+            <span className="text-sky-400 dark:text-sky-500">Project Screenshot</span>
+          </div>
+        )}
 
         <div className="flex justify-center space-x-4 mb-8">
           {project.link && (
@@ -140,6 +146,11 @@ export default function ProjectDetailPage() {
                 </div>
                 <div>
                   <span className="text-slate-600 dark:text-slate-300">Role: {project.role}</span>
+                </div>
+                <div>
+                  <span className="text-slate-600 dark:text-slate-300">
+                    Contribution: {project.contribution_as}
+                  </span>
                 </div>
                 <div>
                   <span className="text-slate-600 dark:text-slate-300">Year: {project.year}</span>

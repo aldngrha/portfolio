@@ -1,10 +1,4 @@
-import { Button } from "~/components/ui/button"
-import { Card, CardContent } from "~/components/ui/card"
-import { Badge } from "~/components/ui/badge"
-import { ArrowLeft, Calendar, Clock, Share2, Heart, MessageCircle, ArrowRight } from "lucide-react"
-import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node"
-import { Link } from "@remix-run/react"
-import { post, relatedPosts } from "~/constants"
+import { type MetaFunction } from "@remix-run/node"
 import UnderConstruction from "~/components/UnderConstruction"
 
 export const meta: MetaFunction = () => {

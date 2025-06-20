@@ -1,3 +1,7 @@
+import { Zap, Sparkles, Rocket, Brain, Code, Palette, Globe, TrendingUp } from "lucide-react"
+
+import { LabProject } from "~/interface"
+
 export const techSkills = [
   {
     name: "React",
@@ -292,7 +296,7 @@ The platform includes user authentication, document management, real-time status
 
 export const projects = [
   {
-    id: 1,
+    id: 7,
     title: "Simpuskes (Health Service Platform)",
     slug: "simpuskes-health-service-platform",
     description:
@@ -300,13 +304,14 @@ export const projects = [
     longDescription: `Developed a Puskesmas management system with a responsive and modern UI using Next.js and Tailwind CSS. Implemented a body anatomy feature for visual anamnesis, and integrated backend APIs for patient data, doctor schedules, and medical records. Used JWT for authentication, and built custom middleware for role-based access. Prepared the system for BPJS integration while ensuring performance, scalability, and accessibility across all devices.`,
     technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Query"],
     category: "Web Application",
-    year: "Dec 2024 - Apr 2025",
-    image: "/images/simpuskes.png",
+    year: "Oct 2024 - Apr 2025",
+    image: "/assets/images/simpuskes.jpg",
     github: null,
     link: "https://simpuskes.com",
     duration: "5 months",
-    team: "4 developers",
-    role: "Lead Frontend Developer",
+    team: "6 developers",
+    role: "Frontend Developer",
+    contribution_as: "Leader & Engineer",
     features: [
       "JWT-based authentication and session management",
       "Anamnesis body anatomy coordinate feature",
@@ -317,7 +322,7 @@ export const projects = [
     ],
   },
   {
-    id: 2,
+    id: 6,
     title: "Sitmap (Geographic Information System)",
     slug: "sitmap-geographic-information-system",
     description:
@@ -325,13 +330,14 @@ export const projects = [
     longDescription: `Built with Next.js and Google Maps API, this GIS system enables geospatial visualization through point, line, and polygon mapping. Designed to manage regional data in Lampung Utara, it supports decision-making by visualizing boundaries and regions. JWT ensures secure sessions, while scalability was emphasized for handling future growth. The UI was translated directly from Figma designs, ensuring consistency across devices.`,
     technologies: ["Next.js", "Tailwind CSS", "Google Maps API"],
     category: "Web Application",
-    year: "Oct 2024 - Dec 2024",
-    image: "/images/sitmap.png",
+    year: "Aug 2024 - Oct 2024",
+    image: "/assets/images/sitmap.jpg",
     github: null,
     link: "https://sitmap.tapem.lampungutarakab.go.id/",
     duration: "3 months",
     team: "2 developers",
     role: "Frontend Developer",
+    contribution_as: "Engineer",
     features: [
       "Interactive GIS map (point, line, polygon)",
       "Secure session with JWT",
@@ -341,7 +347,7 @@ export const projects = [
     ],
   },
   {
-    id: 3,
+    id: 5,
     title: "Mal Pelayanan Publik (Public Service Mall) Web App",
     slug: "mal-pelayanan-publik-public-service-mall-web-app",
     description:
@@ -349,13 +355,14 @@ export const projects = [
     longDescription: `Developed an admin dashboard web app using Next.js and Tailwind CSS. Features included dynamic form creation based on government service types, service request approval workflows, and JWT-based authentication. Integrated with backend APIs and built with role-based access for three types of users. Collaboration with UI/UX and backend teams ensured a seamless experience.`,
     technologies: ["Next.js", "Tailwind CSS", "Chart.js"],
     category: "Dashboard",
-    year: "May 2024 - Sep 2024",
-    image: "/images/mpp-web.png",
+    year: "May 2024 - Aug 2024",
+    image: "/assets/images/mpp.png",
     github: null,
-    link: "https://mpp.lampungtimurkab.go.id",
-    duration: "5 months",
+    link: "https://admin-mpp.lampungtimurkab.go.id",
+    duration: "4 months",
     team: "3 developers",
-    role: "Lead Frontend Developer",
+    role: "Frontend Developer",
+    contribution_as: "Leader & Engineer",
     features: [
       "Admin dashboard with 3 user roles",
       "Dynamic form rendering per service",
@@ -373,13 +380,14 @@ export const projects = [
     longDescription: `Built an Android mobile application using React Native and NativeWind. Features included JWT-based authentication, dynamic forms tied to selected services, and push notifications for approval or rejection updates. Collaborated with the backend and UI/UX teams to ensure integration and experience were seamless and intuitive.`,
     technologies: ["React Native", "Tailwind CSS", "NativeWind"],
     category: "Mobile Application",
-    year: "May 2024 - Sep 2024",
-    image: "/images/mpp-mobile.png",
+    year: "Apr 2024 - Aug 2024",
+    image: null, //"/assets/images/mpp-mobile.png",
     github: null,
     link: "https://mpp.lampungtimurkab.go.id/",
     duration: "5 months",
     team: "3 developers",
-    role: "Frontend Mobile Developer",
+    role: "Mobile Developer",
+    contribution_as: "Leader & Engineer",
     features: [
       "Dynamic forms based on selected service",
       "Push notifications for service updates",
@@ -389,7 +397,7 @@ export const projects = [
     ],
   },
   {
-    id: 5,
+    id: 3,
     title: "SIPPP (Information System for Implementation, Monitoring, Reporting)",
     slug: "sippp-information-system-for-implementation-monitoring-reporting",
     description:
@@ -398,12 +406,13 @@ export const projects = [
     technologies: ["React.js", "Tailwind CSS", "Leaflet"],
     category: "Web Application",
     year: "Mar 2024 - May 2024",
-    image: "/images/sippp.png",
+    image: "/assets/images/sipp.jpg",
     github: null,
     link: "https://sippp-puprtubabakab.com/",
     duration: "3 months",
     team: "2 developers",
     role: "Frontend Developer",
+    contribution_as: "Engineer",
     features: [
       "GIS integration with Leaflet JS",
       "Pagination, search with debounce, and sorting",
@@ -413,7 +422,7 @@ export const projects = [
     ],
   },
   {
-    id: 6,
+    id: 2,
     title: "Newus Technology (Company Website)",
     slug: "newus-technology-company-website",
     description:
@@ -422,12 +431,13 @@ export const projects = [
     technologies: ["Next.js", "Tailwind CSS", "MDX"],
     category: "Website",
     year: "Apr 2024",
-    image: "/images/newus.png",
+    image: "/assets/images/newus.jpg",
     github: null,
     link: "https://newus.id",
     duration: "1 month",
     team: "2 developers",
     role: "Frontend Developer",
+    contribution_as: "Engineer",
     features: [
       "Responsive company profile site",
       "Modern design with Tailwind CSS",
@@ -436,7 +446,7 @@ export const projects = [
     ],
   },
   {
-    id: 7,
+    id: 1,
     title: "EMONEV (Electronic Monitoring and Evaluation)",
     slug: "emonev-electronic-monitoring-and-evaluation",
     description:
@@ -445,12 +455,13 @@ export const projects = [
     technologies: ["Next.js", "Tailwind CSS", "NextAuth", "MDX"],
     category: "Website",
     year: "Apr 2024",
-    image: "/images/emonev.png",
+    image: null, //"/assets/images/emonev.png",
     github: null,
     link: null,
     duration: "1 month",
     team: "2 developers",
     role: "Frontend Developer",
+    contribution_as: "Engineer",
     features: [
       "Secure login via NextAuth",
       "Printable report generation",
@@ -562,3 +573,242 @@ export const skills = {
     "Project Planning",
   ],
 }
+
+export const labProjects: LabProject[] = [
+  {
+    id: 8,
+    title: "AI Color Palette Generator",
+    slug: "ai-color-palette-generator",
+    description:
+      "Machine learning-powered tool that generates harmonious color palettes based on mood, season, or image input with real-time preview.",
+    longDescription: `This experimental project explores the intersection of artificial intelligence and design by creating a tool that can generate aesthetically pleasing color palettes based on various inputs and contexts.
+
+The core innovation lies in training a neural network on thousands of professionally designed color palettes, analyzing the relationships between colors, their psychological impact, and their usage in different contexts. The model can then generate new palettes that maintain these learned principles while offering fresh combinations.
+
+Key features include mood-based generation (energetic, calm, professional, creative), seasonal adaptation (spring freshness, autumn warmth, winter coolness, summer vibrancy), and image-based extraction where users can upload an image and receive palettes that complement or contrast with the dominant colors.
+
+The technical implementation uses TensorFlow.js for client-side machine learning, ensuring privacy and real-time generation. The color theory algorithms are based on established principles like complementary colors, triadic schemes, and golden ratio proportions.`,
+    category: "experiment",
+    status: "active",
+    technologies: [
+      "React",
+      "TensorFlow.js",
+      "Canvas API",
+      "Color Theory",
+      "Machine Learning",
+      "Web Workers",
+    ],
+    difficulty: "advanced",
+    featured: true,
+    dateCreated: "2024-01-15",
+    lastUpdated: "2024-01-20",
+    githubUrl: "#",
+    demoUrl: "#",
+    blogPostUrl: "#",
+    tags: ["AI", "Design", "Colors", "Machine Learning"],
+    icon: Palette,
+    stats: {
+      views: 1240,
+      stars: 89,
+      forks: 23,
+    },
+    objectives: [
+      "Explore the application of machine learning in design tools",
+      "Create an intuitive interface for color palette generation",
+      "Implement real-time AI processing in the browser",
+      "Study the relationship between colors and human psychology",
+    ],
+    challenges: [
+      "Training a model that understands color harmony principles",
+      "Optimizing TensorFlow.js performance for real-time generation",
+      "Creating an intuitive user interface for complex AI functionality",
+      "Balancing creativity with usability in generated palettes",
+    ],
+    learnings: [
+      "Client-side machine learning is viable for creative tools",
+      "Color theory can be effectively encoded in neural networks",
+      "User feedback loops are crucial for AI-generated content",
+      "Performance optimization is critical for real-time AI applications",
+    ],
+    nextSteps: [
+      "Implement user feedback to improve model accuracy",
+      "Add export functionality for popular design tools",
+      "Explore integration with design APIs and platforms",
+      "Research advanced color harmony algorithms",
+    ],
+  },
+  {
+    id: 7,
+    title: "Real-time Code Collaboration",
+    slug: "real-time-code-collaboration",
+    description:
+      "WebRTC-powered collaborative code editor with live cursors, syntax highlighting, and integrated voice chat for seamless pair programming.",
+    category: "prototype",
+    status: "in-progress",
+    technologies: ["WebRTC", "Socket.io", "Monaco Editor", "Node.js"],
+    difficulty: "advanced",
+    featured: true,
+    dateCreated: "2024-01-10",
+    lastUpdated: "2024-01-18",
+    githubUrl: "#",
+    tags: ["Collaboration", "Real-time", "WebRTC", "Code Editor"],
+    icon: Code,
+    stats: { views: 890, stars: 67, forks: 15 },
+  },
+  {
+    id: 6,
+    title: "CSS Animation Playground",
+    slug: "css-animation-playground",
+    description:
+      "Interactive playground for experimenting with CSS animations, transitions, and keyframes with live preview and automatic code generation.",
+    category: "tool",
+    status: "completed",
+    technologies: ["CSS", "JavaScript", "Animation API", "Code Generation"],
+    difficulty: "intermediate",
+    featured: true,
+    dateCreated: "2023-12-20",
+    lastUpdated: "2024-01-05",
+    githubUrl: "#",
+    demoUrl: "#",
+    blogPostUrl: "#",
+    tags: ["CSS", "Animation", "Tool", "Playground"],
+    icon: Sparkles,
+    stats: { views: 2100, stars: 156, forks: 42 },
+  },
+  {
+    id: 5,
+    title: "Voice-Controlled Interface",
+    slug: "voice-controlled-interface",
+    description:
+      "Experimental interface using Web Speech API for hands-free navigation, form filling, and content interaction with natural language processing.",
+    category: "experiment",
+    status: "active",
+    technologies: ["Web Speech API", "Voice Recognition", "React", "NLP"],
+    difficulty: "advanced",
+    featured: false,
+    dateCreated: "2024-01-08",
+    lastUpdated: "2024-01-16",
+    githubUrl: "#",
+    demoUrl: "#",
+    tags: ["Voice", "Accessibility", "Speech API", "Innovation"],
+    icon: Brain,
+    stats: { views: 650, stars: 34, forks: 8 },
+  },
+  {
+    id: 4,
+    title: "Micro-Frontend Architecture",
+    slug: "micro-frontend-architecture",
+    description:
+      "Research project exploring micro-frontend patterns with module federation, independent deployments, and shared state management at scale.",
+    category: "research",
+    status: "completed",
+    technologies: ["Module Federation", "Webpack", "React", "Shared State"],
+    difficulty: "advanced",
+    featured: false,
+    dateCreated: "2023-11-15",
+    lastUpdated: "2023-12-30",
+    githubUrl: "#",
+    blogPostUrl: "#",
+    tags: ["Architecture", "Micro-frontends", "Scalability", "Research"],
+    icon: Globe,
+    stats: { views: 1580, stars: 203, forks: 67 },
+  },
+  {
+    id: 3,
+    title: "3D Portfolio Showcase",
+    slug: "3d-portfolio-showcase",
+    description:
+      "Immersive 3D portfolio experience using Three.js with interactive models, particle systems, and physics-based animations.",
+    category: "demo",
+    status: "in-progress",
+    technologies: ["Three.js", "WebGL", "GLSL", "React Three Fiber"],
+    difficulty: "advanced",
+    featured: false,
+    dateCreated: "2024-01-01",
+    lastUpdated: "2024-01-12",
+    githubUrl: "#",
+    demoUrl: "#",
+    tags: ["3D", "WebGL", "Three.js", "Interactive"],
+    icon: Rocket,
+    stats: { views: 980, stars: 78, forks: 19 },
+  },
+  {
+    id: 2,
+    title: "Performance Monitor",
+    slug: "performance-monitor",
+    description:
+      "Real-time dashboard for monitoring web performance metrics with custom analytics, automated optimization suggestions, and detailed reports.",
+    category: "tool",
+    status: "active",
+    technologies: ["Performance API", "Charts.js", "WebVitals", "Analytics"],
+    difficulty: "intermediate",
+    featured: false,
+    dateCreated: "2023-12-10",
+    lastUpdated: "2024-01-14",
+    githubUrl: "#",
+    demoUrl: "#",
+    tags: ["Performance", "Monitoring", "Analytics", "Optimization"],
+    icon: TrendingUp,
+    stats: { views: 1320, stars: 94, forks: 28 },
+  },
+  {
+    id: 1,
+    title: "Gesture Navigation",
+    slug: "gesture-navigation",
+    description:
+      "Concept interface using hand gestures and device motion for navigation, built with MediaPipe and advanced computer vision algorithms.",
+    category: "concept",
+    status: "archived",
+    technologies: ["MediaPipe", "Computer Vision", "Device Motion API", "ML"],
+    difficulty: "advanced",
+    featured: false,
+    dateCreated: "2023-10-20",
+    lastUpdated: "2023-11-30",
+    githubUrl: "#",
+    tags: ["Gestures", "Computer Vision", "Innovation", "Experimental"],
+    icon: Zap,
+    stats: { views: 420, stars: 21, forks: 5 },
+  },
+]
+
+export const categories = [
+  { value: "all", label: "All Projects", count: labProjects.length },
+  {
+    value: "experiment",
+    label: "Experiments",
+    count: labProjects.filter((p) => p.category === "experiment").length,
+  },
+  {
+    value: "prototype",
+    label: "Prototypes",
+    count: labProjects.filter((p) => p.category === "prototype").length,
+  },
+  {
+    value: "research",
+    label: "Research",
+    count: labProjects.filter((p) => p.category === "research").length,
+  },
+  {
+    value: "tool",
+    label: "Tools",
+    count: labProjects.filter((p) => p.category === "tool").length,
+  },
+  {
+    value: "demo",
+    label: "Demos",
+    count: labProjects.filter((p) => p.category === "demo").length,
+  },
+  {
+    value: "concept",
+    label: "Concepts",
+    count: labProjects.filter((p) => p.category === "concept").length,
+  },
+]
+
+export const statuses = [
+  { value: "all", label: "All Status" },
+  { value: "active", label: "Active" },
+  { value: "completed", label: "Completed" },
+  { value: "in-progress", label: "In Progress" },
+  { value: "archived", label: "Archived" },
+]

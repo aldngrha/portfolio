@@ -1,13 +1,12 @@
 import { Button } from "~/components/ui/button"
-import { Card, CardContent } from "~/components/ui/card"
-import { Badge } from "~/components/ui/badge"
 import { Input } from "~/components/ui/input"
-import { Github, ExternalLink, Search } from "lucide-react"
+import { Search } from "lucide-react"
 import { Link } from "@remix-run/react"
 import type { MetaFunction } from "@remix-run/node"
 import { projects } from "~/constants"
 import { useEffect, useState } from "react"
 import Pagination from "~/components/Pagination"
+import CardProject from "~/components/CardProject"
 
 export const meta: MetaFunction = () => {
   return [
@@ -81,82 +80,19 @@ export default function ProjectsPage() {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {currentProjects.map((project) => (
-                <Card
+                <CardProject
+                  id={project.id}
+                  title={project.title}
+                  description={project.description}
+                  category={project.category}
+                  technologies={project.technologies}
+                  year={project.year}
                   key={project.id}
-                  className="group border-0 shadow-sm hover:shadow-md transition-all duration-300 bg-white dark:bg-slate-900 dark:border dark:border-slate-800"
-                >
-                  <div className="aspect-video bg-gradient-to-br from-soft-blue-50 to-soft-blue-100 dark:from-soft-blue-900/20 dark:to-soft-blue-900/40 rounded-t-lg flex items-center justify-center">
-                    <span className="text-soft-blue-400 dark:text-soft-blue-500 text-sm">
-                      Project Preview
-                    </span>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <Badge
-                        variant="secondary"
-                        className="bg-soft-blue-50 dark:bg-soft-blue-900/30 text-soft-blue-700 dark:text-soft-blue-400 border-0"
-                      >
-                        {project.category}
-                      </Badge>
-                      <span className="text-sm text-slate-500 dark:text-slate-400">
-                        {project.year}
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl font-medium text-slate-800 dark:text-white mb-3">
-                      {project.title}
-                    </h3>
-                    <p className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.technologies.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="text-xs text-slate-500 dark:text-slate-400 bg-soft-blue-50 dark:bg-soft-blue-900/30 px-2 py-1 rounded"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <Link
-                        to={`/project/${project.id}`}
-                        className="text-soft-blue-600 dark:text-soft-blue-400 hover:text-soft-blue-700 dark:hover:text-soft-blue-300 font-medium transition-colors"
-                      >
-                        View Details →
-                      </Link>
-                      <div className="flex space-x-2">
-                        {project.github && (
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="p-2 text-slate-500 dark:text-slate-400 hover:text-soft-blue-600 dark:hover:text-soft-blue-400"
-                            asChild
-                          >
-                            <Link to={project.github} target="_blank" rel="noopener noreferrer">
-                              <Github className="w-4 h-4" />
-                            </Link>
-                          </Button>
-                        )}
-                        {project.link && (
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="p-2 text-slate-500 dark:text-slate-400 hover:text-soft-blue-600 dark:hover:text-soft-blue-400"
-                            asChild
-                          >
-                            <Link to={project.link} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4" />
-                            </Link>
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                  github={project.github}
+                  link={project.link}
+                  image={project.image}
+                  slug={project.slug}
+                />
               ))}
             </div>
 
