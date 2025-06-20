@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f60f030f-46e6-4ebe-8383-0e39943ce054" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/components/CardProject.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/FeaturedCardLabs.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/FilterControls.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/FilterDropdown.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/components/RegularCardLabs.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/interface/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/routes/_public.lab.$slug.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/routes/_public.labs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/constants/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/_public._index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public._index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/_public.contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public.contact.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/_public.post.$slug.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public.post.$slug.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/_public.posts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public.posts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/_public.project.$slug.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public.project.$slug.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes/_public.projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public.projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +114,7 @@
       <updated>1748868019166</updated>
       <workItem from="1748868021098" duration="37066000" />
       <workItem from="1748971387695" duration="5966000" />
-      <workItem from="1750421318600" duration="8801000" />
+      <workItem from="1750421318600" duration="9203000" />
     </task>
     <servers />
   </component>
