@@ -86,35 +86,45 @@ export default function LabProjectDetailPage() {
         </div>
 
         {/* Demo Image/Preview */}
-        <div className="aspect-video bg-gradient-to-br from-soft-blue-50 to-soft-blue-100 dark:from-soft-blue-900/20 dark:to-soft-blue-900/40 rounded-lg mb-8 flex items-center justify-center">
-          <div className="text-center">
-            <Beaker className="w-16 h-16 text-soft-blue-400 dark:text-soft-blue-500 mx-auto mb-4" />
-            <span className="text-soft-blue-500 dark:text-soft-blue-400 text-lg">
-              Interactive Demo
-            </span>
+        {project.image ? (
+          <div className="aspect-video rounded-lg mb-8">
+            <img src={project.image} alt={project.title} className="rounded-lg object-cover" />
           </div>
-        </div>
+        ) : (
+          <div className="aspect-video bg-gradient-to-br from-soft-blue-50 to-soft-blue-100 dark:from-soft-blue-900/20 dark:to-soft-blue-900/40 rounded-lg mb-8 flex items-center justify-center">
+            <div className="text-center">
+              <Beaker className="w-16 h-16 text-soft-blue-400 dark:text-soft-blue-500 mx-auto mb-4" />
+              <span className="text-soft-blue-500 dark:text-soft-blue-400 text-lg">
+                Interactive Demo
+              </span>
+            </div>
+          </div>
+        )}
 
         <div className="flex justify-center space-x-4 mb-8">
-          <Button
-            asChild
-            className="bg-soft-blue-600 hover:bg-soft-blue-700 dark:bg-soft-blue-600 dark:hover:bg-soft-blue-500 text-white rounded-full"
-          >
-            <Link to={project.demoUrl || "#"} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="w-4 h-4 mr-2" />
-              Try Demo
-            </Link>
-          </Button>
-          <Button
-            variant="outline"
-            asChild
-            className="border-soft-blue-200 dark:border-soft-blue-800 text-soft-blue-700 dark:text-soft-blue-400 hover:bg-soft-blue-50 dark:hover:bg-soft-blue-900/30 rounded-full"
-          >
-            <Link to={project.githubUrl || "#"} target="_blank" rel="noopener noreferrer">
-              <Github className="w-4 h-4 mr-2" />
-              View Code
-            </Link>
-          </Button>
+          {project.demoUrl && (
+            <Button
+              asChild
+              className="bg-soft-blue-600 hover:bg-soft-blue-700 dark:bg-soft-blue-600 dark:hover:bg-soft-blue-500 text-white rounded-full"
+            >
+              <Link to={project.demoUrl || "#"} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Try Demo
+              </Link>
+            </Button>
+          )}
+          {project.githubUrl && (
+            <Button
+              variant="outline"
+              asChild
+              className="border-soft-blue-200 dark:border-soft-blue-800 text-soft-blue-700 dark:text-soft-blue-400 hover:bg-soft-blue-50 dark:hover:bg-soft-blue-900/30 rounded-full"
+            >
+              <Link to={project.githubUrl || "#"} target="_blank" rel="noopener noreferrer">
+                <Github className="w-4 h-4 mr-2" />
+                View Code
+              </Link>
+            </Button>
+          )}
           {project.blogPostUrl && (
             <Button
               variant="outline"

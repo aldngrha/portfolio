@@ -25,7 +25,7 @@ export default function FilterControls({
         )}
       </Button>
 
-      <div className="flex items-center space-x-2">
+      <div className="hidden md:flex items-center space-x-2">
         <span className="text-sm text-slate-500 dark:text-slate-400">View:</span>
         <div className="flex bg-white dark:bg-slate-900 rounded-lg border border-soft-blue-200 dark:border-soft-blue-800">
           <Button

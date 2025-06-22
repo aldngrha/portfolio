@@ -29,11 +29,12 @@ export interface LabProject {
   technologies: string[]
   difficulty: Difficulty
   featured: boolean
+  image?: string | null
   dateCreated: string
   lastUpdated: string
-  githubUrl?: string
-  demoUrl?: string
-  blogPostUrl?: string
+  githubUrl?: string | null
+  demoUrl?: string | null
+  blogPostUrl?: string | null
   tags: string[]
   icon: LucideIcon
   stats?: {

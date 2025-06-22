@@ -12,7 +12,7 @@ export default function FeaturedCardLabs({
   status,
   description,
   technologies,
-  stats,
+  // stats,
   dateCreated,
   lastUpdated,
   slug,
@@ -65,22 +65,22 @@ export default function FeaturedCardLabs({
         </div>
 
         {/* Stats */}
-        {stats && (
-          <div className="flex items-center space-x-4 mb-4 text-sm text-slate-500 dark:text-slate-400">
-            <div className="flex items-center space-x-1">
-              <Eye className="w-4 h-4" />
-              <span>{stats.views}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Star className="w-4 h-4" />
-              <span>{stats.stars}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <span>⑂</span>
-              <span>{stats.forks}</span>
-            </div>
-          </div>
-        )}
+        {/*{stats && (*/}
+        {/*  <div className="flex items-center space-x-4 mb-4 text-sm text-slate-500 dark:text-slate-400">*/}
+        {/*    <div className="flex items-center space-x-1">*/}
+        {/*      <Eye className="w-4 h-4" />*/}
+        {/*      <span>{stats.views}</span>*/}
+        {/*    </div>*/}
+        {/*    <div className="flex items-center space-x-1">*/}
+        {/*      <Star className="w-4 h-4" />*/}
+        {/*      <span>{stats.stars}</span>*/}
+        {/*    </div>*/}
+        {/*    <div className="flex items-center space-x-1">*/}
+        {/*      <span>⑂</span>*/}
+        {/*      <span>{stats.forks}</span>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*)}*/}
 
         {/* Meta Info */}
         <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400 mb-4">
