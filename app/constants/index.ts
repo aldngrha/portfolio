@@ -593,7 +593,7 @@ export const labProjects: LabProject[] = [
     title: "E-Commerce Platform with Go & gRPC",
     slug: "ecommerce-go-grpc",
     description:
-      "Modern e-commerce project built with Go, gRPC, and React.js, using PostgreSQL/Supabase and integrating Xendit as a payment gateway.",
+      "A full-stack experiment using Go, gRPC, and React to explore modular services, gRPC-Web communication, and Xendit-powered checkout.",
     longDescription: `This project started as a technical experiment to explore how gRPC and Protocol Buffers could be applied in building a full-stack e-commerce system from scratch. It was an opportunity to stress-test modern tools across both the backend and frontend.
 
 The backend is architected with Go, split into modular services for authentication, product catalog, and checkout flow — all communicating over gRPC. JWT is used for stateless auth, and PostgreSQL (via Supabase) handles relational data with real-time sync.
@@ -665,7 +665,7 @@ This isn't just a codebase — it's a playground for testing ideas in system des
     title: "Flight Ticket Booking Website with Next.js",
     slug: "flight-ticket-booking-website-with-nextjs",
     description:
-      "A full-stack web application for booking flight tickets, built with Next.js, Prisma, and integrated with Midtrans for secure payments.",
+      "A hands-on prototype for flight booking built with Next.js and Prisma, testing server-side rendering and integrated checkout with Midtrans.",
     longDescription: `This project was born out of curiosity — a deep dive into how modern web technologies could be used to recreate a flight booking experience from scratch.
 
 At the core is Next.js, chosen not just for its flexibility but for its power in handling server-side rendering, routing, and API logic in a unified framework. The backend is shaped using Prisma, designed to handle complex relationships like users, flight schedules, and booking history with clarity and type-safety.
@@ -733,7 +733,7 @@ It’s not just a booking app — it’s a playground for testing how far modern
     title: "Food Market Mobile App with React Native",
     slug: "food-market-mobile-app-with-react-native",
     description:
-      "Learn how to build a complete mobile app using React Native and Laravel 8 with Jetstream. This course guides you from Figma design to deployment, including CMS, APIs, and Midtrans integration.",
+      "An end-to-end mobile stack prototype — slicing Figma designs into React Native screens, with Laravel APIs and Midtrans-powered checkout.",
     longDescription: `This project explores how React Native and Laravel 8 can be combined to create a full-stack mobile experience — starting from Figma designs all the way to live, functional apps.
 
 The frontend is built with React Native, focusing on transforming UI mockups into responsive, cross-platform components. Every screen is sliced directly from Figma, with attention to detail in styling, layout behavior, and component logic.
@@ -799,7 +799,7 @@ This experiment serves as a sandbox to test mobile-to-API integration, realtime 
     title: "Online Doctor Consultation App with React Native",
     slug: "online-doctor-consultation-app-with-react-native",
     description:
-      "A mobile-first application for online doctor consultation built with React Native and Firebase, helping users connect with certified doctors instantly.",
+      "A lightweight mobile prototype for online doctor consultation, built with React Native and Firebase to explore real-time chat and healthcare UX.",
     longDescription: `This project is an exploration into mobile healthcare — a lightweight React Native app built to simulate real-time doctor consultations in a remote setting.
 
 The idea was simple: what if accessing a certified doctor could be as easy as opening a chat app? Using Firebase for authentication, realtime messaging, and photo uploads, the app tests how minimal infrastructure can deliver meaningful telemedicine experiences.
