@@ -594,15 +594,13 @@ export const labProjects: LabProject[] = [
     slug: "ecommerce-go-grpc",
     description:
       "Modern e-commerce project built with Go, gRPC, and React.js, using PostgreSQL/Supabase and integrating Xendit as a payment gateway.",
-    longDescription: `Developed as part of the "Go gRPC Masterclass – Full Stack E-Commerce using Go & ReactJS" course, this project represents a production-grade e-commerce platform built from scratch using modern industry technologies.
+    longDescription: `This project started as a technical experiment to explore how gRPC and Protocol Buffers could be applied in building a full-stack e-commerce system from scratch. It was an opportunity to stress-test modern tools across both the backend and frontend.
 
-Learners begin by mastering the fundamentals of gRPC and Protocol Buffers, followed by the development of scalable backend services in Go. The backend includes modular microservices for authentication (JWT-secured), product management, and checkout workflows, all communicating via gRPC.
+The backend is architected with Go, split into modular services for authentication, product catalog, and checkout flow — all communicating over gRPC. JWT is used for stateless auth, and PostgreSQL (via Supabase) handles relational data with real-time sync.
 
-On the frontend, the platform uses React.js and connects to the backend through gRPC-Web for fast, efficient communication. PostgreSQL is used as the primary relational database, managed through Supabase, offering real-time syncing and an intuitive dashboard.
+On the frontend, React.js connects to these services using gRPC-Web, pushing boundaries on client-server communication performance. The integration with Xendit simulates real-world payment flows and completes the loop from user input to transaction settlement.
 
-The course also integrates Xendit as a payment gateway, simulating real-world payment processing workflows and elevating the project to near-production quality.
-
-By the end of the course, learners build and deploy a complete full-stack e-commerce system, strengthening essential skills that are highly sought after in the software industry.`,
+This isn't just a codebase — it's a playground for testing ideas in system design, performance, and cross-stack communication. While inspired by production patterns, the real goal here is experimentation: breaking stuff, fixing it, and learning from the edge.`,
     category: "prototype",
     status: "in-progress",
     technologies: [
@@ -668,13 +666,15 @@ By the end of the course, learners build and deploy a complete full-stack e-comm
     slug: "flight-ticket-booking-website-with-nextjs",
     description:
       "A full-stack web application for booking flight tickets, built with Next.js, Prisma, and integrated with Midtrans for secure payments.",
-    longDescription: `In a world where convenience and speed are everything, booking a flight should be just as seamless. This project brings that vision to life by guiding learners through the development of a modern flight ticket booking platform using the full power of the JavaScript ecosystem.
+    longDescription: `This project was born out of curiosity — a deep dive into how modern web technologies could be used to recreate a flight booking experience from scratch.
 
-With Next.js at its core, the app leverages server-side rendering to boost performance and SEO, ensuring faster load times and better visibility. On the backend, Prisma provides a robust ORM for managing users, flight schedules, and transactions with clean, type-safe queries.
+At the core is Next.js, chosen not just for its flexibility but for its power in handling server-side rendering, routing, and API logic in a unified framework. The backend is shaped using Prisma, designed to handle complex relationships like users, flight schedules, and booking history with clarity and type-safety.
 
-Authentication is handled securely with Lucia, while Supabase Storage powers media uploads for documents or identification. The UI is crafted using Tailwind CSS and Shadcn/UI, making the design both elegant and responsive. And to handle real-world payments, Midtrans is integrated directly into the checkout flow.
+Authentication is implemented with Lucia for its minimal yet robust approach, while file uploads (like travel documents or ID) are routed through Supabase Storage. Tailwind CSS and Shadcn/UI power the interface, enabling rapid prototyping without sacrificing polish.
 
-From building to deploying on Vercel, this project gives developers a hands-on experience in launching scalable, production-grade web applications in the travel-tech space.`,
+Midtrans handles the payment layer — integrated to simulate real-world checkout and transaction flow. Deployment happens on Vercel, bringing the whole system live with minimal friction.
+
+It’s not just a booking app — it’s a playground for testing how far modern full-stack tooling can go in shaping digital travel experiences.`,
     category: "prototype",
     status: "completed",
     technologies: [
@@ -734,13 +734,15 @@ From building to deploying on Vercel, this project gives developers a hands-on e
     slug: "food-market-mobile-app-with-react-native",
     description:
       "Learn how to build a complete mobile app using React Native and Laravel 8 with Jetstream. This course guides you from Figma design to deployment, including CMS, APIs, and Midtrans integration.",
-    longDescription: `In this immersive course, learners are guided through the complete lifecycle of mobile app development using React Native and Laravel 8 (with Jetstream). Starting from UI/UX designs crafted in Figma, we transition into slicing and building responsive, cross-platform mobile applications.
+    longDescription: `This project explores how React Native and Laravel 8 can be combined to create a full-stack mobile experience — starting from Figma designs all the way to live, functional apps.
 
-On the backend side, Laravel 8 paired with Jetstream provides a robust framework to create a headless CMS and RESTful APIs for managing users, transactions, and content — tailored to production-like use cases.
+The frontend is built with React Native, focusing on transforming UI mockups into responsive, cross-platform components. Every screen is sliced directly from Figma, with attention to detail in styling, layout behavior, and component logic.
 
-This course also highlights the integration of the Midtrans Payment Gateway, demonstrating real-world checkout workflows commonly seen in e-commerce or fintech applications.
+On the backend, Laravel 8 (with Jetstream) powers a headless CMS and API layer, handling authentication, user roles, transactions, and content management. It’s designed to be flexible enough for production-level use cases, yet modular for experimentation.
 
-By the end of the course, learners will gain solid experience in both frontend mobile development and backend API structuring — essential skills for any full-stack mobile developer.`,
+The app also integrates with the Midtrans Payment Gateway, simulating real-world payment flows within mobile environments — including checkout logic, transaction handling, and state management.
+
+This experiment serves as a sandbox to test mobile-to-API integration, realtime payment workflows, and the limits of what can be achieved with a full-stack Laravel and React Native combo.`,
     category: "prototype",
     status: "completed",
     technologies: [
@@ -798,11 +800,13 @@ By the end of the course, learners will gain solid experience in both frontend m
     slug: "online-doctor-consultation-app-with-react-native",
     description:
       "A mobile-first application for online doctor consultation built with React Native and Firebase, helping users connect with certified doctors instantly.",
-    longDescription: `As mobile devices continue to shape how people access everyday services, healthcare is no exception. In this project, we build a modern mobile application that allows users to consult with certified doctors — directly from their phones.
+    longDescription: `This project is an exploration into mobile healthcare — a lightweight React Native app built to simulate real-time doctor consultations in a remote setting.
 
-  Designed for accessibility and efficiency, the app features real-time chat functionality, secure login via email and password, and the ability to upload photos for better medical context. Built with React Native and powered by Firebase, this app simulates a real-world telemedicine experience.
+The idea was simple: what if accessing a certified doctor could be as easy as opening a chat app? Using Firebase for authentication, realtime messaging, and photo uploads, the app tests how minimal infrastructure can deliver meaningful telemedicine experiences.
 
-  Whether users are seeking quick advice or initial diagnosis, this application bridges the gap between patients and healthcare professionals, offering a safe, fast, and affordable way to get help — anytime, anywhere. It's an ideal project for aspiring developers who want to make an impact in the healthtech space.`,
+The frontend is crafted with React Native, aiming for simplicity, speed, and clarity in UX. Behind the scenes, Firebase handles secure login and real-time sync, allowing patients to share symptoms, ask questions, and interact instantly with healthcare professionals.
+
+This build isn’t about recreating the next big health platform — it’s a focused experiment in bridging mobile UX, data sync, and human care. A space to test what healthcare might look like when powered by lean code and fast feedback loops.`,
     category: "prototype",
     status: "completed",
     technologies: [
