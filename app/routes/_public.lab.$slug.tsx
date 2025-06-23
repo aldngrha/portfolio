@@ -17,6 +17,7 @@ import { Link, useParams } from "@remix-run/react"
 import { getCategoryColor, getStatusColor } from "~/lib/utils"
 import { labProjects } from "~/constants"
 import type { MetaFunction } from "@remix-run/node"
+import ReactMarkdown from "react-markdown"
 
 export const meta: MetaFunction = () => {
   return [
@@ -149,14 +150,28 @@ export default function LabProjectDetailPage() {
                 About This Experiment
               </h2>
               <div className="prose prose-slate dark:prose-invert max-w-none">
-                {project.longDescription?.split("\n\n").map((paragraph, index) => (
-                  <p
-                    key={index}
-                    className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
+                <ReactMarkdown
+                  components={{
+                    p: ({ children }) => (
+                      <p className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                        {children}
+                      </p>
+                    ),
+                    a: ({ href, children }) => (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 underline hover:text-blue-600"
+                      >
+                        {children}
+                      </a>
+                    ),
+                    // tambah komponen lain kalau mau custom list, code, dll
+                  }}
+                >
+                  {project.longDescription}
+                </ReactMarkdown>
               </div>
             </CardContent>
           </Card>

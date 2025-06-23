@@ -1,6 +1,6 @@
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
-import { Search } from "lucide-react"
+import { Beaker, Search } from "lucide-react"
 import { Link } from "@remix-run/react"
 import type { MetaFunction } from "@remix-run/node"
 import { projects } from "~/constants"
@@ -27,17 +27,21 @@ export default function ProjectsPage() {
 
   // Filter projects based on search term
   useEffect(() => {
-    const filtered = projects.filter(
-      (project) =>
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.technologies.some((tech) =>
-          tech.toLowerCase().includes(searchTerm.toLowerCase())
-        ) ||
-        project.category.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFilteredProjects(filtered)
-    setCurrentPage(1) // Reset to first page when search changes
+    const timeout = setTimeout(() => {
+      const filtered = projects.filter(
+        (project) =>
+          project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.technologies.some((tech) =>
+            tech.toLowerCase().includes(searchTerm.toLowerCase())
+          ) ||
+          project.category.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      setFilteredProjects(filtered)
+      setCurrentPage(1)
+    }, 300) // delay 300ms
+
+    return () => clearTimeout(timeout)
   }, [searchTerm])
 
   // Get current projects for the page
@@ -69,6 +73,8 @@ export default function ProjectsPage() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sky-400 dark:text-sky-500 w-4 h-4" />
           <Input
             placeholder="Search projects..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 border-sky-200 dark:border-sky-800 focus:border-sky-400 dark:focus:border-sky-500 rounded-full bg-white dark:bg-slate-900 dark:text-white"
           />
         </div>
@@ -110,6 +116,9 @@ export default function ProjectsPage() {
           </>
         ) : (
           <div className="text-center py-16">
+            <div className="w-16 h-16 mx-auto mb-4 bg-soft-blue-100 dark:bg-soft-blue-900/30 rounded-full flex items-center justify-center">
+              <Beaker className="w-8 h-8 text-soft-blue-400" />
+            </div>
             <p className="text-slate-600 dark:text-slate-300 mb-4">
               No projects found matching your search criteria.
             </p>

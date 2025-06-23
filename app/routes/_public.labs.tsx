@@ -1,5 +1,3 @@
-"use client"
-
 import { Button } from "~/components/ui/button"
 import { Card, CardContent } from "~/components/ui/card"
 import { Input } from "~/components/ui/input"
@@ -36,22 +34,25 @@ export default function LabsPage() {
 
   // Filter projects based on search and filters
   useEffect(() => {
-    const filtered = labProjects.filter((project) => {
-      const matchesSearch =
-        project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.technologies.some((tech) =>
-          tech.toLowerCase().includes(searchTerm.toLowerCase())
-        ) ||
-        project.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+    const timeout = setTimeout(() => {
+      const filtered = labProjects.filter((project) => {
+        const matchesSearch =
+          project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          project.technologies.some((tech) =>
+            tech.toLowerCase().includes(searchTerm.toLowerCase())
+          ) ||
+          project.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
 
-      const matchesCategory = selectedCategory === "all" || project.category === selectedCategory
-      const matchesStatus = selectedStatus === "all" || project.status === selectedStatus
+        const matchesCategory = selectedCategory === "all" || project.category === selectedCategory
+        const matchesStatus = selectedStatus === "all" || project.status === selectedStatus
 
-      return matchesSearch && matchesCategory && matchesStatus
-    })
+        return matchesSearch && matchesCategory && matchesStatus
+      })
 
-    setFilteredProjects(filtered)
+      setFilteredProjects(filtered)
+    }, 300) // delay 300ms
+    return () => clearTimeout(timeout)
   }, [searchTerm, selectedCategory, selectedStatus])
 
   const featuredProjects = filteredProjects.filter((project) => project.featured)
@@ -75,8 +76,8 @@ export default function LabsPage() {
         <h1 className="text-4xl font-light text-slate-800 dark:text-white mb-4">Labs</h1>
         <div className="w-16 h-px bg-soft-blue-200 dark:bg-soft-blue-800 mx-auto mb-8"></div>
         <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          A collection of experimental projects, prototypes, and research explorations. This is
-          where I test new ideas, push boundaries, and explore the cutting edge of web development.
+          Welcome to the edge of my curiosity. This lab holds digital sketches, unfinished thoughts,
+          and proof-of-concepts that push me beyond comfort.
         </p>
       </section>
 

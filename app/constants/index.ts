@@ -7,6 +7,7 @@ import {
   Pizza,
   Stethoscope,
   PlaneTakeoff,
+  Mic,
   // Code,
   // Palette,
   // Globe,
@@ -589,7 +590,7 @@ export const skills = {
 
 export const labProjects: LabProject[] = [
   {
-    id: 4,
+    id: 5,
     title: "E-Commerce Platform with Go & gRPC",
     slug: "ecommerce-go-grpc",
     description:
@@ -658,6 +659,76 @@ This isn't just a codebase — it's a playground for testing ideas in system des
       "Add unit/integration testing for backend services",
       "Deploy to cloud using Docker and CI/CD pipelines",
       "Enhance checkout with discount, coupon, and inventory systems",
+    ],
+  },
+  {
+    id: 4,
+    title: "AI-Powered Mock Interview Platform",
+    slug: "ai-mock-interview-nextjs-vapi",
+    description:
+      "A full-stack project combining Next.js, Firebase, and Vapi AI to create a smart mock interview system with real-time feedback and voice-based interaction.",
+    longDescription: `Prepwise is an AI-enhanced platform that helps users simulate real job interviews with intelligent voice agents. It’s designed not just as a tool, but as a learning experiment — diving into how conversational AI and modern web frameworks can come together.
+
+The project leverages Next.js for both the frontend and backend logic, Firebase for authentication and real-time Firestore storage, and Vapi AI for voice-based interviews powered by large language models (LLMs). Styling is handled by Tailwind CSS and shadcn/ui, providing a clean and responsive design.
+
+What sets this project apart is the integration of real-time feedback via Gemini and voice agents, giving users an experience that feels like speaking to a real interviewer. It’s a step toward building more human-centric AI applications — ones that listen, respond, and evolve.
+
+I learn from [this YouTube video](https://www.youtube.com/watch?v=8GK8R77Bd7g&t=6767s).`,
+    category: "prototype",
+    status: "in-progress",
+    technologies: [
+      "Next.js",
+      "Firebase",
+      "Tailwind CSS",
+      "Vapi AI",
+      "shadcn/ui",
+      "Zod",
+      "Google Gemini",
+    ],
+    difficulty: "intermediate",
+    featured: true,
+    dateCreated: "2025-05-15",
+    lastUpdated: "2025-06-22",
+    githubUrl: "https://github.com/aldngrha/mock_interviews",
+    demoUrl: null,
+    blogPostUrl: null,
+    image: "/assets/images/prepwise.jpg",
+    tags: [
+      "Next.js",
+      "AI",
+      "Vapi",
+      "Firebase",
+      "LLM",
+      "Voice AI",
+      "Mock Interview",
+      "Gemini",
+      "Tailwind CSS",
+    ],
+    icon: Mic,
+    objectives: [
+      "Integrate voice-based AI agents into a web application",
+      "Build real-time feedback systems using LLMs like Gemini",
+      "Design a modular, maintainable codebase in Next.js",
+      "Explore full-stack authentication and data persistence with Firebase",
+      "Craft intuitive, accessible UI using shadcn/ui and Tailwind",
+    ],
+    challenges: [
+      "Synchronizing audio input with real-time Gemini feedback",
+      "Managing authentication state and protected routes in Next.js",
+      "Handling Vapi's async response streams gracefully",
+      "Scaling Firebase reads/writes for multiple sessions",
+    ],
+    learnings: [
+      "How to build AI-integrated tools with real conversational UX",
+      "Connecting voice agents like Vapi to client-side apps",
+      "Best practices for Firebase + Next.js full-stack architecture",
+      "Improving usability and accessibility in AI-driven UI",
+    ],
+    nextSteps: [
+      "Add role-based access control (e.g. admin vs. candidate)",
+      "Implement session replays and analytics dashboard",
+      "Introduce multilingual support for non-English interviews",
+      "Experiment with fine-tuned feedback based on emotion/tone detection",
     ],
   },
   {
