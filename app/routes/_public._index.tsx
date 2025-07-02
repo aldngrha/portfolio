@@ -2,8 +2,10 @@ import type { MetaFunction } from "@remix-run/node"
 import { Button } from "~/components/ui/button"
 import { Link } from "@remix-run/react"
 import { ArrowRight } from "lucide-react"
-import { projects } from "~/constants"
+import { labProjects, projects } from "~/constants"
 import CardProject from "~/components/CardProject"
+import FeaturedCardLabs from "~/components/FeaturedCardLabs"
+import { getCategoryColor, getStatusColor } from "~/lib/utils"
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,6 +20,8 @@ export const meta: MetaFunction = () => {
 
 export default function _public_index() {
   const projectsFilter = projects.filter((_, idx) => idx === 0 || idx === 1)
+
+  const featuredProjects = labProjects.slice(0, 2).filter((project) => project.featured)
 
   return (
     <>
@@ -66,7 +70,9 @@ export default function _public_index() {
       {/* Featured Work */}
       <section className="mb-24">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-light text-slate-800 dark:text-white mb-4">Featured Work</h2>
+          <h2 className="text-3xl font-light text-slate-800 dark:text-white mb-4">
+            Featured Works
+          </h2>
           <div className="w-16 h-px bg-soft-blue-200 dark:bg-soft-blue-800 mx-auto"></div>
         </div>
 
@@ -95,6 +101,46 @@ export default function _public_index() {
           >
             <Link to="/projects">
               View All Projects
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </Button>
+        </div>
+      </section>
+
+      {/* Featured Experiments */}
+      <section className="mb-24">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-light text-slate-800 dark:text-white mb-4">
+            Featured Experiments
+          </h2>
+          <div className="w-16 h-px bg-soft-blue-200 dark:bg-soft-blue-800 mx-auto"></div>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {featuredProjects.map((project) => (
+            <FeaturedCardLabs
+              getCategoryColor={getCategoryColor}
+              getStatusColor={getStatusColor}
+              key={project.id}
+              icon={project.icon}
+              title={project.title}
+              category={project.category}
+              status={project.status}
+              description={project.description}
+              technologies={project.technologies}
+              dateCreated={project.dateCreated}
+              lastUpdated={project.lastUpdated}
+              slug={project.slug}
+            />
+          ))}
+        </div>
+        <div className="text-center mt-12">
+          <Button
+            variant="outline"
+            asChild
+            className="border-soft-blue-200 dark:border-soft-blue-800 text-soft-blue-700 dark:text-soft-blue-400 hover:border-soft-blue-300 hover:bg-soft-blue-50 dark:hover:bg-soft-blue-900/30 px-8 py-2 rounded-full"
+          >
+            <Link to="/labs">
+              View All Experiments
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>

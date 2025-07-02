@@ -20,7 +20,7 @@ export default function PostsPage() {
       <UnderConstruction
         title="Coming Soon"
         description="We're working hard to bring you an amazing new feature. Stay tuned for updates!"
-        estimatedDate="July 2025"
+        estimatedDate="August 2025"
         className="absolute top-1/2 -translate-y-1/2 md:left-1/4 md:right-1/4"
         showNotify={false}
       />
