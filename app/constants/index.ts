@@ -8,6 +8,7 @@ import {
   Stethoscope,
   PlaneTakeoff,
   Mic,
+  Coins,
   // Code,
   // Palette,
   // Globe,
@@ -589,6 +590,70 @@ export const skills = {
 }
 
 export const labProjects: LabProject[] = [
+  {
+    id: 6,
+    title: "Decentralized Crowdfunding with Web3",
+    slug: "web3-crowdfunding-dapp",
+    description:
+      "An experiment in building a crowdfunding DApp using React, Solidity, and Thirdweb — exploring trustless funding mechanisms on the Sepolia testnet.",
+    longDescription: `This project is my deep dive into the world of blockchain and Web3 — a study in building decentralized applications that solve real-world problems through transparent, immutable technology.
+
+The use case: crowdfunding. Instead of relying on centralized platforms, I built a DApp where campaign creators can launch fundraising goals and contributors can fund transparently — all powered by smart contracts on the Ethereum Sepolia testnet.
+
+On the frontend, I used React with Thirdweb SDK for easy interaction with deployed contracts. The backend logic lives on Solidity smart contracts, tested and deployed via Hardhat. Contributions are tracked on-chain, ensuring transparency and eliminating intermediaries.
+
+This project isn’t just about code. It's about reimagining trust on the internet. A space where people fund ideas without gatekeepers. A world where smart contracts enforce fairness. And for me — a step toward mastering decentralized systems, one block at a time.`,
+    category: "experiment",
+    status: "completed",
+    technologies: [
+      "Solidity",
+      "Hardhat",
+      "React.js",
+      "Thirdweb",
+      "Tailwind CSS",
+      "Ethereum Sepolia",
+      "Ethers.js",
+      "Smart Contracts",
+    ],
+    difficulty: "intermediate",
+    featured: true,
+    dateCreated: "2025-06-18",
+    lastUpdated: "2025-07-02",
+    githubUrl: "https://github.com/aldngrha/crowd-funding",
+    demoUrl: null,
+    blogPostUrl: null,
+    image: null,
+    tags: ["Web3", "Solidity", "Crowdfunding", "Blockchain", "React", "Thirdweb", "Ethereum"],
+    icon: Coins,
+    objectives: [
+      "Understand smart contract development using Solidity",
+      "Deploy and test contracts with Hardhat on Sepolia testnet",
+      "Integrate smart contracts into React apps using Thirdweb",
+      "Design a transparent and trustless crowdfunding system",
+      "Explore on-chain data flow and contributor accountability",
+    ],
+    challenges: [
+      "Gas optimization and contract efficiency",
+      "Managing contract interactions on the frontend",
+      "Handling testnet deployment and ETH faucet limits",
+      "Creating a good UX for non-crypto-native users",
+      "Implementing contributor tracking and refund logic",
+    ],
+    learnings: [
+      "How smart contracts bring trustless logic to the web",
+      "Best practices in using Hardhat for Web3 testing",
+      "Connecting frontend and contracts via Thirdweb",
+      "Building secure, upgradeable Solidity contracts",
+      "Designing a DApp workflow from idea to deployment",
+    ],
+    nextSteps: [
+      "Add campaign approval moderation with DAO mechanics",
+      "Implement milestone-based fund release",
+      "Integrate wallet login and transaction signing UX",
+      "Deploy to Polygon Mumbai for faster and cheaper txs",
+      "Publish full walkthrough and technical write-up",
+    ],
+  },
   {
     id: 5,
     title: "E-Commerce Platform with Go & gRPC",
