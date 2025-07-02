@@ -593,16 +593,18 @@ export const labProjects: LabProject[] = [
   {
     id: 6,
     title: "Decentralized Crowdfunding with Web3",
-    slug: "web3-crowdfunding-dapp",
+    slug: "decentralized-crowdfunding-with-web3",
     description:
-      "An experiment in building a crowdfunding DApp using React, Solidity, and Thirdweb — exploring trustless funding mechanisms on the Sepolia testnet.",
+      "A crowdfunding DApp experiment using React, Solidity, and Thirdweb — now with MetaMask integration and Sepolia testnet deployment.",
     longDescription: `This project is my deep dive into the world of blockchain and Web3 — a study in building decentralized applications that solve real-world problems through transparent, immutable technology.
 
 The use case: crowdfunding. Instead of relying on centralized platforms, I built a DApp where campaign creators can launch fundraising goals and contributors can fund transparently — all powered by smart contracts on the Ethereum Sepolia testnet.
 
-On the frontend, I used React with Thirdweb SDK for easy interaction with deployed contracts. The backend logic lives on Solidity smart contracts, tested and deployed via Hardhat. Contributions are tracked on-chain, ensuring transparency and eliminating intermediaries.
+One major milestone was successfully integrating wallet connection with MetaMask. Users can now connect their wallets, view their public address, and sign transactions directly from the app. I also implemented a network detection and switching feature to guide users seamlessly to the Sepolia testnet if they're on the wrong network.
 
-This project isn’t just about code. It's about reimagining trust on the internet. A space where people fund ideas without gatekeepers. A world where smart contracts enforce fairness. And for me — a step toward mastering decentralized systems, one block at a time.`,
+On the frontend, I used React with Thirdweb SDK for simplified contract interaction. The backend logic lives in Solidity smart contracts, tested and deployed using Hardhat. All contributions are on-chain, ensuring transparency and eliminating intermediaries.
+
+This isn’t just about code. It's about reimagining trust on the internet. A space where people fund ideas without gatekeepers. A world where smart contracts enforce fairness. And for me — a step toward mastering decentralized systems, one block at a time.`,
     category: "experiment",
     status: "completed",
     technologies: [
@@ -612,6 +614,7 @@ This project isn’t just about code. It's about reimagining trust on the intern
       "Thirdweb",
       "Tailwind CSS",
       "Ethereum Sepolia",
+      "MetaMask",
       "Ethers.js",
       "Smart Contracts",
     ],
@@ -623,35 +626,45 @@ This project isn’t just about code. It's about reimagining trust on the intern
     demoUrl: null,
     blogPostUrl: null,
     image: null,
-    tags: ["Web3", "Solidity", "Crowdfunding", "Blockchain", "React", "Thirdweb", "Ethereum"],
+    tags: [
+      "Web3",
+      "Solidity",
+      "Crowdfunding",
+      "Blockchain",
+      "React",
+      "Thirdweb",
+      "Ethereum",
+      "MetaMask",
+    ],
     icon: Coins,
     objectives: [
       "Understand smart contract development using Solidity",
       "Deploy and test contracts with Hardhat on Sepolia testnet",
-      "Integrate smart contracts into React apps using Thirdweb",
+      "Integrate MetaMask wallet connection in the frontend",
+      "Auto-detect and switch to Sepolia network",
       "Design a transparent and trustless crowdfunding system",
       "Explore on-chain data flow and contributor accountability",
     ],
     challenges: [
       "Gas optimization and contract efficiency",
-      "Managing contract interactions on the frontend",
-      "Handling testnet deployment and ETH faucet limits",
-      "Creating a good UX for non-crypto-native users",
-      "Implementing contributor tracking and refund logic",
+      "Handling contract interactions with connected wallets",
+      "Ensuring smooth network switching for non-technical users",
+      "Managing testnet limitations like ETH faucet rate",
+      "Building intuitive UI for crypto and non-crypto users",
     ],
     learnings: [
-      "How smart contracts bring trustless logic to the web",
-      "Best practices in using Hardhat for Web3 testing",
-      "Connecting frontend and contracts via Thirdweb",
-      "Building secure, upgradeable Solidity contracts",
-      "Designing a DApp workflow from idea to deployment",
+      "How MetaMask enables secure wallet-based auth and tx",
+      "Best practices in Web3 onboarding and UX",
+      "Deploying smart contracts using Hardhat",
+      "Frontend <-> smart contract bridging via Thirdweb",
+      "Designing trustless funding logic with Solidity",
     ],
     nextSteps: [
-      "Add campaign approval moderation with DAO mechanics",
-      "Implement milestone-based fund release",
-      "Integrate wallet login and transaction signing UX",
-      "Deploy to Polygon Mumbai for faster and cheaper txs",
-      "Publish full walkthrough and technical write-up",
+      "Add DAO-style moderation and campaign approval logic",
+      "Implement milestone-based funding release system",
+      "Support more chains like Polygon Mumbai for scalability",
+      "Add unit and integration tests for core contract flows",
+      "Write a dev blog to document technical decisions and gotchas",
     ],
   },
   {
