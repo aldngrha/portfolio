@@ -39,3 +39,8 @@ export const getStatusColor = (status: LabProject["status"]) => {
       return "bg-soft-blue-50 text-soft-blue-700 dark:bg-soft-blue-900/30 dark:text-soft-blue-400 border-0"
   }
 }
+
+export function truncate(str: string, maxLength: number, suffix = ""): string {
+  if (str.length <= maxLength) return str
+  return str.slice(0, maxLength - suffix.length) + suffix
+}

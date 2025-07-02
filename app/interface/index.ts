@@ -16,6 +16,7 @@ export interface CardProjectProps {
   technologies: string[]
   github?: string | null
   link?: string | null
+  landingPage?: boolean
 }
 
 export interface LabProject {
@@ -70,6 +71,7 @@ export interface FeaturedCardLabsProps extends BaseLabCardProps {
   }
   dateCreated: string | number | Date
   lastUpdated: string | number | Date
+  landingPage?: boolean
 }
 
 export interface RegularCardLabsProps extends BaseLabCardProps {

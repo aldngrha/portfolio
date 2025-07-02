@@ -90,6 +90,7 @@ export default function _public_index() {
               link={project.link}
               image={project.image}
               slug={project.slug}
+              landingPage
             />
           ))}
         </div>
@@ -130,6 +131,7 @@ export default function _public_index() {
               dateCreated={project.dateCreated}
               lastUpdated={project.lastUpdated}
               slug={project.slug}
+              landingPage
             />
           ))}
         </div>
