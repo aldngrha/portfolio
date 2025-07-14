@@ -93,3 +93,10 @@ export interface FilterDropdownProps {
   selectedStatus: string
   setSelectedStatus: (value: string) => void
 }
+
+export interface TechCategoryCardProps {
+  title: string;
+  icon: LucideIcon;
+  items: string[];
+  color: string;
+}

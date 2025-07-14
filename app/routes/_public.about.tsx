@@ -11,11 +11,12 @@ import {
   Users,
   Gamepad,
   Activity,
-  BookOpen,
+  BookOpen, Database,
 } from "lucide-react"
 import { Link } from "@remix-run/react"
 import type { MetaFunction } from "@remix-run/node"
-import { experience, techSkills } from "~/constants"
+import { experience, techCategories, techSkills } from "~/constants"
+import TechCategoryCard from "~/components/TechCard"
 
 export const meta: MetaFunction = () => {
   return [
@@ -121,25 +122,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Tech Skills */}
       <section className="mb-20">
-        <h2 className="text-2xl font-light text-slate-800 dark:text-white mb-8 text-center">
-          Tech Stack
-        </h2>
-        <Card className="border-0 shadow-sm bg-white dark:bg-slate-900 dark:border dark:border-slate-800">
-          <CardContent className="p-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-              {techSkills.map((skill, index) => (
-                <div key={index} className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center mb-3">
-                    <img src={skill.icon || "/placeholder.svg"} alt={skill.name} />
-                  </div>
-                  <span className="text-sm text-slate-600 dark:text-slate-300">{skill.name}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <h2 className="text-2xl font-light text-slate-800 dark:text-white mb-12 text-center">Tech Stack</h2>
+        <div className="space-y-10">
+          {techCategories.map((category) => (
+            <TechCategoryCard
+              key={category.title}
+              title={category.title}
+              icon={category.icon}
+              items={category.items}
+              color={category.color}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Values & Principles */}
@@ -205,7 +200,7 @@ export default function AboutPage() {
                   </div>
                   <Badge
                     variant="secondary"
-                    className="bg-soft-blue-50 dark:bg-soft-blue-900/30 text-soft-blue-700 dark:text-soft-blue-400 border-0 mt-2 md:mt-0"
+                    className="bg-soft-blue-50 w-fit dark:bg-soft-blue-900/30 text-soft-blue-700 dark:text-soft-blue-400 border-0 mt-2 md:mt-0"
                   >
                     {exp.period}
                   </Badge>

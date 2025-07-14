@@ -26,26 +26,29 @@ export default function FeaturedCardLabs({
     return (
       <Card className="group border-0 shadow-sm hover:shadow-md transition-all duration-300 bg-white dark:bg-slate-900 dark:border dark:border-slate-800">
         <CardContent className="p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-start justify-between mb-4 ">
+            <div className="flex items-center space-x-3 w-full ">
               <div className="w-10 h-10 bg-soft-blue-50 dark:bg-soft-blue-900/30 rounded-lg flex items-center justify-center text-soft-blue-600 dark:text-soft-blue-400">
                 <Icon className="w-5 h-5" />
               </div>
-              <div>
-                <Badge
-                  variant="secondary"
-                  className="bg-soft-blue-50 dark:bg-soft-blue-900/30 text-soft-blue-700 dark:text-soft-blue-400 border-0 mb-2"
-                >
-                  Experiment
-                </Badge>
+              <div className="w-full">
+                <div className="flex items-center space-x-2 mb-2 justify-start md:justify-between">
+                  <Badge
+                    variant="secondary"
+                    className="bg-soft-blue-50 dark:bg-soft-blue-900/30 text-soft-blue-700 dark:text-soft-blue-400 border-0"
+                  >
+                    {category}
+                  </Badge>
+
+                  <Badge variant="secondary" className={getStatusColor(status)}>
+                    {status.replace("-", " ")}
+                  </Badge>
+                </div>
                 <h3 className="text-lg font-medium text-slate-800 dark:text-white group-hover:text-soft-blue-600 dark:group-hover:text-soft-blue-400 transition-colors">
                   {title}
                 </h3>
               </div>
             </div>
-            <Badge variant="secondary" className={getStatusColor(status)}>
-              {status.replace("-", " ")}
-            </Badge>
           </div>
 
           <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 leading-relaxed">

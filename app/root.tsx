@@ -1,5 +1,6 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react"
-import type { LinksFunction } from "@remix-run/node"
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react"
+import  { type LinksFunction  } from "@remix-run/node"
+import pkg from "../package.json";
 
 import styles from "./tailwind.css?url"
 import { ThemeProvider } from "~/components/ThemeProvider"
@@ -32,6 +33,12 @@ export const links: LinksFunction = () => [
   },
 ]
 
+export function loader() {
+  return {
+    version: pkg.version,
+  };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -52,9 +59,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+
+  const { version } = useLoaderData<typeof loader>();
+
   return (
     <ThemeProvider>
-      <Outlet />
+      <Outlet context={{ version }}/>
     </ThemeProvider>
   )
 }

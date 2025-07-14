@@ -44,3 +44,15 @@ export function truncate(str: string, maxLength: number, suffix = ""): string {
   if (str.length <= maxLength) return str
   return str.slice(0, maxLength - suffix.length) + suffix
 }
+
+export function getBadgeColor(color: string) {
+  const map: Record<string, string> = {
+    "text-soft-blue-600": "bg-soft-blue-50 dark:bg-soft-blue-900/30 text-soft-blue-700 dark:text-soft-blue-400",
+    "text-slate-600": "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300",
+    "text-amber-600": "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400",
+    "text-green-600": "bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400",
+    "text-purple-600": "bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400",
+    "text-indigo-600": "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400",
+  };
+  return map[color] || "";
+}

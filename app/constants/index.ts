@@ -8,7 +8,7 @@ import {
   Stethoscope,
   PlaneTakeoff,
   Mic,
-  Coins,
+  Coins, Truck, Code, Database, Lightbulb, Users, Blocks, ShieldCheck, Smartphone,
   // Code,
   // Palette,
   // Globe,
@@ -72,10 +72,78 @@ export const techSkills = [
     icon: "https://camo.githubusercontent.com/8058e635f9243b2d287b6e48dd9964f58fccf86c001075ba6d6fd15ae0ebe2ad/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f66697265626173652f66697265626173652d706c61696e2e737667",
   },
   {
-    name: "Supabase",
-    icon: "https://supabase.com/dashboard/_next/image?url=%2Fdashboard%2Fimg%2Fsupabase-logo.svg&w=48&q=75",
+    name: "Remix",
+    icon: "data:image/jpeg;base64,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"
+  },
+  {
+    name: "Solidity",
+    icon: "https://docs.soliditylang.org/en/latest/_images/solidity_logo.svg",
   },
 ]
+
+export const techCategories = [
+  {
+    title: "Frontend",
+    icon: Code,
+    items: [
+      "React.js",
+      "Vue.js",
+      "Svelte.js",
+      "Next.js",
+      "Remix.js",
+      "Nuxt.js",
+      "TypeScript",
+      "JavaScript",
+      "Tailwind CSS",
+      "CSS3",
+      "HTML5",
+      "Zustand",
+      "Redux",
+    ],
+    color: "text-soft-blue-600",
+  },
+  {
+    title: "Backend",
+    icon: Database,
+    items: ["Node.js", "Express.js", "Hono.js", "Golang", "Redis", "Firebase", "Supabase", "PostgreSQL", "MongoDB", "Prisma"],
+    color: "text-slate-600",
+  },
+  {
+    title: "Mobile",
+    icon: Smartphone,
+    items: ["React Native", "Kotlin", "Swift"],
+    color: "text-indigo-600", // bisa disesuaikan tone warnanya
+  },
+  {
+    title: "Blockchain",
+    icon: ShieldCheck,
+    items: ["Solidity", "Web3.js", "Ethers.js", "Hardhat"],
+    color: "text-amber-600",
+  },
+  {
+    title: "Tools",
+    icon: Users,
+    items: ["Git", "VS Code", "Figma", "Vercel", "Docker", "Postman", "Jetbrains", "Jira", "Slack", "Trello"],
+    color: "text-green-600",
+  },
+  {
+    title: "Practices",
+    icon: Lightbulb,
+    items: [
+      "Semantic Versioning",
+      "Git Flow",
+      "Code Reviews",
+      "Testing",
+      "CI/CD",
+      "Accessibility (a11y)",
+      "Mobile-First Design",
+      "Performance Optimization",
+      "Design System",
+      "Documentation First"
+    ],
+    color: "text-purple-600",
+  },
+];
 
 export const experience = [
   {
@@ -591,6 +659,74 @@ export const skills = {
 
 export const labProjects: LabProject[] = [
   {
+    id: 7,
+    title: "Blockchain Logistics Tracker",
+    slug: "blockchain-logistics-tracker",
+    description:
+      "A logistics tracker built with smart contracts on Ethereum Sepolia, designed to explore how blockchain can improve delivery systems.",
+    longDescription: `This project is my introduction to building decentralized logistics systems using blockchain. I created a smart contract called TrackingDelivery to keep records of delivery activity in a way that's transparent and tamper-proof.
+
+Each package is identified by a unique ID and includes information like sender and recipient addresses, timestamps for when it's sent and received, and a status that shows where it is in the process. Only the original sender can update the status, and every update emits an event that can be used to build real-time tracking in a frontend.
+
+I wrote the contract in Solidity and deployed it using Hardhat on the Ethereum Sepolia testnet. The contract is fully verified on Etherscan, so anyone can view the code and follow the transactions.
+
+Right now, this is purely an on-chain system. I haven’t built the backend or frontend yet, but I plan to use MetaMask for wallet connection and build a dashboard where users can search for delivery status by package ID.
+
+This project helps me understand how blockchain can be used to solve real-world problems. It’s not just a coding exercise — it's part of a bigger goal to rethink how trust and transparency can be designed into everyday systems.`,
+    category: "experiment",
+    status: "completed",
+    technologies: [
+      "Solidity",
+      "Hardhat",
+      "Ethereum Sepolia",
+      "Etherscan",
+    ],
+    difficulty: "intermediate",
+    featured: true,
+    dateCreated: "2025-06-25",
+    lastUpdated: "2025-07-14",
+    githubUrl: "https://github.com/aldngrha/tracking-delivery",
+    demoUrl: "https://sepolia.etherscan.io/address/0x555E44Bf5A6743A7d51f4C96E531a109C4Ccdb6C",
+    blogPostUrl: null,
+    image: "/assets/images/bc.jpg",
+    tags: [
+      "Web3",
+      "Solidity",
+      "Logistics",
+      "Blockchain",
+      "Smart Contract",
+      "Ethereum",
+    ],
+    icon: Truck,
+    objectives: [
+      "Build a smart contract to track delivery status on-chain",
+      "Design status states using enums for clarity and logic",
+      "Ensure only the sender can update package status",
+      "Log timestamps for dispatch and delivery on the blockchain",
+      "Emit events for each update to support frontend integration",
+      "Make the contract open and verifiable on Etherscan",
+    ],
+    challenges: [
+      "Avoid duplicate deliveries by checking unique package IDs",
+      "Enforce sender-only access for status updates",
+      "Keep the contract structure simple and gas efficient",
+      "Translate real-world delivery logic into Solidity code",
+    ],
+    learnings: [
+      "Using Hardhat to compile, deploy, and verify smart contracts",
+      "Working with enums and modifiers for cleaner access control",
+      "Designing contract events that support live frontend updates",
+      "Understanding how to verify contracts and make them public",
+    ],
+    nextSteps: [
+      "Develop a simple frontend with package tracking by ID",
+      "Add MetaMask wallet connection to manage sender roles",
+      "Create a backend to index and search delivery data",
+      "Add support for full delivery history with multiple status events",
+      "Write documentation for contributors and future improvements",
+    ],
+  },
+  {
     id: 6,
     title: "Decentralized Crowdfunding with Web3",
     slug: "decentralized-crowdfunding-with-web3",
@@ -605,7 +741,7 @@ One major milestone was successfully integrating wallet connection with MetaMask
 On the frontend, I used React with Thirdweb SDK for simplified contract interaction. The backend logic lives in Solidity smart contracts, tested and deployed using Hardhat. All contributions are on-chain, ensuring transparency and eliminating intermediaries.
 
 This isn’t just about code. It's about reimagining trust on the internet. A space where people fund ideas without gatekeepers. A world where smart contracts enforce fairness. And for me — a step toward mastering decentralized systems, one block at a time.`,
-    category: "experiment",
+    category: "prototype",
     status: "completed",
     technologies: [
       "Solidity",
