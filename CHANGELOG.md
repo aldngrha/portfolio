@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/aldngrha/portfolio/compare/v1.2.0...v1.3.0) (2025-07-14)
+
+
+### Features
+
+* **about:** add tech stack section with categorized badges ([dfb51b0](https://github.com/aldngrha/portfolio/commit/dfb51b054850835a3d5f05f84e410ea3adb9517b))
+
 ## 1.2.0 (2025-07-14)
 
 
