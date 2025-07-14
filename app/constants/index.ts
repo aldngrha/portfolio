@@ -139,7 +139,6 @@ export const techCategories = [
       "Mobile-First Design",
       "Performance Optimization",
       "Design System",
-      "Documentation First"
     ],
     color: "text-purple-600",
   },
