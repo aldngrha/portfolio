@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/aldngrha/portfolio/compare/v1.3.0...v1.3.1) (2025-07-21)
+
+
+### Bug Fixes
+
+* **header:** correct isActive logic for path with slug ([dc15a33](https://github.com/aldngrha/portfolio/commit/dc15a33f3eb815231e5df878db833bf63a2a8757))
+
 ## [1.3.0](https://github.com/aldngrha/portfolio/compare/v1.2.0...v1.3.0) (2025-07-14)
 
 
