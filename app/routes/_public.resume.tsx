@@ -88,7 +88,7 @@ export default function ResumePage() {
         <div>
           <h1 className="text-4xl font-light text-slate-800 dark:text-white">Resume</h1>
           <p className="text-slate-600 dark:text-slate-300 mt-2">
-            Frontend Developer & Software Engineer
+            Software Engineer | Blockchain Ethusiast
           </p>
         </div>
         <Button
@@ -128,11 +128,9 @@ export default function ResumePage() {
                   Aldi Nugraha
                 </h2>
                 <p className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
-                  Frontend developer passionate about creating thoughtful digital experiences with
-                  clean code and user-centric design. Specialized in building modern, accessible web
-                  applications.
-                </p>
-
+                  Software Engineer passionate about building modern, accessible web applications with clean code and user-focused design.
+                  Experienced in delivering high-quality digital products using React, Next.js, and NestJS,
+                  with an interest in exploring decentralized technologies.</p>
                 <div className="flex flex-wrap gap-6 text-sm text-slate-600 dark:text-slate-300">
                   <div className="flex items-center space-x-1">
                     <Mail className="w-4 h-4" />

@@ -42,8 +42,7 @@ export default function _public_index() {
             Software Engineer
           </p>
           <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Engineering meaningful digital experiences through clean architecture and human-focused
-            code
+            Crafting clean and scalable code while shaping digital products with purpose and exploring blockchain innovations.
           </p>
         </div>
 

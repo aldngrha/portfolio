@@ -90,12 +90,12 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-xl text-slate-600 dark:text-slate-300 mb-6">
-              Frontend Developer & Software Engineer
+              Software Engineer | Blockchain Enthusiast
             </p>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              I&#39;m passionate about crafting thoughtful digital experiences that make technology
-              feel human. With a keen eye for detail and a love for clean code, I transform ideas
-              into interfaces that users genuinely enjoy.
+              I&#39;m passionate about crafting thoughtful digital experiences that make technology feel human.
+              With a keen eye for detail, a love for clean code, and a curiosity for decentralized technology,
+              I transform ideas into seamless interfaces and future-ready solutions.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button
