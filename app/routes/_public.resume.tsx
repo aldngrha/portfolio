@@ -32,37 +32,55 @@ export const meta: MetaFunction = () => {
 export default function ResumePage() {
   const [isLoading, setIsLoading] = useState(false)
 
-  async function downloadFileFromUrl(url: string, filename: string) {
-    try {
-      setIsLoading(true)
-      const response = await fetch(url)
-      if (!response.ok) throw new Error("Network response was not ok")
-
-      const blob = await response.blob()
-      const downloadUrl = window.URL.createObjectURL(blob)
-      const a = document.createElement("a")
-      a.href = downloadUrl
-      a.download = filename || "download.pdf"
-      document.body.appendChild(a)
-      a.click()
-      a.remove()
-      window.URL.revokeObjectURL(downloadUrl)
-
-      toast.success("Successfully download resume!")
-    } catch (error) {
-      console.error("Download failed:", error)
-      toast.error("Download failed. Please try again.")
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  // async function downloadFileFromUrl(url: string, filename: string) {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await fetch(url);
+  //     if (!response.ok) throw new Error("Network response was not ok");
+  //
+  //     const blob = await response.blob();
+  //     const downloadUrl = window.URL.createObjectURL(blob);
+  //     const a = document.createElement("a");
+  //     a.href = downloadUrl;
+  //     a.download = filename || "download.pdf";
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     a.remove();
+  //     window.URL.revokeObjectURL(downloadUrl);
+  //
+  //     toast.success("Successfully downloaded!");
+  //   } catch (error) {
+  //     console.error("Download failed:", error);
+  //     toast.error("Download failed. Please try again.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+  //
+  // const handleDownload = () => {
+  //   downloadFileFromUrl(
+  //     "https://drive.google.com/uc?export=download&id=15ltANhdlqmv9aK18UOZLxaZ-_d7xavTs",
+  //     "Aldi Nugraha Resume.pdf"
+  //   );
+  // };
 
   const handleDownload = () => {
-    downloadFileFromUrl(
-      "https://kmjlymleaovyuvintnha.supabase.co/storage/v1/object/public/gallery-images//CV%20ALDI%20NUGRAHA.pdf",
-      "Aldi Nugraha Resume.pdf"
-    )
-  }
+    setIsLoading(true);
+
+    setTimeout(() => {
+      const link = document.createElement("a");
+      link.href =
+        "https://drive.google.com/uc?export=download&id=1qCQuWQlSImQ3PuUVNVP00gK4NPjY7l0u";
+      link.download = "Aldi Nugraha Resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      toast.success("Successfully downloaded!");
+      setIsLoading(false);
+    }, 500);
+  };
+
 
   return (
     <>

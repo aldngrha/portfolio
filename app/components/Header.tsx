@@ -11,11 +11,23 @@ export function Header() {
   const pathname = location.pathname
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  const pathMap: Record<string, string[]> = {
+    "/about": ["/resume"],
+    "/labs": ["/lab"],
+    "/posts": ["/blog"],
+    "/projects": ["/project"],
+  };
+
   const isActive = (path: string) => {
-    if (path === "/" && pathname === "/") return true
-    if (path !== "/" && pathname.startsWith(path)) return true
-    return false
-  }
+    if (path === "/") return pathname === "/";
+
+    // Cek match langsung
+    if (pathname.startsWith(path)) return true;
+
+    // Cek mapping tambahan
+    const extraPaths = pathMap[path] || [];
+    return extraPaths.some((extra) => pathname.startsWith(extra));
+  };
 
   const navItems = [
     { href: "/", label: "Home" },
