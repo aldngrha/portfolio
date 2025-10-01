@@ -1,15 +1,15 @@
 import { Resend } from "resend"
 
-type ContactFormData = {
+export type ContactFormData = {
   name: string
   email: string
   subject: string
   message: string
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY!)
 
-export async function sendContactEmail({ name, email, subject, message }: ContactFormData) {
+export async function sendContactEmail({ name, email, subject, message }: ContactFormData, apiKey: string) {
+  const resend = new Resend(apiKey)
   try {
     if (
       typeof name !== "string" ||
