@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41180c58-3ea3-427d-872d-7a7e1a201667" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/functions/api/contact.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/[[path]].ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/type.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/send-email.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/send-email.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/_public.contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public.contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/api/contact.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -119,7 +121,7 @@
       <workItem from="1752852390148" duration="54000" />
       <workItem from="1753095690703" duration="4470000" />
       <workItem from="1754580144041" duration="43000" />
-      <workItem from="1759293603225" duration="2085000" />
+      <workItem from="1759293603225" duration="2981000" />
     </task>
     <servers />
   </component>

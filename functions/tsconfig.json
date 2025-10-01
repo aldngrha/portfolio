@@ -1,5 +1,5 @@
 {
-  "include": ["**/*.ts"],
+  "include": ["api/**/*.ts", "types.d.ts", "[[path]].ts"],
   "compilerOptions": {
     "lib": ["ES2022"],
     "types": ["@cloudflare/workers-types"],

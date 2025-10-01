@@ -7,6 +7,7 @@ import { Mail, MapPin, Clock, Send, AlertCircle, CheckCircle } from "lucide-reac
 import { Form, Link, useNavigation, useSearchParams } from "@remix-run/react"
 import { ActionFunction, MetaFunction, redirect } from "@remix-run/node"
 import { sendContactEmail } from "~/services/send-email"
+import type { ActionFunctionArgs } from "@remix-run/cloudflare";
 
 export const meta: MetaFunction = () => {
   return [
@@ -24,7 +25,7 @@ const rateLimitMap = new Map<string, { count: number; lastRequest: number }>()
 const RATE_LIMIT_WINDOW = 60 * 1000 // 1 menit
 const MAX_REQUESTS = 3
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request, context }: ActionFunctionArgs) => {
   const ip =
     request.headers.get("x-forwarded-for") || request.headers.get("remote-addr") || "unknown"
 
@@ -59,7 +60,9 @@ export const action: ActionFunction = async ({ request }) => {
     return redirect("/contact?error=Please fill all the fields")
   }
 
-  const result = await sendContactEmail({ name, email, subject, message })
+  const apiKey = (context.env as { RESEND_API_KEY: string }).RESEND_API_KEY;
+
+  const result = await sendContactEmail({ name, email, subject, message }, apiKey)
 
   if (result.success) {
     return redirect("/contact?success=Message sent successfully!")
