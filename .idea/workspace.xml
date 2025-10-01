@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41180c58-3ea3-427d-872d-7a7e1a201667" name="Changes" comment="" />
+    <list default="true" id="41180c58-3ea3-427d-872d-7a7e1a201667" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/_public.contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/_public.contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/send-email.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/send-email.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/[[path]].ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/type.d.ts" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,7 +119,7 @@
       <workItem from="1752852390148" duration="54000" />
       <workItem from="1753095690703" duration="4470000" />
       <workItem from="1754580144041" duration="43000" />
-      <workItem from="1759293603225" duration="3141000" />
+      <workItem from="1759293603225" duration="3727000" />
     </task>
     <servers />
   </component>
