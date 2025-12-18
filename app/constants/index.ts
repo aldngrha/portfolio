@@ -8,7 +8,7 @@ import {
   Stethoscope,
   PlaneTakeoff,
   Mic,
-  Coins, Truck, Code, Database, Lightbulb, Users, Blocks, ShieldCheck, Smartphone,
+  Coins, Truck, Code, Database, Lightbulb, Users, ShieldCheck, Smartphone,
   // Code,
   // Palette,
   // Globe,
@@ -151,6 +151,13 @@ export const experience = [
     period: "2022 - Present",
     description:
       "Developed responsive web and mobile apps for diverse clients, collaborating closely with designers and backend teams.",
+  },
+  {
+    role: "Software Engineer & Sustainability Support",
+    company: "PT Sumber Kurnia Alam",
+    period: "2025 - Present",
+    description:
+      "Contributed as a Software Engineer and Sustainability Support by building and maintaining internal web systems, supporting sustainability initiatives, and collaborating with cross-functional teams.",
   },
   {
     role: "Lead Frontend Developer",
@@ -563,6 +570,17 @@ export const experiences = [
       "Develop responsive web and mobile applications for diverse clients using modern frameworks.",
       "Collaborate closely with designers and backend teams to deliver seamless user experiences.",
       "Manage full project lifecycle from requirements gathering to deployment.",
+    ],
+  },
+  {
+    role: "Software Engineer & Sustainability Support",
+    company: "PT Sumber Kurnia Alam",
+    location: "Bandar Lampung, Indonesia",
+    period: "2025 - Present",
+    description: [
+      "Develop and maintain export data management features aligned with 4C and EUDR requirements.",
+      "Implement geospatial mapping features using point and polygon data for plot visualization and validation.",
+      "Collaborate with sustainability and operations teams to ensure data accuracy and compliance readiness.",
     ],
   },
   {

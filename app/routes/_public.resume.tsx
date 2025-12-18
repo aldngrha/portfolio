@@ -69,8 +69,7 @@ export default function ResumePage() {
 
     setTimeout(() => {
       const link = document.createElement("a");
-      link.href =
-        "https://drive.google.com/uc?export=download&id=1qCQuWQlSImQ3PuUVNVP00gK4NPjY7l0u";
+      link.href = "https://drive.google.com/uc?export=download&id=1ztMfY5yVCOtbzy0cA94D9v0kViEUNSqU"
       link.download = "Aldi Nugraha Resume.pdf";
       document.body.appendChild(link);
       link.click();
