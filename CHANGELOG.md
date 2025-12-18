@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/aldngrha/portfolio/compare/v1.3.2...v1.4.0) (2025-12-18)
+
+
+### Features
+
+* **cloudflare:** hello ([8cc1101](https://github.com/aldngrha/portfolio/commit/8cc1101e35e7706caabfb81d617874caeef1110b))
+* **cloudflare:** hello ([366fc31](https://github.com/aldngrha/portfolio/commit/366fc3155f6f42ba502edad02230eb0b6e11a24d))
+* **cloudflare:** hello ([8fa3d02](https://github.com/aldngrha/portfolio/commit/8fa3d023d73df1a6e23f19524bfad25033c12817))
+
+
+### Bug Fixes
+
+* **about:** update experience ([7fc9564](https://github.com/aldngrha/portfolio/commit/7fc9564dcb0eb52d61450b3c17d4bad6297ef246))
+* **error:** error ([a1a35a2](https://github.com/aldngrha/portfolio/commit/a1a35a2f637e138eedefb1b7e676464e1ee5989a))
+
 ### [1.3.2](https://github.com/aldngrha/portfolio/compare/v1.3.1...v1.3.2) (2025-07-21)
 
 ### [1.3.1](https://github.com/aldngrha/portfolio/compare/v1.3.0...v1.3.1) (2025-07-21)
