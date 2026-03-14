@@ -1,17 +1,33 @@
-import type { Handle } from '@sveltejs/kit';
-import { getTextDirection } from '$lib/paraglide/runtime';
-import { paraglideMiddleware } from '$lib/paraglide/server';
+import { redirect, type Handle } from '@sveltejs/kit'
+import { sequence } from '@sveltejs/kit/hooks'
 
-const handleParaglide: Handle = ({ event, resolve }) =>
-	paraglideMiddleware(event.request, ({ request, locale }) => {
-		event.request = request;
+// ─── Auth Guard ───────────────────────────────────────────────────────────────
 
-		return resolve(event, {
-			transformPageChunk: ({ html }) =>
-				html
-					.replace('%paraglide.lang%', locale)
-					.replace('%paraglide.dir%', getTextDirection(locale))
-		});
-	});
+const authGuard: Handle = async ({ event, resolve }) => {
+  const isAdminRoute = event.url.pathname.startsWith('/admin')
+  const isLoginRoute = event.url.pathname === '/admin/login'
 
-export const handle: Handle = handleParaglide;
+  if (isAdminRoute && !isLoginRoute) {
+    const token = event.cookies.get('admin_token')
+    if (!token) {
+      throw redirect(303, `/admin/login?redirect=${event.url.pathname}`)
+    }
+    event.locals.token = token
+  }
+
+  return resolve(event)
+}
+
+// ─── Theme ────────────────────────────────────────────────────────────────────
+
+const themeHandler: Handle = async ({ event, resolve }) => {
+  const theme = event.cookies.get('theme') ?? 'light'
+
+  return resolve(event, {
+    transformPageChunk({ html }) {
+      return html.replace('%theme%', theme)
+    },
+  })
+}
+
+export const handle = sequence(themeHandler, authGuard)

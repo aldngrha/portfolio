@@ -1,17 +1,33 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
-	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+  import '../app.css'
+  import Navbar from '$lib/components/layout/Navbar.svelte'
+  import Footer from '$lib/components/layout/Footer.svelte'
+  import { theme } from '$lib/stores'
 
-	let { children } = $props();
+  let { children } = $props()
+
+  $effect(() => {
+    const t = localStorage.getItem('theme')
+    if (t) theme.set(t as 'light' | 'dark')
+  })
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
-{@render children()}
-
-<div style="display:none">
-	{#each locales as locale}
-		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
-	{/each}
+<div class="layout">
+  <Navbar />
+  <main class="main page-enter">
+    {@render children()}
+  </main>
+  <Footer />
 </div>
+
+<style>
+  .layout {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main {
+    flex: 1;
+  }
+</style>
