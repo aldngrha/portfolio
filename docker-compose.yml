@@ -1,0 +1,41 @@
+services:
+  frontend:
+    build: ./apps/frontend
+    restart: unless-stopped
+    expose:
+      - "3000"
+    depends_on:
+      - backend
+    networks:
+      - proxy
+
+  backend:
+    build: ./apps/backend
+    restart: unless-stopped
+    expose:
+      - "8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://aldi:secret@db:5432/portfolio
+    networks:
+      - proxy
+
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: portfolio
+      POSTGRES_USER: aldi
+      POSTGRES_PASSWORD: secret
+    networks:
+      - proxy
+
+volumes:
+  pgdata:
+
+networks:
+  proxy:
+    external: true
