@@ -1,13 +1,14 @@
 import type { ApiError, ApiResponse, PaginatedResponse } from '$lib/types'
 import { browser } from '$app/environment'
+import { PUBLIC_API_URL } from '$env/static/public'
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
 // Server-side: use BACKEND_URL env (private, for internal Docker/network calls)
 // Client-side: use VITE_API_URL (public, for browser calls)
 const API_BASE = browser
-  ? (import.meta.env.VITE_API_URL ?? 'http://localhost:8080')
-  : (process.env.BACKEND_URL ?? import.meta.env.VITE_API_URL ?? 'http://localhost:8080')
+  ? (PUBLIC_API_URL ?? 'http://localhost:8080')
+  : (process.env.BACKEND_URL ?? PUBLIC_API_URL ?? 'http://localhost:8080')
 
 // ─── Core Fetcher ────────────────────────────────────────────────────────────
 

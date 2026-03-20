@@ -11,6 +11,7 @@ RUN bun install --frozen-lockfile
 COPY . .
 
 # Build
+COPY .env.production .env.production
 RUN bun run build
 
 # ─── Stage 2: Runtime ────────────────────────────────────────────────────────
