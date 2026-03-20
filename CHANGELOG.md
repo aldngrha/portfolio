@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/aldngrha/portfolio/compare/v1.0.0...v1.0.1) (2026-03-20)
+
+
+### Bug Fixes
+
+* switch to adapter-node and update ci/cd pipeline ([d3a90a2](https://github.com/aldngrha/portfolio/commit/d3a90a224454bb4f11c23668bee0e1a4e9c97cfa))
+
 # 1.0.0 (2026-03-20)
 
 
