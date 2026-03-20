@@ -1,6 +1,7 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
   import Button from '$lib/components/ui/Button.svelte'
+  import MarkdownEditor from '$lib/components/ui/MarkdownEditor.svelte'
   import type { Work } from '$lib/types'
 
   let {
@@ -14,16 +15,40 @@
   } = $props()
 
   // Tech stack + tags managed as comma-separated strings
-  let techInput = work.tech_stack?.join(', ') ?? ''
-  let tagsInput = work.tags?.join(', ') ?? ''
+  let techInput = $state(work.tech_stack?.join(', ') ?? '')
+  let tagsInput = $state(work.tags?.join(', ') ?? '')
+  let descInput = $state(work.description ?? '')
 
   // Image previews
-  let thumbPreview: string | null = work.thumbnail_url ?? null
-  let thumbFile: FileList | null = null
+  let thumbPreview = $state<string | null>(work.thumbnail_url ?? null)
+  let thumbFile = $state<FileList | null>(null)
+
+  // Multiple images preview
+  let imagesPreview = $state<{url: string, isNew: boolean}[]>(work.images?.map(img => ({url: img.url, isNew: false})) ?? [])
+  let imagesFiles = $state<FileList | null>(null)
 
   function previewThumb(e: Event) {
     const file = (e.target as HTMLInputElement).files?.[0]
     if (file) thumbPreview = URL.createObjectURL(file)
+  }
+
+  function previewImages(e: Event) {
+    const files = (e.target as HTMLInputElement).files
+    if (files) {
+      // Keep existing images and append new previews
+      const newPreviews = Array.from(files).map(file => ({
+        url: URL.createObjectURL(file),
+        isNew: true
+      }))
+      imagesPreview = [...imagesPreview, ...newPreviews]
+    }
+  }
+
+  // Hidden input for existing images to keep
+  let existingImages = $derived(imagesPreview.filter(img => !img.isNew).map(img => img.url))
+
+  function removeImage(index: number) {
+    imagesPreview = imagesPreview.filter((_, i) => i !== index)
   }
 </script>
 
@@ -55,9 +80,8 @@
 
       <div class="field">
         <label class="field-label" for="description">Description *</label>
-        <textarea id="description" name="description" class="input textarea" required placeholder="Full description (supports HTML)">{work.description ?? ''}</textarea>
+        <MarkdownEditor name="description" bind:value={descInput} required placeholder="Full description in Markdown" minHeight="300px" />
       </div>
-
       <div class="field-row">
         <div class="field">
           <label class="field-label" for="category">Category *</label>
@@ -106,6 +130,26 @@
         <label class="field-label" for="tags">Tags (comma-separated)</label>
         <input id="tags" name="tags" type="text" class="input" bind:value={tagsInput} placeholder="web, fullstack, open-source" />
       </div>
+
+      <div class="field">
+        <label class="field-label">Gallery Images</label>
+        <div class="images-grid">
+          {#each imagesPreview as img, i}
+            <div class="image-preview-wrapper">
+              <img src={img.url} alt="Gallery preview" class="gallery-preview" />
+              <button type="button" class="remove-img-btn" onclick={() => removeImage(i)}>×</button>
+            </div>
+          {/each}
+          <label class="add-image-card">
+            <span class="add-image-icon">+</span>
+            <input type="file" name="images" multiple accept="image/*" class="hidden-input" bind:files={imagesFiles} onchange={previewImages} />
+          </label>
+        </div>
+        <!-- Hidden inputs for existing images -->
+        {#each existingImages as imgUrl}
+          <input type="hidden" name="existing_images" value={imgUrl} />
+        {/each}
+      </div>
     </div>
 
     <!-- Right: Sidebar fields -->
@@ -119,8 +163,7 @@
         {/if}
         <input
           type="file"
-          name="thumbnail"
-          accept="image/*"
+          name="file"  accept="image/*"
           class="file-input"
           bind:files={thumbFile}
           onchange={previewThumb}
@@ -257,5 +300,73 @@
     display: flex;
     gap: var(--space-2);
     justify-content: flex-end;
+  }
+
+  .images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .image-preview-wrapper {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 0.5px solid var(--color-border);
+  }
+
+  .gallery-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .remove-img-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    padding-bottom: 2px;
+  }
+
+  .remove-img-btn:hover {
+    background: rgba(226,75,74,0.9);
+  }
+
+  .add-image-card {
+    aspect-ratio: 1;
+    background: var(--color-bg-tertiary);
+    border: 0.5px dashed var(--color-border-hover);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--duration) var(--ease);
+  }
+
+  .add-image-card:hover {
+    background: var(--color-bg-secondary);
+  }
+
+  .add-image-icon {
+    font-size: 24px;
+    color: var(--color-text-3);
+  }
+
+  .hidden-input {
+    display: none;
   }
 </style>

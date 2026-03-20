@@ -31,6 +31,14 @@ export interface WorkImage {
 
 export type WorkCategory = 'web_app' | 'blockchain' | 'mobile' | 'open_source' | 'other'
 
+export interface LabImage {
+  id: string
+  lab_id: string
+  url: string
+  caption: string | null
+  sort_order: number
+}
+
 export interface Lab {
   id: string
   slug: string
@@ -41,6 +49,7 @@ export interface Lab {
   status: 'done' | 'wip' | 'abandoned'
   github_url: string | null
   demo_url: string | null
+  images: LabImage[]
   sort_order: number
   created_at: string
   updated_at: string

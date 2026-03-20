@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types'
 import { adminApi } from '$lib/api/client'
-import { error, fail, redirect } from '@sveltejs/kit'
+import { error, fail, redirect, isRedirect } from '@sveltejs/kit'
 
 export const load: PageServerLoad = async ({ params, locals }) => {
   try {
@@ -18,7 +18,7 @@ export const actions: Actions = {
     const form = await request.formData()
     const token = locals.token ?? ''
 
-    const thumbnailFile = form.get('thumbnail') as File | null
+    const thumbnailFile = form.get('file') as File | null // Changed from 'thumbnail' to match frontend component
     let thumbnail_url: string | undefined
 
     if (thumbnailFile && thumbnailFile.size > 0) {
@@ -27,6 +27,25 @@ export const actions: Actions = {
         thumbnail_url = up.data.url
       } catch {
         return fail(500, { error: 'Failed to upload thumbnail.' })
+      }
+    }
+
+    // Handle gallery images
+    const imageFiles = form.getAll('images') as File[]
+    const images: string[] = []
+
+    // get existing images
+    const existingImages = form.getAll('existing_images') as string[]
+    images.push(...existingImages)
+
+    for (const file of imageFiles) {
+      if (file && file.size > 0) {
+        try {
+          const up = await adminApi.upload.file(token, file, 'works')
+          images.push(up.data.url)
+        } catch (e) {
+          console.error('Gallery image upload failed:', e)
+        }
       }
     }
 
@@ -44,14 +63,15 @@ export const actions: Actions = {
       tags:         form.get('tags')?.toString().split(',').map((s) => s.trim()).filter(Boolean),
       featured:     form.get('featured') === 'on',
       sort_order:   Number(form.get('sort_order') ?? 0),
+      images:       images,
       ...(thumbnail_url ? { thumbnail_url } : {}),
     }
 
     try {
       await adminApi.works.update(token, params.id, body)
-      throw redirect(303, '/admin/works')
+      redirect(303, '/admin/works')
     } catch (err: unknown) {
-      if (err instanceof Response) throw err
+      if (isRedirect(err)) throw err
       return fail(500, { error: 'Failed to update work.' })
     }
   },
@@ -59,9 +79,9 @@ export const actions: Actions = {
   delete: async ({ locals, params }) => {
     try {
       await adminApi.works.delete(locals.token ?? '', params.id)
-      throw redirect(303, '/admin/works')
+      redirect(303, '/admin/works')
     } catch (err: unknown) {
-      if (err instanceof Response) throw err
+      if (isRedirect(err)) throw err
       return fail(500, { error: 'Failed to delete work.' })
     }
   },

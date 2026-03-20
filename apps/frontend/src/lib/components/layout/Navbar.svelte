@@ -1,7 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import { theme, isDark } from '$lib/stores'
-  import { m } from '$lib/i18n'
+  import { Sun, Moon, X, Menu } from '@lucide/svelte'
+  import Logo from '$lib/components/icon/Logo.svelte';
 
   const navItems = [
     { label: 'home',    href: '/' },
@@ -23,7 +24,10 @@
 
 <header class="nav-wrapper">
   <nav class="nav container">
-    <a href="/" class="logo">aldi nugraha</a>
+    <a href="/" class="logo">
+      <Logo />
+      <span>aldi nugraha</span>
+    </a>
 
     <!-- Desktop links -->
     <ul class="nav-links">
@@ -50,14 +54,9 @@
         title="Toggle theme"
       >
         {#if $isDark}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="5"/>
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-          </svg>
+          <Sun size={16} strokeWidth={1.5} />
         {:else}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
+          <Moon size={16} strokeWidth={1.5} />
         {/if}
       </button>
 
@@ -68,13 +67,9 @@
         aria-label="Toggle menu"
       >
         {#if menuOpen}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M18 6L6 18M6 6l12 12"/>
-          </svg>
+          <X size={16} strokeWidth={1.5} />
         {:else}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M3 12h18M3 6h18M3 18h18"/>
-          </svg>
+          <Menu size={16} strokeWidth={1.5} />
         {/if}
       </button>
     </div>
@@ -120,12 +115,14 @@
   }
 
   .logo {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-text);
-    letter-spacing: -0.02em;
-    transition: opacity var(--duration) var(--ease);
-  }
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text);
+      transition: opacity var(--duration) var(--ease);
+    }
 
   .logo:hover {
     opacity: 0.7;
@@ -138,7 +135,7 @@
   }
 
   .nav-link {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-text-3);
     padding: var(--space-1) var(--space-3);
     border-radius: var(--radius-full);

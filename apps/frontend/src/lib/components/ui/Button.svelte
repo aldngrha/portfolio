@@ -18,6 +18,7 @@
     type?: 'button' | 'submit' | 'reset'
     children?: Snippet
     onclick?: () => void
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
   } = $props()
 </script>
@@ -53,12 +54,12 @@
 
   /* Sizes */
   .btn--sm {
-    font-size: 12px;
+    font-size: 13px;
     padding: 5px 14px;
   }
 
   .btn--md {
-    font-size: 13px;
+    font-size: 14px;
     padding: 8px 20px;
   }
 

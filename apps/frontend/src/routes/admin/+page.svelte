@@ -42,7 +42,7 @@
 </div>
 
 <style>
-  .dashboard { max-width: 800px; }
+  .dashboard { max-width: 100vw; }
 
   .dash-header { margin-bottom: var(--space-8); }
   .dash-title { font-size: 22px; font-weight: 500; color: var(--color-text); }

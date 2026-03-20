@@ -60,7 +60,7 @@
 </div>
 
 <style>
-  .page { max-width: 900px; }
+  .page { max-width: 100vw; }
 
   .page-header {
     display: flex;

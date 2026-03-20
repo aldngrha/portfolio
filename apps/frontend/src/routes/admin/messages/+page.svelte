@@ -5,7 +5,7 @@
 
   let { data }: { data: PageData } = $props()
 
-  let selected: ContactMessage | null = null
+  let selected: ContactMessage | null = $state(null)
 
   function formatDate(d: string) {
     return new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(d))
@@ -87,7 +87,7 @@
 </div>
 
 <style>
-  .page { max-width: 900px; }
+  .page { max-width: 100vw; }
   .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-6); }
   .page-title { font-size: 20px; font-weight: 500; color: var(--color-text); }
   .page-sub { font-size: 12px; color: var(--color-text-3); margin-top: 2px; }

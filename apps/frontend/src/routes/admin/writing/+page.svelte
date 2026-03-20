@@ -66,7 +66,7 @@
 </div>
 
 <style>
-  .page { max-width: 900px; }
+  .page { max-width: 100vw; }
   .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-6); }
   .page-title { font-size: 20px; font-weight: 500; color: var(--color-text); }
   .page-sub { font-size: 12px; color: var(--color-text-3); margin-top: 2px; }

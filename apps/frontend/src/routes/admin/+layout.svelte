@@ -2,29 +2,29 @@
   import { page } from '$app/stores'
   import { goto } from '$app/navigation'
   import { auth } from '$lib/stores'
+  import { LayoutDashboard, Briefcase, FlaskConical, PenLine, Mail, Settings, ExternalLink, LogOut } from '@lucide/svelte'
   import type { Snippet } from 'svelte'
 
   let { children }: { children?: Snippet } = $props()
 
   const navItems = [
-    { label: 'Dashboard',  href: '/admin',           icon: '◈' },
-    { label: 'Works',      href: '/admin/works',      icon: '◻' },
-    { label: 'Labs',       href: '/admin/labs',       icon: '⚗' },
-    { label: 'Writing',    href: '/admin/writing',    icon: '✍' },
-    { label: 'Messages',   href: '/admin/messages',   icon: '✉' },
-    { label: 'Settings',   href: '/admin/settings',   icon: '⚙' },
+    { label: 'Dashboard', href: '/admin',           icon: LayoutDashboard },
+    { label: 'Works',     href: '/admin/works',      icon: Briefcase },
+    { label: 'Labs',      href: '/admin/labs',       icon: FlaskConical },
+    { label: 'Writing',   href: '/admin/writing',    icon: PenLine },
+    { label: 'Messages',  href: '/admin/messages',   icon: Mail },
+    { label: 'Settings',  href: '/admin/settings',   icon: Settings },
   ]
 
   function logout() {
     auth.logout()
-    goto('/admin/login')
+    goto('/login')
   }
 
   const currentPath = $derived($page.url.pathname)
 </script>
 
 <div class="admin-layout">
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-top">
       <a href="/" class="brand">
@@ -40,33 +40,38 @@
           class="nav-item"
           class:active={currentPath === item.href || (item.href !== '/admin' && currentPath.startsWith(item.href))}
         >
-          <span class="nav-icon" aria-hidden="true">{item.icon}</span>
+          <span class="nav-icon"><svelte:component this={item.icon} size={15} strokeWidth={1.5} /></span>
           <span>{item.label}</span>
         </a>
       {/each}
     </nav>
 
     <div class="sidebar-footer">
-      <a href="/" target="_blank" class="view-site">↗ View site</a>
-      <button class="logout-btn" onclick={logout}>Logout</button>
+      <a href="/" target="_blank" class="view-site">
+        <ExternalLink size={13} strokeWidth={1.5} /> View site
+      </a>
+      <button class="logout-btn" onclick={logout}>
+        <LogOut size={13} strokeWidth={1.5} /> Logout
+      </button>
     </div>
   </aside>
 
-  <!-- Main content -->
   <main class="admin-main">
     {@render children?.()}
   </main>
 </div>
 
 <style>
+  :global(body) {
+    background: var(--color-bg);
+  }
+
   .admin-layout {
     display: grid;
     grid-template-columns: 220px 1fr;
     min-height: 100dvh;
-    background: var(--color-bg);
   }
 
-  /* Sidebar */
   .sidebar {
     border-right: 0.5px solid var(--color-border);
     display: flex;
@@ -75,10 +80,11 @@
     top: 0;
     height: 100dvh;
     overflow-y: auto;
+    background: var(--color-bg);
   }
 
   .sidebar-top {
-    padding: var(--space-5) var(--space-5) var(--space-4);
+    padding: var(--space-5);
     border-bottom: 0.5px solid var(--color-border);
   }
 
@@ -86,6 +92,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
+    text-decoration: none;
   }
 
   .brand-name {
@@ -105,7 +112,7 @@
 
   .sidebar-nav {
     flex: 1;
-    padding: var(--space-4) var(--space-3);
+    padding: var(--space-3);
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -119,6 +126,7 @@
     border-radius: var(--radius-md);
     font-size: 13px;
     color: var(--color-text-2);
+    text-decoration: none;
     transition: all var(--duration) var(--ease);
   }
 
@@ -133,9 +141,10 @@
   }
 
   .nav-icon {
-    font-size: 14px;
+    display: flex;
+    align-items: center;
     width: 18px;
-    text-align: center;
+    flex-shrink: 0;
   }
 
   .sidebar-footer {
@@ -149,6 +158,10 @@
   .view-site {
     font-size: 12px;
     color: var(--color-text-3);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
     transition: color var(--duration) var(--ease);
   }
 
@@ -158,14 +171,21 @@
     font-size: 12px;
     color: var(--color-text-3);
     text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
     transition: color var(--duration) var(--ease);
   }
 
   .logout-btn:hover { color: #e24b4a; }
 
-  /* Main */
   .admin-main {
     overflow-y: auto;
     padding: var(--space-8);
+    background: var(--color-bg);
   }
 </style>

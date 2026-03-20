@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
   import Badge from '$lib/components/ui/Badge.svelte'
+  import { ExternalLink, Github } from '@lucide/svelte'
   import type { PageData } from './$types'
-  import type { WorkCategory } from '$lib/types'
 
   let { data }: { data: PageData } = $props()
 
@@ -13,11 +12,6 @@
     { label: 'Mobile',      value: 'mobile' },
     { label: 'Open source', value: 'open_source' },
   ]
-
-  function setFilter(value: string) {
-    if (value === 'all') goto('/works')
-    else goto(`/works?category=${value}`)
-  }
 
   const activeFilter = $derived(data.category)
   const featured = $derived(data.works.find((w) => w.featured))
@@ -39,13 +33,13 @@
     </p>
     <div class="filters">
       {#each filters as f}
-        <button
+        <a
+          href={f.value === 'all' ? '/works' : `/works?category=${f.value}`}
           class="filter-btn"
           class:active={activeFilter === f.value}
-          onclick={() => setFilter(f.value)}
         >
           {f.label}
-        </button>
+        </a>
       {/each}
     </div>
   </div>
@@ -63,7 +57,7 @@
           {#if featured.thumbnail_url}
             <img src={featured.thumbnail_url} alt={featured.title} />
           {:else}
-            <div class="thumb-placeholder" />
+            <div class="thumb-placeholder"></div>
           {/if}
           <div class="thumb-badges">
             <Badge variant="blue">{featured.category.replace('_', ' ')}</Badge>
@@ -81,10 +75,10 @@
           <div class="work-meta">
             <span class="work-year">{featured.year}</span>
             {#if featured.live_url}
-              <span class="work-link">↗ Visit</span>
+              <span class="work-link"><ExternalLink size={12} strokeWidth={1.5} /> Visit</span>
             {/if}
             {#if featured.github_url}
-              <span class="work-link">↗ GitHub</span>
+              <span class="work-link"><Github size={12} strokeWidth={1.5} /> GitHub</span>
             {/if}
           </div>
         </div>
@@ -99,7 +93,7 @@
             {#if work.thumbnail_url}
               <img src={work.thumbnail_url} alt={work.title} />
             {:else}
-              <div class="thumb-placeholder" />
+              <div class="thumb-placeholder"></div>
             {/if}
             <div class="thumb-badges">
               <Badge variant="blue">{work.category.replace('_', ' ')}</Badge>
@@ -115,8 +109,8 @@
             </div>
             <div class="work-meta">
               <span class="work-year">{work.year}</span>
-              {#if work.live_url}<span class="work-link">↗ Visit</span>{/if}
-              {#if work.github_url}<span class="work-link">↗ GitHub</span>{/if}
+              {#if work.live_url}<span class="work-link"><ExternalLink size={12} strokeWidth={1.5} /> Visit</span>{/if}
+              {#if work.github_url}<span class="work-link"><Github size={12} strokeWidth={1.5} /> GitHub</span>{/if}
             </div>
           </div>
         </a>
@@ -142,7 +136,7 @@
   }
 
   .page-subtitle {
-    font-size: 13px;
+    font-size: clamp(13px, 1.1vw, 15px);
     color: var(--color-text-2);
     margin-top: var(--space-2);
     max-width: 480px;
@@ -157,7 +151,7 @@
   }
 
   .filter-btn {
-    font-size: 12px;
+    font-size: 13px;
     padding: 5px 14px;
     border-radius: var(--radius-full);
     border: 0.5px solid var(--color-border);
@@ -182,7 +176,7 @@
   }
 
   .empty {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-text-3);
     text-align: center;
     padding: var(--space-16) 0;
@@ -276,13 +270,13 @@
   }
 
   .work-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--color-text);
   }
 
   .work-desc {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--color-text-2);
     line-height: 1.55;
   }
@@ -301,13 +295,16 @@
   }
 
   .work-year {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-text-3);
   }
 
   .work-link {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   @media (max-width: 768px) {

@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types'
 import { adminApi } from '$lib/api/client'
-import { error, fail, redirect } from '@sveltejs/kit'
+import { error, fail, isRedirect, redirect } from '@sveltejs/kit'
 
 export const load: PageServerLoad = async ({ params, locals }) => {
   try {
@@ -18,6 +18,25 @@ export const actions: Actions = {
     const form = await request.formData()
     const token = locals.token ?? ''
 
+    // Handle gallery images
+    const imageFiles = form.getAll('images') as File[]
+    const images: string[] = []
+
+    // get existing images
+    const existingImages = form.getAll('existing_images') as string[]
+    images.push(...existingImages)
+
+    for (const file of imageFiles) {
+      if (file && file.size > 0) {
+        try {
+          const up = await adminApi.upload.file(token, file, 'labs')
+          images.push(up.data.url)
+        } catch (e) {
+          console.error('Gallery image upload failed:', e)
+        }
+      }
+    }
+
     const body = {
       title:       form.get('title')?.toString() ?? '',
       description: form.get('description')?.toString() ?? '',
@@ -27,13 +46,14 @@ export const actions: Actions = {
       demo_url:    form.get('demo_url')?.toString() || null,
       tags:        form.get('tags')?.toString().split(',').map((s) => s.trim()).filter(Boolean),
       sort_order:  Number(form.get('sort_order') ?? 0),
+      images:      images,
     }
 
     try {
       await adminApi.labs.update(token, params.id, body)
-      throw redirect(303, '/admin/labs')
+      redirect(303, '/admin/labs')
     } catch (err: unknown) {
-      if (err instanceof Response) throw err
+      if (isRedirect(err)) throw err
       return fail(500, { error: 'Failed to update lab.' })
     }
   },
@@ -41,9 +61,9 @@ export const actions: Actions = {
   delete: async ({ locals, params }) => {
     try {
       await adminApi.labs.delete(locals.token ?? '', params.id)
-      throw redirect(303, '/admin/labs')
+      redirect(303, '/admin/labs')
     } catch (err: unknown) {
-      if (err instanceof Response) throw err
+      if (isRedirect(err)) throw err
       return fail(500, { error: 'Failed to delete lab.' })
     }
   },

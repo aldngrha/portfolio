@@ -1,34 +1,34 @@
 import { writable, derived } from 'svelte/store'
 import { browser } from '$app/environment'
-import type { Theme, Locale } from '$lib/types'
+import type { Theme } from '$lib/types'
 
 // ─── Theme Store ─────────────────────────────────────────────────────────────
 
 function createThemeStore() {
   const initial: Theme = browser
-    ? (localStorage.getItem('theme') as Theme) ??
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    ? (document.documentElement.getAttribute('data-theme') as Theme) ?? 'light'
     : 'light'
 
   const { subscribe, set, update } = writable<Theme>(initial)
+
+  function applyTheme(t: Theme) {
+    if (!browser) return
+    document.documentElement.setAttribute('data-theme', t)
+    // Sync to cookie so server picks it up on next request
+    document.cookie = `theme=${t};path=/;max-age=31536000;samesite=lax`
+  }
 
   return {
     subscribe,
     toggle() {
       update((t) => {
         const next: Theme = t === 'light' ? 'dark' : 'light'
-        if (browser) {
-          localStorage.setItem('theme', next)
-          document.documentElement.setAttribute('data-theme', next)
-        }
+        applyTheme(next)
         return next
       })
     },
     set(theme: Theme) {
-      if (browser) {
-        localStorage.setItem('theme', theme)
-        document.documentElement.setAttribute('data-theme', theme)
-      }
+      applyTheme(theme)
       set(theme)
     },
   }
@@ -45,41 +45,21 @@ interface AuthState {
 }
 
 function createAuthStore() {
-  const initial: AuthState = browser
-    ? {
-        token: localStorage.getItem('admin_token'),
-        expiresAt: localStorage.getItem('admin_token_expires'),
-      }
-    : { token: null, expiresAt: null }
-
-  const { subscribe, set, update } = writable<AuthState>(initial)
+  const { subscribe, set } = writable<AuthState>({ token: null, expiresAt: null })
 
   return {
     subscribe,
-    login(token: string, expiresAt: string) {
-      if (browser) {
-        localStorage.setItem('admin_token', token)
-        localStorage.setItem('admin_token_expires', expiresAt)
-      }
-      set({ token, expiresAt })
-    },
+    // After login, SvelteKit server action sets the cookie
+    // This store just tracks client-side state for UI
     logout() {
+      // Clear cookie
       if (browser) {
-        localStorage.removeItem('admin_token')
-        localStorage.removeItem('admin_token_expires')
+        document.cookie = 'admin_token=;path=/;max-age=0'
       }
       set({ token: null, expiresAt: null })
-    },
-    get token() {
-      let t: string | null = null
-      subscribe((s) => (t = s.token))()
-      return t
     },
   }
 }
 
 export const auth = createAuthStore()
-export const isAuthenticated = derived(
-  auth,
-  ($auth) => !!$auth.token && new Date($auth.expiresAt ?? 0) > new Date()
-)
+export const isAuthenticated = derived(auth, ($auth) => !!$auth.token)

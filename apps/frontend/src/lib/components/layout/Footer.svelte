@@ -1,10 +1,12 @@
 <script lang="ts">
+  import { Github, Linkedin, Twitter } from '@lucide/svelte'
+
   const year = new Date().getFullYear()
 
   const socials = [
-    { label: 'GitHub',   href: 'https://github.com/aldngrha' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/aldngrha' },
-    { label: 'Twitter',  href: 'https://twitter.com/aldngrha' },
+    { label: 'GitHub',   href: 'https://github.com/aldngrha', icon: Github },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/aldngrha', icon: Linkedin },
+    { label: 'Twitter',  href: 'https://twitter.com/aldngrha', icon: Twitter },
   ]
 </script>
 
@@ -14,6 +16,7 @@
     <nav class="footer-links">
       {#each socials as s}
         <a href={s.href} target="_blank" rel="noopener noreferrer" class="footer-link">
+          <s.icon size={14} strokeWidth={1.5} />
           {s.label}
         </a>
       {/each}
@@ -35,7 +38,7 @@
   }
 
   .copy {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text-3);
   }
 
@@ -45,7 +48,10 @@
   }
 
   .footer-link {
-    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
     color: var(--color-text-3);
     transition: color var(--duration) var(--ease);
   }

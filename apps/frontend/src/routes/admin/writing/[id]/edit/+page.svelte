@@ -1,17 +1,16 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
   import Button from '$lib/components/ui/Button.svelte'
+  import MarkdownEditor from '$lib/components/ui/MarkdownEditor.svelte'
   import type { PageData, ActionData } from './$types'
 
-  let { data }: { data: PageData } = $props()
-  let { form }: { form?: ActionData } = $props()
+  let { data, form }: { data: PageData; form?: ActionData } = $props()
 
-  let loading = false
-  let deleting = false
-  let confirmDelete = false
-  let content = data.post.content
-  let tagsInput = data.post.tags?.join(', ') ?? ''
-  let activeTab: 'write' | 'preview' = 'write'
+  let loading = $state(false)
+  let deleting = $state(false)
+  let confirmDelete = $state(false)
+  let content = $state(data.post.content)
+  let tagsInput = $state(data.post.tags?.join(', ') ?? '')
 </script>
 
 <svelte:head><title>Edit — {data.post.title} — Admin</title></svelte:head>
@@ -51,22 +50,9 @@
       <textarea id="excerpt" name="excerpt" class="input textarea-sm" required>{data.post.excerpt}</textarea>
     </div>
 
-    <div class="editor-wrapper">
-      <div class="editor-tabs">
-        <button type="button" class="tab-btn" class:active={activeTab === 'write'} onclick={() => (activeTab = 'write')}>Write</button>
-        <button type="button" class="tab-btn" class:active={activeTab === 'preview'} onclick={() => (activeTab = 'preview')}>Preview</button>
-      </div>
-      {#if activeTab === 'write'}
-        <textarea name="content" class="input editor" bind:value={content} required></textarea>
-      {:else}
-        <div class="preview prose">
-          {#if content}
-            {@html content}
-          {:else}
-            <p style="color: var(--color-text-3); font-style: italic">Nothing to preview.</p>
-          {/if}
-        </div>
-      {/if}
+    <div class="field">
+      <label class="field-label" for="content">Content *</label>
+      <MarkdownEditor name="content" bind:value={content} required />
     </div>
 
     <div class="bottom-row">
@@ -109,7 +95,7 @@
 {/if}
 
 <style>
-  .page { max-width: 800px; }
+  .page { max-width: 100vw; }
   .page-header { margin-bottom: var(--space-6); }
   .back { font-size: 12px; color: var(--color-text-3); display: block; margin-bottom: var(--space-3); transition: color var(--duration) var(--ease); }
   .back:hover { color: var(--color-accent); }
@@ -124,13 +110,6 @@
   .input:focus { border-color: var(--color-accent); }
   .input-title { font-size: 16px; }
   .textarea-sm { height: 70px; resize: vertical; line-height: 1.6; }
-  .editor-wrapper { border: 0.5px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
-  .editor-tabs { display: flex; border-bottom: 0.5px solid var(--color-border); background: var(--color-bg-secondary); }
-  .tab-btn { font-size: 12px; padding: var(--space-2) var(--space-5); color: var(--color-text-3); border-right: 0.5px solid var(--color-border); transition: all var(--duration) var(--ease); }
-  .tab-btn.active { color: var(--color-text); background: var(--color-surface); }
-  .editor { border: none; border-radius: 0; min-height: 400px; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; resize: vertical; background: var(--color-surface); }
-  .editor:focus { border-color: transparent; }
-  .preview { padding: var(--space-5); min-height: 400px; font-size: 14px; line-height: 1.8; color: var(--color-text-2); background: var(--color-surface); }
   .bottom-row { display: flex; align-items: flex-end; gap: var(--space-4); flex-wrap: wrap; }
   .checkbox-label { display: flex; align-items: center; gap: var(--space-2); font-size: 13px; color: var(--color-text-2); cursor: pointer; white-space: nowrap; padding-bottom: 2px; }
   .form-actions { display: flex; gap: var(--space-2); margin-left: auto; }

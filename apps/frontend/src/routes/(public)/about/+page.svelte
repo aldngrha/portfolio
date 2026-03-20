@@ -1,6 +1,11 @@
 <script lang="ts">
   import Badge from '$lib/components/ui/Badge.svelte'
   import Button from '$lib/components/ui/Button.svelte'
+  import { MapPin, Download, Gamepad2, Dumbbell, BookOpen, Brain } from '@lucide/svelte'
+  import type { PageData } from './$types'
+
+  let { data }: { data: PageData } = $props()
+  const { settings } = data
 
   const experience = [
     {
@@ -50,10 +55,10 @@
   ]
 
   const hobbies = [
-    { icon: '🎮', name: 'Gaming',   desc: 'Various genres' },
-    { icon: '🏋️', name: 'Gym',      desc: 'Staying active' },
-    { icon: '📚', name: 'Reading',  desc: 'Tech & fiction' },
-    { icon: '🧠', name: 'Learning', desc: 'Always curious' },
+    { icon: Gamepad2,  name: 'Gaming',   desc: 'Various genres' },
+    { icon: Dumbbell,  name: 'Gym',      desc: 'Staying active' },
+    { icon: BookOpen,  name: 'Reading',  desc: 'Tech & fiction' },
+    { icon: Brain,     name: 'Learning', desc: 'Always curious' },
   ]
 </script>
 
@@ -62,25 +67,32 @@
   <meta name="description" content="Software engineer from Bandar Lampung with 3+ years of experience building web and mobile applications." />
 </svelte:head>
 
-<!-- ─── Hero ──────────────────────────────────────────────────────────────── -->
+<!-- ─── Hero ─────────────────────────────────────────────────────────────────── -->
 <section class="hero">
   <div class="container hero-inner">
     <div class="hero-left">
-      <div class="avatar">AN</div>
+      <div aria-hidden="true">
+        <img class="avatar" src={settings.avatarUrl} alt="Aldi Nugraha" />
+      </div>
       <div>
         <h1 class="name serif">Aldi Nugraha</h1>
         <p class="title">Software Engineer</p>
-        <p class="location">📍 Bandar Lampung, Indonesia</p>
+        <p class="location"><MapPin size={12} strokeWidth={1.5} /> Bandar Lampung, Indonesia</p>
         <p class="status">
           <span class="dot" aria-hidden="true"></span>
           Currently at PT Sumber Kurnia Alam — open to new opportunities
         </p>
       </div>
     </div>
-    <Button href="/resume.pdf" variant="secondary" size="sm">
-      ↓ Download resume
-    </Button>
-  </div>
+    <Button
+      href={settings.resumeUrl}
+      variant="secondary"
+      size="sm"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Download size={14} strokeWidth={1.5} /> Download resume
+    </Button>  </div>
 </section>
 
 <!-- ─── Bio ───────────────────────────────────────────────────────────────── -->
@@ -175,7 +187,7 @@
     <div class="hobbies-grid">
       {#each hobbies as h}
         <div class="hobby-card">
-          <span class="hobby-icon" aria-hidden="true">{h.icon}</span>
+          <span class="hobby-icon" aria-hidden="true"><h.icon size={22} strokeWidth={1.5} /></span>
           <p class="hobby-name">{h.name}</p>
           <p class="hobby-desc">{h.desc}</p>
         </div>
@@ -224,22 +236,25 @@
   }
 
   .title {
-    font-size: 13px;
+    font-size: clamp(13px, 1.1vw, 15px);
     color: var(--color-accent);
     margin-top: 2px;
   }
 
   .location {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text-3);
     margin-top: var(--space-1);
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .status {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text-2);
     margin-top: var(--space-2);
   }
@@ -259,7 +274,7 @@
   }
 
   .section-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -276,7 +291,7 @@
   }
 
   .bio p {
-    font-size: 14px;
+    font-size: clamp(14px, 1.2vw, 16px);
     color: var(--color-text-2);
     line-height: 1.75;
   }
@@ -307,19 +322,19 @@
   }
 
   .exp-company {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--color-text);
   }
 
   .exp-role {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-accent);
     margin-top: 3px;
   }
 
   .exp-desc {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--color-text-2);
     margin-top: var(--space-2);
     line-height: 1.6;
@@ -327,7 +342,7 @@
   }
 
   .exp-period {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-text-3);
     white-space: nowrap;
     text-align: right;
@@ -343,19 +358,19 @@
   }
 
   .edu-school {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--color-text);
   }
 
   .edu-degree {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--color-text-2);
     margin-top: 3px;
   }
 
   .edu-note {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-text-3);
     margin-top: var(--space-1);
   }
@@ -368,7 +383,7 @@
   }
 
   .skills-group-label {
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-3);
@@ -410,13 +425,13 @@
   }
 
   .hobby-name {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--color-text);
   }
 
   .hobby-desc {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-text-3);
     margin-top: 2px;
   }

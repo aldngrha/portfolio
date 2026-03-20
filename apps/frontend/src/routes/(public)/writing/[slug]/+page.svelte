@@ -1,6 +1,10 @@
 <script lang="ts">
   import Badge from '$lib/components/ui/Badge.svelte'
+  import { ArrowLeft } from '@lucide/svelte'
   import type { PageData } from './$types'
+  import { marked } from 'marked'
+  import DOMPurify from 'dompurify'
+  import { browser } from '$app/environment'
 
   let { data }: { data: PageData } = $props()
   const { post } = data
@@ -8,6 +12,16 @@
   function formatDate(dateStr: string) {
     return new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(dateStr))
   }
+
+  // Handle markdown parsing
+  let htmlContent = $state('')
+
+  $effect(() => {
+    if (browser && post?.content) {
+      const rawHtml = marked.parse(post.content, { async: false }) as string
+      htmlContent = DOMPurify.sanitize(rawHtml)
+    }
+  })
 </script>
 
 <svelte:head>
@@ -16,9 +30,9 @@
 </svelte:head>
 
 <article class="article">
-  <div class="container article-inner">
+  <div class="container">
     <!-- Back -->
-    <a href="/writing" class="back-link">← back to writing</a>
+    <a href="/writing" class="back-link"><ArrowLeft size={14} strokeWidth={1.5} /> back to writing</a>
 
     <!-- Header -->
     <header class="article-header">
@@ -33,7 +47,12 @@
 
     <!-- Content -->
     <div class="prose">
-      {@html post.content}
+      {#if browser}
+        {@html htmlContent}
+      {:else}
+        <!-- Fallback while loading in browser to avoid layout shift if possible, or simple raw content -->
+        <p style="opacity: 0.5">Loading content...</p>
+      {/if}
     </div>
 
     <!-- Tags -->
@@ -52,14 +71,12 @@
     padding: var(--space-8) 0 var(--space-16);
   }
 
-  .article-inner {
-    max-width: 680px;
-  }
-
   .back-link {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-accent);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     margin-bottom: var(--space-8);
     transition: opacity var(--duration) var(--ease);
   }
@@ -85,7 +102,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text-3);
   }
 
@@ -93,24 +110,24 @@
 
   /* Prose styles */
   .prose {
-    font-size: 15px;
+    font-size: clamp(15px, 1.3vw, 17px);
     line-height: 1.8;
     color: var(--color-text-2);
   }
 
-  .prose :global(h2) {
+  .prose :global(h1),
+  .prose :global(h2),
+  .prose :global(h3),
+  .prose :global(h4) {
     font-family: var(--font-serif);
-    font-size: 22px;
     color: var(--color-text);
-    margin: var(--space-10) 0 var(--space-4);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
   }
 
-  .prose :global(h3) {
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--color-text);
-    margin: var(--space-8) 0 var(--space-3);
-  }
+  .prose :global(h1) { font-size: clamp(24px, 3vw, 30px); }
+  .prose :global(h2) { font-size: clamp(22px, 2.5vw, 26px); }
+  .prose :global(h3) { font-size: clamp(17px, 1.6vw, 20px); font-weight: 500; }
 
   .prose :global(p) {
     margin-bottom: var(--space-5);
@@ -164,6 +181,13 @@
 
   .prose :global(li) {
     margin-bottom: var(--space-2);
+  }
+
+  .prose :global(img) {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    margin: var(--space-6) 0;
+    border: 0.5px solid var(--color-border);
   }
 
   .article-tags {

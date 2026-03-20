@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types'
 import { adminApi } from '$lib/api/client'
-import { fail, redirect } from '@sveltejs/kit'
+import { fail, redirect, isRedirect } from '@sveltejs/kit'
 
 export const load: PageServerLoad = async ({ locals }) => {
   if (locals.token) throw redirect(303, '/admin')
@@ -28,9 +28,9 @@ export const actions: Actions = {
       })
 
       const redirectTo = url.searchParams.get('redirect') ?? '/admin'
-      throw redirect(303, redirectTo)
+      redirect(303, redirectTo)
     } catch (err: unknown) {
-      if (err instanceof Response) throw err
+      if (isRedirect(err)) throw err
       return fail(401, { error: 'Invalid email or password.' })
     }
   },

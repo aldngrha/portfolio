@@ -2,7 +2,7 @@
   import WorkForm from '$lib/components/admin/WorkForm.svelte'
   import type { ActionData } from './$types'
   let { form }: { form?: ActionData } = $props()
-  let loading = false
+  let loading = $state(false)
 </script>
 
 <svelte:head><title>New Work — Admin</title></svelte:head>
@@ -17,11 +17,11 @@
     <div class="error-msg">{form.error}</div>
   {/if}
 
-  <WorkForm action="?/default" bind:loading />
+  <WorkForm action="?/create" bind:loading />
 </div>
 
 <style>
-  .page { max-width: 900px; }
+  .page { max-width: 100vw; }
   .page-header { margin-bottom: var(--space-6); }
   .back { font-size: 12px; color: var(--color-text-3); display: block; margin-bottom: var(--space-3); transition: color var(--duration) var(--ease); }
   .back:hover { color: var(--color-accent); }

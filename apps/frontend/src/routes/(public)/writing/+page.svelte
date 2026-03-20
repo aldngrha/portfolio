@@ -59,7 +59,7 @@
   .page-title em { font-style: italic; color: var(--color-accent); }
 
   .page-subtitle {
-    font-size: 13px;
+    font-size: clamp(13px, 1.1vw, 15px);
     color: var(--color-text-2);
     margin-top: var(--space-2);
     max-width: 440px;
@@ -71,7 +71,7 @@
   }
 
   .empty {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-text-3);
     text-align: center;
     padding: var(--space-16) 0;
@@ -102,13 +102,13 @@
   }
 
   .post-title {
-    font-size: clamp(16px, 2vw, 19px);
+    font-size: clamp(17px, 2vw, 21px);
     color: var(--color-text);
     line-height: 1.3;
   }
 
   .post-excerpt {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-text-2);
     line-height: 1.65;
     max-width: 520px;
@@ -123,7 +123,7 @@
   }
 
   .post-date, .post-read {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-text-3);
     white-space: nowrap;
   }

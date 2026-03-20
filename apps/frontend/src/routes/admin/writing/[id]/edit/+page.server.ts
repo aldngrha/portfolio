@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types'
 import { adminApi } from '$lib/api/client'
-import { error, fail, redirect } from '@sveltejs/kit'
+import { error, fail, redirect, isRedirect } from '@sveltejs/kit'
 import { readTime } from '$lib/utils'
 
 export const load: PageServerLoad = async ({ params, locals }) => {
@@ -32,9 +32,9 @@ export const actions: Actions = {
 
     try {
       await adminApi.posts.update(token, params.id, body)
-      throw redirect(303, '/admin/writing')
+      redirect(303, '/admin/writing')
     } catch (err: unknown) {
-      if (err instanceof Response) throw err
+      if (isRedirect(err)) throw err
       return fail(500, { error: 'Failed to update post.' })
     }
   },
@@ -42,9 +42,9 @@ export const actions: Actions = {
   delete: async ({ locals, params }) => {
     try {
       await adminApi.posts.delete(locals.token ?? '', params.id)
-      throw redirect(303, '/admin/writing')
+      redirect(303, '/admin/writing')
     } catch (err: unknown) {
-      if (err instanceof Response) throw err
+      if (isRedirect(err)) throw err
       return fail(500, { error: 'Failed to delete post.' })
     }
   },

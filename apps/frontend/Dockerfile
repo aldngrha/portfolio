@@ -19,6 +19,7 @@ FROM oven/bun:1-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV ORIGIN=https://aldinugraha.me
 
 # Copy built output
 COPY --from=builder /app/build ./build

@@ -22,7 +22,11 @@ export default defineConfig(
 		rules: {
 			// typescript-eslint strongly recommend that you do not use the no-undef lint rule on TypeScript projects.
 			// see: https://typescript-eslint.io/troubleshooting/faqs/eslint/#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
-			'no-undef': 'off'
+			'no-undef': 'off',
+			'@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+			'@typescript-eslint/no-explicit-any': 'warn',
+			'@typescript-eslint/no-empty-interface': 'off',
+			'@typescript-eslint/no-empty-object-type': 'off'
 		}
 	},
 	{
@@ -34,6 +38,12 @@ export default defineConfig(
 				parser: ts.parser,
 				svelteConfig
 			}
+		},
+		rules: {
+			'svelte/valid-compile': 'off',
+			'svelte/no-at-html-tags': 'warn',
+			'svelte/require-each-key': 'off',
+			'svelte/no-navigation-without-resolve': 'off'
 		}
 	}
 );

@@ -1,17 +1,18 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
   import Button from '$lib/components/ui/Button.svelte'
+  import { Github, Linkedin, Twitter, Send } from '@lucide/svelte'
   import type { ActionData } from './$types'
 
   let { form }: { form?: ActionData } = $props()
 
   const socials = [
-    { label: 'GitHub',    href: 'https://github.com/aldngrha' },
-    { label: 'LinkedIn',  href: 'https://linkedin.com/in/aldngrha' },
-    { label: 'Twitter/X', href: 'https://twitter.com/aldngrha' },
+    { label: 'GitHub',    href: 'https://github.com/aldngrha', icon: Github },
+    { label: 'LinkedIn',  href: 'https://linkedin.com/in/aldngrha', icon: Linkedin },
+    { label: 'Twitter/X', href: 'https://twitter.com/aldngrha', icon: Twitter },
   ]
 
-  let loading = false
+  let loading = $state(false)
 </script>
 
 <svelte:head>
@@ -57,7 +58,7 @@
         {#each socials as s}
           <li>
             <a href={s.href} target="_blank" rel="noopener noreferrer" class="social-link">
-              ↗ {s.label}
+              <s.icon size={14} strokeWidth={1.5} /> {s.label}
             </a>
           </li>
         {/each}
@@ -141,7 +142,11 @@
         </div>
 
         <Button type="submit" variant="primary" disabled={loading}>
-          {loading ? 'Sending...' : 'Send message →'}
+          {#if loading}
+            Sending...
+          {:else}
+            <Send size={14} strokeWidth={1.5} /> Send message
+          {/if}
         </Button>
 
         <p class="form-note">I'll get back to you within 24 hours.</p>
@@ -164,7 +169,7 @@
   .page-title em { font-style: italic; color: var(--color-accent); }
 
   .page-subtitle {
-    font-size: 13px;
+    font-size: clamp(13px, 1.1vw, 15px);
     color: var(--color-text-2);
     margin-top: var(--space-2);
     line-height: 1.65;
@@ -189,7 +194,7 @@
   }
 
   .info-label {
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-3);
@@ -197,7 +202,7 @@
   }
 
   .info-value {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-text);
   }
 
@@ -206,7 +211,7 @@
   }
 
   .info-note {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-text-3);
     margin-top: 3px;
   }
@@ -228,9 +233,12 @@
   .socials { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2); }
 
   .social-link {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text-2);
     transition: color var(--duration) var(--ease);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
 
   .social-link:hover { color: var(--color-accent); }
@@ -241,7 +249,7 @@
   }
 
   .section-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -269,7 +277,7 @@
   }
 
   .field-label {
-    font-size: 11px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-3);
@@ -280,7 +288,7 @@
     border: 0.5px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-2) var(--space-3);
-    font-size: 13px;
+    font-size: 14px;
     font-family: var(--font-sans);
     color: var(--color-text);
     transition: border-color var(--duration) var(--ease);
@@ -297,7 +305,7 @@
   }
 
   .form-note {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-text-3);
     text-align: center;
   }
@@ -317,7 +325,7 @@
     border: 0.5px solid rgba(226, 75, 74, 0.3);
     border-radius: var(--radius-md);
     padding: var(--space-3) var(--space-4);
-    font-size: 13px;
+    font-size: 14px;
     color: #e24b4a;
   }
 

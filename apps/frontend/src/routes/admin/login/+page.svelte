@@ -3,7 +3,7 @@
   import type { ActionData } from './$types'
 
   let { form }: { form?: ActionData } = $props()
-  let loading = false
+  let loading = $state(false)
 </script>
 
 <svelte:head><title>Login — Admin</title></svelte:head>

@@ -1,17 +1,30 @@
 <script lang="ts">
+  import { ArrowLeft, ExternalLink, Github, ChevronLeft, ChevronRight } from '@lucide/svelte'
   import Badge from '$lib/components/ui/Badge.svelte'
   import type { PageData } from './$types'
+  import { marked } from 'marked'
+  import DOMPurify from 'dompurify'
+  import { browser } from '$app/environment'
 
   let { data }: { data: PageData } = $props()
 
   const { work } = data
-  let activeImage = 0
+  let activeImage = $state(0)
 
   function setImage(i: number) {
     activeImage = i
   }
 
   const currentImage = $derived(work.images[activeImage] ?? null)
+
+  let htmlContent = $state('')
+
+  $effect(() => {
+    if (browser && work?.description) {
+      const rawHtml = marked.parse(work.description, { async: false }) as string
+      htmlContent = DOMPurify.sanitize(rawHtml)
+    }
+  })
 </script>
 
 <svelte:head>
@@ -22,7 +35,7 @@
 <!-- ─── Breadcrumb nav ────────────────────────────────────────────────────── -->
 <div class="breadcrumb-bar">
   <div class="container breadcrumb-inner">
-    <a href="/works" class="back-link">← back to works</a>
+    <a href="/works" class="back-link"><ArrowLeft size={14} strokeWidth={1.5} /> back to works</a>
     <span class="breadcrumb-path">works / {work.slug}</span>
   </div>
 </div>
@@ -70,7 +83,7 @@
         {#if currentImage}
           <img src={currentImage.url} alt={currentImage.caption ?? work.title} />
         {:else}
-          <div class="img-placeholder" />
+          <div class="img-placeholder"></div>
         {/if}
       </div>
 
@@ -93,13 +106,17 @@
   </section>
 {/if}
 
-<!-- ─── Content + Sidebar ─────────────────────────────────────────────────── -->
+<!-- ─── Content + Sidebar ────────────────────────────────────────────────────── -->
 <section class="content-section">
   <div class="container content-inner">
     <div class="content-main">
       <p class="section-label">About this project</p>
       <div class="prose">
-        {@html work.description}
+        {#if browser}
+          {@html htmlContent}
+        {:else}
+          <p style="opacity: 0.5">Loading content...</p>
+        {/if}
       </div>
     </div>
 
@@ -108,7 +125,7 @@
         <div class="sidebar-block">
           <p class="sidebar-label">Live project</p>
           <a href={work.live_url} target="_blank" rel="noopener noreferrer" class="sidebar-link">
-            ↗ Visit website
+            <ExternalLink size={14} strokeWidth={1.5} /> Visit website
           </a>
         </div>
       {/if}
@@ -116,7 +133,7 @@
         <div class="sidebar-block">
           <p class="sidebar-label">Source code</p>
           <a href={work.github_url} target="_blank" rel="noopener noreferrer" class="sidebar-link">
-            ↗ GitHub repo
+            <Github size={14} strokeWidth={1.5} /> GitHub repo
           </a>
         </div>
       {/if}
@@ -136,10 +153,10 @@
 <div class="prev-next">
   <div class="container prev-next-inner">
     <a href="/works" class="pn-item">
-      <span class="pn-label">← Previous</span>
+      <span class="pn-label"><ChevronLeft size={14} strokeWidth={1.5} /> Previous</span>
     </a>
     <a href="/works" class="pn-item pn-right">
-      <span class="pn-label">Next →</span>
+      <span class="pn-label">Next <ChevronRight size={14} strokeWidth={1.5} /></span>
     </a>
   </div>
 </div>
@@ -157,15 +174,18 @@
   }
 
   .back-link {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-accent);
     transition: opacity var(--duration) var(--ease);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .back-link:hover { opacity: 0.7; }
 
   .breadcrumb-path {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text-3);
   }
 
@@ -197,7 +217,7 @@
   .title :global(em) { font-style: italic; color: var(--color-accent); }
 
   .desc {
-    font-size: 14px;
+    font-size: clamp(14px, 1.2vw, 16px);
     color: var(--color-text-2);
     line-height: 1.7;
     max-width: 520px;
@@ -223,14 +243,14 @@
   }
 
   .meta-label {
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-3);
   }
 
   .meta-value {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-text);
   }
 
@@ -241,7 +261,7 @@
   }
 
   .section-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -314,7 +334,7 @@
   }
 
   .prose {
-    font-size: 14px;
+    font-size: clamp(14px, 1.2vw, 16px);
     color: var(--color-text-2);
     line-height: 1.75;
   }
@@ -333,7 +353,7 @@
   }
 
   .sidebar-label {
-    font-size: 10px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--color-text-3);
@@ -341,9 +361,12 @@
   }
 
   .sidebar-link {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-accent);
     transition: opacity var(--duration) var(--ease);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .sidebar-link:hover { opacity: 0.7; }
@@ -373,9 +396,12 @@
   .pn-right { align-items: flex-end; }
 
   .pn-label {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-accent);
     transition: opacity var(--duration) var(--ease);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .pn-label:hover { opacity: 0.7; }

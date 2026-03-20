@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
   import Badge from '$lib/components/ui/Badge.svelte'
+  import { FlaskConical, ExternalLink, Github } from '@lucide/svelte'
   import type { PageData } from './$types'
 
   let { data }: { data: PageData } = $props()
@@ -12,11 +12,6 @@
     { label: 'CLI',        value: 'cli' },
     { label: 'Other',      value: 'other' },
   ]
-
-  function setFilter(value: string) {
-    if (value === 'all') goto('/labs')
-    else goto(`/labs?category=${value}`)
-  }
 </script>
 
 <svelte:head>
@@ -30,13 +25,13 @@
     <p class="page-subtitle">Side projects, experiments, and things I built just to see if I could.</p>
     <div class="filters">
       {#each filters as f}
-        <button
+        <a
+          href={f.value === 'all' ? '/labs' : `/labs?category=${f.value}`}
           class="filter-btn"
           class:active={data.category === f.value}
-          onclick={() => setFilter(f.value)}
         >
           {f.label}
-        </button>
+        </a>
       {/each}
     </div>
   </div>
@@ -48,9 +43,9 @@
   {:else}
     <div class="labs-grid">
       {#each data.labs as lab}
-        <div class="lab-card">
+        <a href="/labs/{lab.slug}" class="lab-card">
           <div class="lab-top">
-            <div class="lab-icon">⚗</div>
+            <div class="lab-icon"><FlaskConical size={20} strokeWidth={1.5} /></div>
             <Badge variant={lab.status === 'done' ? 'green' : 'amber'}>
               {lab.status === 'done' ? 'Done' : 'In progress'}
             </Badge>
@@ -65,14 +60,14 @@
             </div>
             <div class="lab-links">
               {#if lab.github_url}
-                <a href={lab.github_url} target="_blank" rel="noopener noreferrer" class="lab-link">↗ GitHub</a>
+                <a href={lab.github_url} target="_blank" rel="noopener noreferrer" class="lab-link"><Github size={12} strokeWidth={1.5} /> GitHub</a>
               {/if}
               {#if lab.demo_url}
-                <a href={lab.demo_url} target="_blank" rel="noopener noreferrer" class="lab-link">↗ Demo</a>
+                <a href={lab.demo_url} target="_blank" rel="noopener noreferrer" class="lab-link"><ExternalLink size={12} strokeWidth={1.5} /> Demo</a>
               {/if}
             </div>
           </div>
-        </div>
+        </a>
       {/each}
     </div>
   {/if}
@@ -92,7 +87,7 @@
   .page-title em { font-style: italic; color: var(--color-accent); }
 
   .page-subtitle {
-    font-size: 13px;
+    font-size: clamp(13px, 1.1vw, 15px);
     color: var(--color-text-2);
     margin-top: var(--space-2);
     max-width: 440px;
@@ -107,7 +102,7 @@
   }
 
   .filter-btn {
-    font-size: 12px;
+    font-size: 13px;
     padding: 5px 14px;
     border-radius: var(--radius-full);
     border: 0.5px solid var(--color-border);
@@ -127,7 +122,7 @@
   }
 
   .empty {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-text-3);
     text-align: center;
     padding: var(--space-16) 0;
@@ -148,6 +143,7 @@
     flex-direction: column;
     gap: var(--space-3);
     transition: border-color var(--duration) var(--ease);
+    text-decoration: none;
   }
 
   .lab-card:hover {
@@ -160,16 +156,16 @@
     align-items: center;
   }
 
-  .lab-icon { font-size: 20px; }
+  .lab-icon { color: var(--color-accent); }
 
   .lab-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--color-text);
   }
 
   .lab-desc {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--color-text-2);
     line-height: 1.6;
   }
@@ -194,8 +190,11 @@
   }
 
   .lab-link {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     transition: opacity var(--duration) var(--ease);
   }
 

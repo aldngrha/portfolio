@@ -1,8 +1,13 @@
 import type { ApiError, ApiResponse, PaginatedResponse } from '$lib/types'
+import { browser } from '$app/environment'
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
+// Server-side: use BACKEND_URL env (private, for internal Docker/network calls)
+// Client-side: use VITE_API_URL (public, for browser calls)
+const API_BASE = browser
+  ? (import.meta.env.VITE_API_URL ?? 'http://localhost:8080')
+  : (process.env.BACKEND_URL ?? import.meta.env.VITE_API_URL ?? 'http://localhost:8080')
 
 // ─── Core Fetcher ────────────────────────────────────────────────────────────
 
@@ -22,8 +27,12 @@ async function request<T>(
   options: RequestInit = {},
   token?: string
 ): Promise<T> {
+  // Cek apakah body yang dikirim adalah FormData
+  const isFormData = options.body instanceof FormData;
+
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    // Hanya set JSON jika bukan FormData
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
     ...(options.headers as Record<string, string>),
   }
 
@@ -48,28 +57,35 @@ async function request<T>(
 
 export const api = {
   works: {
-    list: (params?: { category?: string; featured?: boolean }) =>
-      request<PaginatedResponse<import('$lib/types').Work>>(
-        `/api/v1/works?${new URLSearchParams(params as Record<string, string>)}`
-      ),
+    list: (params?: { category?: string; featured?: boolean; page?: number }) => {
+      const search = new URLSearchParams()
+      if (params?.category) search.set('category', params.category)
+      if (params?.featured) search.set('featured', 'true')
+      if (params?.page) search.set('page', params.page.toString())
+      return request<PaginatedResponse<import('$lib/types').Work>>(`/api/v1/works?${search.toString()}`)
+    },
     get: (slug: string) =>
       request<ApiResponse<import('$lib/types').Work>>(`/api/v1/works/${slug}`),
   },
 
   labs: {
-    list: (params?: { category?: string }) =>
-      request<PaginatedResponse<import('$lib/types').Lab>>(
-        `/api/v1/labs?${new URLSearchParams(params as Record<string, string>)}`
-      ),
+    list: (params?: { category?: string; page?: number }) => {
+      const search = new URLSearchParams()
+      if (params?.category) search.set('category', params.category)
+      if (params?.page) search.set('page', params.page.toString())
+      return request<PaginatedResponse<import('$lib/types').Lab>>(`/api/v1/labs?${search.toString()}`)
+    },
     get: (slug: string) =>
       request<ApiResponse<import('$lib/types').Lab>>(`/api/v1/labs/${slug}`),
   },
 
   posts: {
-    list: (params?: { category?: string; page?: number }) =>
-      request<PaginatedResponse<import('$lib/types').Post>>(
-        `/api/v1/posts?${new URLSearchParams(params as Record<string, string>)}`
-      ),
+    list: (params?: { category?: string; page?: number }) => {
+      const search = new URLSearchParams()
+      if (params?.category) search.set('category', params.category)
+      if (params?.page) search.set('page', params.page.toString())
+      return request<PaginatedResponse<import('$lib/types').Post>>(`/api/v1/posts?${search.toString()}`)
+    },
     get: (slug: string) =>
       request<ApiResponse<import('$lib/types').Post>>(`/api/v1/posts/${slug}`),
   },
@@ -155,7 +171,7 @@ export const adminApi = {
   },
 
   upload: {
-    file: (token: string, file: File, bucket: 'works' | 'resume' | 'profile') => {
+    file: (token: string, file: File, bucket: 'works' | 'resume' | 'profile' | 'labs') => {
       const form = new FormData()
       form.append('file', file)
       form.append('bucket', bucket)

@@ -3,11 +3,10 @@
   import WorkForm from '$lib/components/admin/WorkForm.svelte'
   import type { PageData, ActionData } from './$types'
 
-  let { data }: { data: PageData } = $props()
-  let { form }: { form?: ActionData } = $props()
-  let loading = false
-  let deleting = false
-  let confirmDelete = false
+  let { data, form }: { data: PageData; form?: ActionData } = $props()
+  let loading = $state(false)
+  let deleting = $state(false)
+  let confirmDelete = $state(false)
 </script>
 
 <svelte:head><title>Edit {data.work.title} — Admin</title></svelte:head>
@@ -50,7 +49,7 @@
 {/if}
 
 <style>
-  .page { max-width: 900px; }
+  .page { max-width: 100vw; }
   .page-header { margin-bottom: var(--space-6); }
   .back { font-size: 12px; color: var(--color-text-3); display: block; margin-bottom: var(--space-3); transition: color var(--duration) var(--ease); }
   .back:hover { color: var(--color-accent); }
