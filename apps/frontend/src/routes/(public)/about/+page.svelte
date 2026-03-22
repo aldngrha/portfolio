@@ -217,7 +217,6 @@
 
   .avatar {
     width: 56px;
-    height: 56px;
     border-radius: 50%;
     background: var(--color-accent-soft);
     border: 1.5px solid var(--color-accent-border);
