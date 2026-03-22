@@ -159,6 +159,8 @@
     font-weight: 500;
     color: var(--color-accent-hover);
     flex-shrink: 0;
+    object-fit: cover;
+    display: block;
   }
 
   .name {
