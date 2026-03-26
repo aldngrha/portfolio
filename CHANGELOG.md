@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/aldngrha/portfolio/compare/v1.1.0...v1.2.0) (2026-03-26)
+
+
+### Features
+
+* **admin:** implement image compression to WebP and increase body size limit ([94f5892](https://github.com/aldngrha/portfolio/commit/94f589206862252d0eff51d44d588373370b073d))
+
 # [1.1.0](https://github.com/aldngrha/portfolio/compare/v1.0.0...v1.1.0) (2026-03-22)
 
 
