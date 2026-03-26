@@ -7,7 +7,7 @@
   import { browser } from '$app/environment'
 
   let { data }: { data: PageData } = $props()
-  const { post } = data
+  const post = $derived(data.post)
 
   function formatDate(dateStr: string) {
     return new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(dateStr))

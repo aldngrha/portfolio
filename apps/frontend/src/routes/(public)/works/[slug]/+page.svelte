@@ -8,7 +8,7 @@
 
   let { data }: { data: PageData } = $props()
 
-  const { work } = data
+  const work = $derived(data.work)
   let activeImage = $state(0)
 
   function setImage(i: number) {

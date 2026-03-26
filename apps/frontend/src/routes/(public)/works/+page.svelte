@@ -102,7 +102,7 @@
               <Badge variant="blue">{work.category.replace('_', ' ')}</Badge>
               {#if work.featured}
                 <Badge variant="green">Featured</Badge>
-              {#/if}
+              {/if}
             </div>
           </div>
           <div class="work-body">

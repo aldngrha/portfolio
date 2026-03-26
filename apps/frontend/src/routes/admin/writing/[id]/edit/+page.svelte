@@ -9,8 +9,14 @@
   let loading = $state(false)
   let deleting = $state(false)
   let confirmDelete = $state(false)
-  let content = $state(data.post.content)
-  let tagsInput = $state(data.post.tags?.join(', ') ?? '')
+
+  let content = $state('')
+  let tagsInput = $state('')
+
+  $effect(() => {
+    content = data.post.content
+    tagsInput = data.post.tags?.join(', ') ?? ''
+  })
 </script>
 
 <svelte:head><title>Edit — {data.post.title} — Admin</title></svelte:head>

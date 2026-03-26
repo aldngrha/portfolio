@@ -7,7 +7,7 @@
   import { browser } from '$app/environment'
 
   let { data }: { data: PageData } = $props()
-  const { lab } = data
+  const lab = $derived(data.lab)
 
   let activeImage = $state(0)
   const currentImage = $derived(lab.images?.[activeImage] ?? null)

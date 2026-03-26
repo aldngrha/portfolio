@@ -6,7 +6,7 @@
 
   let { data }: { data: PageData } = $props()
 
-  const { works, labs, posts } = data
+  const { works, labs, posts } = $derived(data)
 </script>
 
 <svelte:head>

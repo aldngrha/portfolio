@@ -5,7 +5,7 @@
   import type { PageData } from './$types'
 
   let { data }: { data: PageData } = $props()
-  const { settings } = data
+  const settings = $derived(data.settings)
 
   const experience = [
     {
