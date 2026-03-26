@@ -43,6 +43,7 @@
     <div class="hero-main">
       <Badge variant="blue">{work.category.replace('_', ' ')}</Badge>
       <h1 class="title serif">{work.title}</h1>
+       <p class="desc">{work.tagline}</p>
       <div class="stack">
         {#each work.tech_stack as tech}
           <Badge>{tech}</Badge>
