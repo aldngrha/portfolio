@@ -40,29 +40,35 @@
       <a href="/works" class="section-link">View all <ArrowRight size={12} strokeWidth={1.5} /></a>
     </div>
     <div class="works-grid">
-      {#each works as work}
-        <a href="/works/{work.slug}" class="work-card">
-          <div class="work-thumb">
-            {#if work.thumbnail_url}
-              <img src={work.thumbnail_url} alt={work.title} />
-            {:else}
-              <div class="work-thumb-placeholder"></div>
-            {/if}
-            <div class="work-thumb-tag">
-              <Badge variant="blue">{work.category.replace('_', ' ')}</Badge>
+      {#if works.length > 0}
+        {#each works as work}
+          <a href="/works/{work.slug}" class="work-card">
+            <div class="work-thumb">
+              {#if work.thumbnail_url}
+                <img src={work.thumbnail_url} alt={work.title} />
+              {:else}
+                <div class="work-thumb-placeholder"></div>
+              {/if}
+              <div class="work-thumb-tag">
+                <Badge variant="blue">{work.category.replace('_', ' ')}</Badge>
+              </div>
             </div>
-          </div>
-          <div class="work-body">
-            <h3 class="work-title">{work.title}</h3>
-            <p class="work-desc">{work.tagline}</p>
-            <div class="work-stack">
-              {#each work.tech_stack.slice(0, 3) as tech}
-                <Badge>{tech}</Badge>
-              {/each}
+            <div class="work-body">
+              <h3 class="work-title">{work.title}</h3>
+              <p class="work-desc">{work.tagline}</p>
+              <div class="work-stack">
+                {#each work.tech_stack.slice(0, 3) as tech}
+                  <Badge>{tech}</Badge>
+                {/each}
+              </div>
             </div>
-          </div>
-        </a>
-      {/each}
+          </a>
+        {/each}
+      {:else}
+        <div class="empty-state">
+          <p>The workshop is currently active, but no projects are on display yet. Stay tuned for fresh builds.</p>
+        </div>
+      {/if}
     </div>
   </div>
 </section>
@@ -75,23 +81,29 @@
       <a href="/labs" class="section-link">View all <ArrowRight size={12} strokeWidth={1.5} /></a>
     </div>
     <div class="labs-grid">
-      {#each labs as lab}
-        <a href="/labs/{lab.slug}" class="lab-card">   <!-- ganti div → a, tambah href -->
-           <div class="lab-top">
-             <div class="lab-icon"><FlaskConical size={18} strokeWidth={1.5} /></div>
-             <Badge variant={lab.status === 'done' ? 'green' : 'amber'}>
-               {lab.status === 'done' ? 'Done' : 'In progress'}
-             </Badge>
-           </div>
-           <h3 class="lab-title">{lab.title}</h3>
-           <p class="lab-desc">{lab.description}</p>
-           <div class="lab-tags">
-             {#each lab.tags.slice(0, 3) as tag}
-               <Badge>{tag}</Badge>
-             {/each}
-           </div>
-         </a>
-      {/each}
+      {#if labs.length > 0}
+        {#each labs as lab}
+          <a href="/labs/{lab.slug}" class="lab-card">   <!-- ganti div → a, tambah href -->
+            <div class="lab-top">
+              <div class="lab-icon"><FlaskConical size={18} strokeWidth={1.5} /></div>
+              <Badge variant={lab.status === 'done' ? 'green' : 'amber'}>
+                {lab.status === 'done' ? 'Done' : 'In progress'}
+              </Badge>
+            </div>
+            <h3 class="lab-title">{lab.title}</h3>
+            <p class="lab-desc">{lab.description}</p>
+            <div class="lab-tags">
+              {#each lab.tags.slice(0, 3) as tag}
+                <Badge>{tag}</Badge>
+              {/each}
+            </div>
+          </a>
+        {/each}
+      {:else}
+        <div class="empty-state">
+          <p>The lab is quiet for now. New experiments are currently brewing behind the scenes.</p>
+        </div>
+      {/if}
     </div>
   </div>
 </section>
@@ -104,22 +116,28 @@
       <a href="/writing" class="section-link">View all <ArrowRight size={12} strokeWidth={1.5} /></a>
     </div>
     <div class="posts-list">
-      {#each posts as post}
-        <a href="/writing/{post.slug}" class="post-item">
-          <div class="post-left">
-            <Badge variant="blue">{post.category}</Badge>
-            <p class="post-title serif">{post.title}</p>
-          </div>
-          <div class="post-meta">
-            <span class="post-date">
-              {post.published_at
-                ? new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(new Date(post.published_at))
-                : 'Draft'}
-            </span>
-            <span class="post-read">{post.read_time} min</span>
-          </div>
-        </a>
-      {/each}
+      {#if posts.length > 0}
+        {#each posts as post}
+          <a href="/writing/{post.slug}" class="post-item">
+            <div class="post-left">
+              <Badge variant="blue">{post.category}</Badge>
+              <p class="post-title serif">{post.title}</p>
+            </div>
+            <div class="post-meta">
+              <span class="post-date">
+                {post.published_at
+                  ? new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric' }).format(new Date(post.published_at))
+                  : 'Draft'}
+              </span>
+              <span class="post-read">{post.read_time} min</span>
+            </div>
+          </a>
+        {/each}
+      {:else}
+        <div class="empty-state">
+          <p>Buffer is empty. Still compiling my thoughts for the very first post.</p>
+        </div>
+      {/if}
     </div>
   </div>
 </section>
@@ -393,6 +411,19 @@
     font-size: 12px;
     color: var(--color-text-3);
     white-space: nowrap;
+  }
+
+  /* Empty state */
+  .empty-state {
+    grid-column: 1 / -1;
+    padding: var(--space-12) var(--space-6);
+    background: var(--color-bg-secondary);
+    border: 0.5px dashed var(--color-border-hover);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--color-text-3);
+    font-size: 14px;
+    line-height: 1.6;
   }
 
   /* CTA */

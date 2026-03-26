@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { Github, Linkedin, Twitter } from '@lucide/svelte'
+  import { Github, Linkedin, Instagram } from '@lucide/svelte'
 
   const year = new Date().getFullYear()
 
   const socials = [
     { label: 'GitHub',   href: 'https://github.com/aldngrha', icon: Github },
     { label: 'LinkedIn', href: 'https://linkedin.com/in/aldngrha', icon: Linkedin },
-    { label: 'Twitter',  href: 'https://twitter.com/aldngrha', icon: Twitter },
+    { label: 'Instagram',  href: 'https://instagram.com/aldngrha', icon: Instagram },
   ]
 </script>
 

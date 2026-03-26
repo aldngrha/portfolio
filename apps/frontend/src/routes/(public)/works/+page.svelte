@@ -14,8 +14,11 @@
   ]
 
   const activeFilter = $derived(data.category)
-  const featured = $derived(data.works.find((w) => w.featured))
-  const rest = $derived(data.works.filter((w) => !w.featured))
+  const latestFeatured = $derived(activeFilter === 'all' ? data.works.find((w) => w.featured) : null)
+  const gridWorks = $derived(activeFilter === 'all'
+    ? data.works.filter((w) => w.id !== latestFeatured?.id)
+    : data.works
+  )
 </script>
 
 <svelte:head>
@@ -50,34 +53,34 @@
   {#if data.works.length === 0}
     <p class="empty">No projects found.</p>
   {:else}
-    <!-- Featured -->
-    {#if featured && activeFilter === 'all'}
-      <a href="/works/{featured.slug}" class="work-card featured">
+    <!-- Featured Card (Only the latest) -->
+    {#if latestFeatured}
+      <a href="/works/{latestFeatured.slug}" class="work-card featured">
         <div class="work-thumb">
-          {#if featured.thumbnail_url}
-            <img src={featured.thumbnail_url} alt={featured.title} />
+          {#if latestFeatured.thumbnail_url}
+            <img src={latestFeatured.thumbnail_url} alt={latestFeatured.title} />
           {:else}
             <div class="thumb-placeholder"></div>
           {/if}
           <div class="thumb-badges">
-            <Badge variant="blue">{featured.category.replace('_', ' ')}</Badge>
+            <Badge variant="blue">{latestFeatured.category.replace('_', ' ')}</Badge>
             <Badge variant="green">Featured</Badge>
           </div>
         </div>
         <div class="work-body featured-body">
-          <h2 class="work-title serif">{featured.title}</h2>
-          <p class="work-desc">{featured.tagline}</p>
+          <h2 class="work-title serif">{latestFeatured.title}</h2>
+          <p class="work-desc">{latestFeatured.tagline}</p>
           <div class="work-stack">
-            {#each featured.tech_stack.slice(0, 4) as tech}
+            {#each latestFeatured.tech_stack.slice(0, 4) as tech}
               <Badge>{tech}</Badge>
             {/each}
           </div>
           <div class="work-meta">
-            <span class="work-year">{featured.year}</span>
-            {#if featured.live_url}
+            <span class="work-year">{latestFeatured.year}</span>
+            {#if latestFeatured.live_url}
               <span class="work-link"><ExternalLink size={12} strokeWidth={1.5} /> Visit</span>
             {/if}
-            {#if featured.github_url}
+            {#if latestFeatured.github_url}
               <span class="work-link"><Github size={12} strokeWidth={1.5} /> GitHub</span>
             {/if}
           </div>
@@ -87,7 +90,7 @@
 
     <!-- Grid -->
     <div class="works-grid">
-      {#each (activeFilter === 'all' ? rest : data.works) as work}
+      {#each gridWorks as work}
         <a href="/works/{work.slug}" class="work-card">
           <div class="work-thumb">
             {#if work.thumbnail_url}
@@ -97,6 +100,9 @@
             {/if}
             <div class="thumb-badges">
               <Badge variant="blue">{work.category.replace('_', ' ')}</Badge>
+              {#if work.featured}
+                <Badge variant="green">Featured</Badge>
+              {#/if}
             </div>
           </div>
           <div class="work-body">
