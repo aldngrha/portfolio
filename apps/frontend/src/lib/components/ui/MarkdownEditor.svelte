@@ -18,14 +18,10 @@
   } = $props()
 
   let activeTab: 'write' | 'preview' = $state('write')
-  let previewHtml = $state('')
-
-  $effect(() => {
-    if (activeTab === 'preview' && browser) {
-      // Parse markdown to HTML and sanitize it
-      const rawHtml = marked.parse(value, { async: false }) as string
-      previewHtml = DOMPurify.sanitize(rawHtml)
-    }
+  const previewHtml = $derived.by(() => {
+    if (activeTab === 'write' || !value) return ''
+    const rawHtml = marked.parse(value, { async: false }) as string
+    return browser ? DOMPurify.sanitize(rawHtml) : rawHtml
   })
 </script>
 

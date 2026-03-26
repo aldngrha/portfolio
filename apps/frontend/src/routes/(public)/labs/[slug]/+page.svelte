@@ -16,13 +16,10 @@
     return new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(new Date(d))
   }
 
-  let htmlDescription = $state('')
-
-  $effect(() => {
-    if (browser && lab?.description) {
-      const rawHtml = marked.parse(lab.description, { async: false }) as string
-      htmlDescription = DOMPurify.sanitize(rawHtml)
-    }
+  const htmlDescription = $derived.by(() => {
+    if (!lab?.description) return ''
+    const rawHtml = marked.parse(lab.description, { async: false }) as string
+    return browser ? DOMPurify.sanitize(rawHtml) : rawHtml
   })
 </script>
 
@@ -48,12 +45,8 @@
         </Badge>
       </div>
       <h1 class="title serif">{lab.title}</h1>
-      <div class="desc prose">
-        {#if browser}
-          {@html htmlDescription}
-        {:else}
-          <p style="opacity: 0.5">Loading content...</p>
-        {/if}
+      <div class="prose">
+        {@html htmlDescription}
       </div>
       <div class="tags">
         {#each lab.tags as tag}

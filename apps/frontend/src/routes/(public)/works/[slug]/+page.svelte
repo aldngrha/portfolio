@@ -17,13 +17,10 @@
 
   const currentImage = $derived(work.images[activeImage] ?? null)
 
-  let htmlContent = $state('')
-
-  $effect(() => {
-    if (browser && work?.description) {
-      const rawHtml = marked.parse(work.description, { async: false }) as string
-      htmlContent = DOMPurify.sanitize(rawHtml)
-    }
+  const htmlContent = $derived.by(() => {
+    if (!work?.description) return ''
+    const rawHtml = marked.parse(work.description, { async: false }) as string
+    return browser ? DOMPurify.sanitize(rawHtml) : rawHtml
   })
 </script>
 
@@ -46,7 +43,6 @@
     <div class="hero-main">
       <Badge variant="blue">{work.category.replace('_', ' ')}</Badge>
       <h1 class="title serif">{work.title}</h1>
-      <p class="desc">{work.description}</p>
       <div class="stack">
         {#each work.tech_stack as tech}
           <Badge>{tech}</Badge>
@@ -112,11 +108,7 @@
     <div class="content-main">
       <p class="section-label">About this project</p>
       <div class="prose">
-        {#if browser}
-          {@html htmlContent}
-        {:else}
-          <p style="opacity: 0.5">Loading content...</p>
-        {/if}
+        {@html htmlContent}
       </div>
     </div>
 

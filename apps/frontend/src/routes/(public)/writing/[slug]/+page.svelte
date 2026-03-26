@@ -14,13 +14,10 @@
   }
 
   // Handle markdown parsing
-  let htmlContent = $state('')
-
-  $effect(() => {
-    if (browser && post?.content) {
-      const rawHtml = marked.parse(post.content, { async: false }) as string
-      htmlContent = DOMPurify.sanitize(rawHtml)
-    }
+  const htmlContent = $derived.by(() => {
+    if (!post?.content) return ''
+    const rawHtml = marked.parse(post.content, { async: false }) as string
+    return browser ? DOMPurify.sanitize(rawHtml) : rawHtml
   })
 </script>
 
@@ -47,12 +44,7 @@
 
     <!-- Content -->
     <div class="prose">
-      {#if browser}
-        {@html htmlContent}
-      {:else}
-        <!-- Fallback while loading in browser to avoid layout shift if possible, or simple raw content -->
-        <p style="opacity: 0.5">Loading content...</p>
-      {/if}
+      {@html htmlContent}
     </div>
 
     <!-- Tags -->
