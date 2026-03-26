@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/aldngrha/portfolio/compare/v1.4.0...v1.5.0) (2026-03-26)
+
+
+### Features
+
+* implement image compression, optimized SSR markdown, and improved UI logic ([960b7d9](https://github.com/aldngrha/portfolio/commit/960b7d9f03393f7ee8bd46a739aa99e44adddb2c))
+
 # [1.4.0](https://github.com/aldngrha/portfolio/compare/v1.3.2...v1.4.0) (2026-03-26)
 
 
