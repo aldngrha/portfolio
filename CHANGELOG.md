@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/aldngrha/portfolio/compare/v1.2.0...v1.3.0) (2026-03-26)
+
+
+### Features
+
+* **admin:** implement image compression and improve markdown rendering ([78ff125](https://github.com/aldngrha/portfolio/commit/78ff1250227e2f25d15f9f07fae4e752a12c032b))
+
 # [1.2.0](https://github.com/aldngrha/portfolio/compare/v1.1.0...v1.2.0) (2026-03-26)
 
 
