@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/aldngrha/portfolio/compare/v1.5.0...v1.5.1) (2026-03-26)
+
+
+### Bug Fixes
+
+* error ([a1e3d90](https://github.com/aldngrha/portfolio/commit/a1e3d902f5905fb9da20c1fa2fa9f0b2ff2aa27b))
+
 # [1.5.0](https://github.com/aldngrha/portfolio/compare/v1.4.0...v1.5.0) (2026-03-26)
 
 
