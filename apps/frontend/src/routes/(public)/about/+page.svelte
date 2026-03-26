@@ -16,11 +16,11 @@
       desc: 'Building full-stack systems for traceability and certification across SKA\'s coffee supply chain. Supporting compliance with 4C and EUDR global standards.',
     },
     {
-      company: 'Web3 Platform (NDA)',
+      company: 'Web3 Platform',
       role: 'Frontend Engineer',
       period: 'Feb – Apr 2025',
       current: false,
-      desc: 'Built dApp interfaces on the Solana blockchain with crypto wallet integration, schema-based form validation, and modular component architecture.',
+      desc: 'Developed high-performance frontend interfaces for a Web3 decentralized application, focusing on secure blockchain interactions, modular architecture, and seamless user experience.',
     },
     {
       company: 'CV Newus Technology',

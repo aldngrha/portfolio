@@ -123,78 +123,7 @@
 
   .preview {
     padding: var(--space-5);
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--color-text-2);
     background: var(--color-surface);
     overflow-y: auto;
-  }
-
-  /* Basic Prose Styling for Preview */
-  .preview :global(h1),
-  .preview :global(h2),
-  .preview :global(h3),
-  .preview :global(h4) {
-    font-family: var(--font-serif);
-    color: var(--color-text);
-    margin-top: var(--space-6);
-    margin-bottom: var(--space-3);
-  }
-
-  .preview :global(h1) { font-size: 24px; }
-  .preview :global(h2) { font-size: 20px; }
-  .preview :global(h3) { font-size: 18px; }
-
-  .preview :global(p) {
-    margin-bottom: var(--space-4);
-  }
-
-  .preview :global(a) {
-    color: var(--color-accent);
-    text-decoration: underline;
-  }
-
-  .preview :global(code) {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    background: var(--color-bg-secondary);
-    padding: 2px 5px;
-    border-radius: var(--radius-sm);
-  }
-
-  .preview :global(pre) {
-    background: var(--color-bg-secondary);
-    padding: var(--space-4);
-    border-radius: var(--radius-md);
-    overflow-x: auto;
-    margin: var(--space-4) 0;
-  }
-
-  .preview :global(pre code) {
-    background: transparent;
-    padding: 0;
-  }
-
-  .preview :global(ul), .preview :global(ol) {
-    padding-left: var(--space-6);
-    margin-bottom: var(--space-4);
-  }
-
-  .preview :global(li) {
-    margin-bottom: var(--space-1);
-  }
-
-  .preview :global(blockquote) {
-    border-left: 3px solid var(--color-accent);
-    padding-left: var(--space-4);
-    margin-left: 0;
-    color: var(--color-text-3);
-    font-style: italic;
-  }
-
-  .preview :global(img) {
-    max-width: 100%;
-    border-radius: var(--radius-md);
-    margin: var(--space-4) 0;
   }
 </style>

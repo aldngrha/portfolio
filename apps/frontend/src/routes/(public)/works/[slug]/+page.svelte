@@ -325,12 +325,6 @@
     gap: var(--space-12);
   }
 
-  .prose {
-    font-size: clamp(14px, 1.2vw, 16px);
-    color: var(--color-text-2);
-    line-height: 1.75;
-  }
-
   .sidebar {
     display: flex;
     flex-direction: column;
