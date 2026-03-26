@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/aldngrha/portfolio/compare/v1.3.1...v1.3.2) (2026-03-26)
+
+
+### Bug Fixes
+
+* css work ([42ed14c](https://github.com/aldngrha/portfolio/commit/42ed14ce04e236ee6a919f94a1b5ddec8e0b6196))
+
 ## [1.3.1](https://github.com/aldngrha/portfolio/compare/v1.3.0...v1.3.1) (2026-03-26)
 
 
