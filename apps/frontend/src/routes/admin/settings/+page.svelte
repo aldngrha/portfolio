@@ -2,6 +2,7 @@
   import { enhance } from '$app/forms'
   import Button from '$lib/components/ui/Button.svelte'
   import type { PageData, ActionData } from './$types'
+  import { compressToWebP } from '$lib/utils'
 
   let { data, form }: { data: PageData, form?: ActionData } = $props()
 
@@ -52,8 +53,19 @@
         method="POST"
         action="?/uploadAvatar"
         enctype="multipart/form-data"
-        use:enhance={() => {
+        use:enhance={async ({ formData }) => {
           uploadingAvatar = true
+
+          const avatar = formData.get('avatar') as File
+          if (avatar && avatar.size > 0 && avatar.type.startsWith('image/')) {
+            try {
+              const compressed = await compressToWebP(avatar, { maxSizeMB: 2 })
+              formData.set('avatar', compressed)
+            } catch (err) {
+              console.error('Error compressing avatar:', err)
+            }
+          }
+
           return async ({ update }) => {
             uploadingAvatar = false
             avatarPreview = null // Reset custom preview so it uses the new load state

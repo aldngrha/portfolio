@@ -6,6 +6,7 @@ services:
       - "3000"
     environment:
       - VITE_API_URL=https://api.aldinugraha.me
+      - BODY_SIZE_LIMIT=10485760
     networks:
       - proxy
 
@@ -45,7 +46,11 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aldi} -d ${POSTGRES_DB:-portfolio}"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-aldi} -d ${POSTGRES_DB:-portfolio}",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5

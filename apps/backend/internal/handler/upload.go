@@ -15,9 +15,9 @@ func NewUploadHandler(s *storage.Client) *UploadHandler {
 }
 
 func (h *UploadHandler) Upload(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseMultipartForm(10 << 20) // 10MB limit
+	err := r.ParseMultipartForm(2 << 20) // 2MB limit
 	if err != nil {
-      BadRequest(w, "file too large (max 10MB)")
+      BadRequest(w, "file too large (max 2MB)")
       return
     }
 

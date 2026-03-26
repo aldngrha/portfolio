@@ -3,6 +3,7 @@
   import Button from '$lib/components/ui/Button.svelte'
   import MarkdownEditor from '$lib/components/ui/MarkdownEditor.svelte'
   import type { Work } from '$lib/types'
+  import { compressToWebP } from '$lib/utils'
 
   let {
     work = {},
@@ -56,8 +57,37 @@
   method="POST"
   {action}
   enctype="multipart/form-data"
-  use:enhance={() => {
+  use:enhance={async ({ formData }) => {
     loading = true
+
+    // Compress thumbnail
+    const thumbnail = formData.get('file') as File
+    if (thumbnail && thumbnail.size > 0 && thumbnail.type.startsWith('image/')) {
+      try {
+        const compressed = await compressToWebP(thumbnail, { maxSizeMB: 2 })
+        formData.set('file', compressed)
+      } catch (err) {
+        console.error('Error compressing thumbnail:', err)
+      }
+    }
+
+    // Compress gallery images
+    const images = formData.getAll('images') as File[]
+    if (images.length > 0) {
+      formData.delete('images')
+      for (const image of images) {
+        if (image && image.size > 0 && image.type.startsWith('image/')) {
+          try {
+            const compressed = await compressToWebP(image, { maxSizeMB: 2 })
+            formData.append('images', compressed)
+          } catch (err) {
+            console.error('Error compressing gallery image:', err)
+            formData.append('images', image) // fallback to original
+          }
+        }
+      }
+    }
+
     return async ({ update }) => {
       loading = false
       await update()

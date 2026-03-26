@@ -14,8 +14,8 @@ export const actions: Actions = {
     let thumbnail_url: string | null = null
 
     if (thumbnailFile && thumbnailFile.size > 0) {
-      if (thumbnailFile.size > 10 * 1024 * 1024) {
-        return fail(400, { error: 'File too large. Max 10MB.' })
+      if (thumbnailFile.size > 2 * 1024 * 1024) {
+        return fail(400, { error: 'File too large. Max 2MB.' })
       }
       try {
         const up = await adminApi.upload.file(token, thumbnailFile, 'works')
