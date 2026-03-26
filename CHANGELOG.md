@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/aldngrha/portfolio/compare/v1.3.0...v1.3.1) (2026-03-26)
+
+
+### Bug Fixes
+
+* detail work ([6426eac](https://github.com/aldngrha/portfolio/commit/6426eac5e38e463c45d4988c000d9b21f80b7050))
+
 # [1.3.0](https://github.com/aldngrha/portfolio/compare/v1.2.0...v1.3.0) (2026-03-26)
 
 
