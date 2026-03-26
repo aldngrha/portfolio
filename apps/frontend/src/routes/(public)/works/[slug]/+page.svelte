@@ -182,7 +182,6 @@
     color: var(--color-text-3);
   }
 
-  /* Hero */
   .detail-hero {
     padding: var(--space-10) 0 var(--space-8);
     border-bottom: 0.5px solid var(--color-border);
