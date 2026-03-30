@@ -33,12 +33,14 @@ const authGuard: Handle = async ({ event, resolve }) => {
 }
 
 export const handleFetch = async ({ event, request, fetch }) => {
-  const { pathname } = new URL(request.url)
-  const isApiCall = pathname.startsWith('/api/v1')
+  const url = new URL(request.url)
+  const isApiCall = url.pathname.includes('/api/v1')
 
   if (isApiCall) {
     const ua = event.request.headers.get('user-agent')
-    const ip = event.getClientAddress()
+    // Safe get client address (ignore errors during local dev if any)
+    let ip = ''
+    try { ip = event.getClientAddress() } catch { ip = '127.0.0.1' }
 
     if (ua) request.headers.set('X-Visitor-User-Agent', ua)
     if (ip) request.headers.set('X-Visitor-IP', ip)
