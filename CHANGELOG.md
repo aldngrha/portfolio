@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/aldngrha/portfolio/compare/v1.6.1...v1.6.2) (2026-03-30)
+
+
+### Bug Fixes
+
+* link sosmed ([b924776](https://github.com/aldngrha/portfolio/commit/b924776f61e9385384b68058a0f1d8ccd43e24d8))
+
 ## [1.6.1](https://github.com/aldngrha/portfolio/compare/v1.6.0...v1.6.1) (2026-03-30)
 
 
