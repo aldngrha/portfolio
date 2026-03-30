@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/aldngrha/portfolio/compare/v1.5.1...v1.6.0) (2026-03-30)
+
+
+### Features
+
+* add visitor analytics and contact rate limiting ([d6e43ab](https://github.com/aldngrha/portfolio/commit/d6e43abebe7295d521b08d34681f61516d953367))
+
 ## [1.5.1](https://github.com/aldngrha/portfolio/compare/v1.5.0...v1.5.1) (2026-03-26)
 
 
