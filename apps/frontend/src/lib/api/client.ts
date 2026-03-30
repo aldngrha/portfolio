@@ -40,15 +40,14 @@ async function request<T>(
   // SSR Header Forwarding (Safe & Request-scoped)
   if (!browser) {
     try {
-      // Import secara dinamis karena AsyncLocalStorage cuma ada di server
-      const { visitorStore } = await import('$lib/server/context');
+      const { visitorStore } = await import('./visitor-store');
       const ctx = visitorStore.getStore();
       if (ctx) {
         if (ctx.ua) headers['X-Visitor-User-Agent'] = ctx.ua;
         if (ctx.ip) headers['X-Visitor-IP'] = ctx.ip;
       }
     } catch (e) {
-      // Ignore in case of import errors in different environments
+      // Ignore
     }
   }
 

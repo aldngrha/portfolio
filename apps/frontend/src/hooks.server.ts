@@ -1,6 +1,6 @@
 import { redirect, type Handle } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
-import { visitorStore } from '$lib/server/context'
+import { visitorStore } from '$lib/api/visitor-store'
 
 const visitorHandler: Handle = async ({ event, resolve }) => {
   const ua = event.request.headers.get('user-agent') ?? ''
