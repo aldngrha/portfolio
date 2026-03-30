@@ -1,6 +1,9 @@
 package domain
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 type Post struct {
 	ID          string    `json:"id"`
@@ -54,4 +57,5 @@ type PostRepository interface {
 	Create(input CreatePostInput) (*Post, error)
 	Update(id string, input UpdatePostInput) (*Post, error)
 	Delete(id string) error
+	Count(ctx context.Context) (int, error)
 }

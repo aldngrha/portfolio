@@ -71,3 +71,9 @@ func (r *contactRepository) Delete(id string) error {
 	_, err := r.db.Exec(context.Background(), "DELETE FROM contact_messages WHERE id=$1", id)
 	return err
 }
+
+func (r *contactRepository) CountUnread() (int, error) {
+	var count int
+	err := r.db.QueryRow(context.Background(), "SELECT COUNT(*) FROM contact_messages WHERE read=false").Scan(&count)
+	return count, err
+}

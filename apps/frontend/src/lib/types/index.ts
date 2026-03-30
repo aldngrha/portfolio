@@ -83,6 +83,41 @@ export interface ContactMessage {
   created_at: string
 }
 
+export interface Visitor {
+  id: string
+  path: string
+  method: string
+  ip_hash: string
+  user_agent: string | null
+  referer: string | null
+  created_at: string
+}
+
+export interface VisitorStats {
+  total_hits: number
+  unique_visitors: number
+  hits_last_24h: number
+  unique_last_24h: number
+}
+
+export interface DailyStat {
+  date: string
+  hits: number
+  unique: number
+}
+
+export interface AdminStats {
+  visitors: VisitorStats
+  recent_visitors: Visitor[]
+  daily_stats: DailyStat[]
+  counts: {
+    works: number
+    labs: number
+    posts: number
+    unread_messages: number
+  }
+}
+
 // ─── API Response Types ──────────────────────────────────────────────────────
 
 export interface ApiResponse<T> {

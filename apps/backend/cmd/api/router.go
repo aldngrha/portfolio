@@ -6,6 +6,7 @@ import (
 
 	"github.com/aldngrha/portfolio-backend/internal/handler"
 	"github.com/aldngrha/portfolio-backend/internal/middleware"
+	"github.com/aldngrha/portfolio-backend/internal/repository"
 	"github.com/go-chi/chi/v5"
 	chimw "github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -18,6 +19,8 @@ func newRouter(
 	contactH *handler.ContactHandler,
 	authH    *handler.AuthHandler,
 	uploadH  *handler.UploadHandler,
+	statsH   *handler.StatsHandler,
+	visitorRepo *repository.VisitorRepository,
 	jwtSecret       string,
 	allowedOrigins  string,
 ) http.Handler {
@@ -27,6 +30,7 @@ func newRouter(
 	r.Use(chimw.Recoverer)
 	r.Use(chimw.StripSlashes)
 	r.Use(middleware.Logger)
+	r.Use(middleware.VisitorTracker(visitorRepo))
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   strings.Split(allowedOrigins, ","),
 		AllowedMethods:   []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
@@ -48,13 +52,17 @@ func newRouter(
 		r.Get("/labs/{slug}",        labH.Get)
 		r.Get("/posts",              postH.List)
 		r.Get("/posts/{slug}",       postH.Get)
-		r.Post("/contact",           contactH.Send)
+
+		r.With(middleware.RateLimit).Post("/contact", contactH.Send)
 
 		// ─── Admin routes (JWT protected) ────────────────────────
 		r.Post("/admin/auth/login", authH.Login)
 
 		r.Group(func(r chi.Router) {
 			r.Use(middleware.Auth(jwtSecret))
+
+			// Stats
+			r.Get("/admin/stats", statsH.GetStats)
 
 			// Upload
 			r.Post("/admin/upload", uploadH.Upload)

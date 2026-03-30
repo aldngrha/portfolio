@@ -206,6 +206,12 @@ func (r *workRepository) Delete(id string) error {
 	return err
 }
 
+func (r *workRepository) Count(ctx context.Context) (int, error) {
+	var count int
+	err := r.db.QueryRow(ctx, "SELECT COUNT(*) FROM works").Scan(&count)
+	return count, err
+}
+
 func (r *workRepository) loadImages(ctx context.Context, workID string) ([]domain.WorkImage, error) {
 	rows, err := r.db.Query(ctx,
 		`SELECT id, work_id, url, caption, sort_order FROM work_images WHERE work_id=$1 ORDER BY sort_order`,

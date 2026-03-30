@@ -1,6 +1,9 @@
 package domain
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 type LabStatus   string
 type LabCategory string
@@ -77,4 +80,5 @@ type LabRepository interface {
 	Create(input CreateLabInput) (*Lab, error)
 	Update(id string, input UpdateLabInput) (*Lab, error)
 	Delete(id string) error
+	Count(ctx context.Context) (int, error)
 }

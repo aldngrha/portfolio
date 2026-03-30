@@ -57,6 +57,7 @@ func main() {
 	labRepo     := repository.NewLabRepository(db)
 	postRepo    := repository.NewPostRepository(db)
 	contactRepo := repository.NewContactRepository(db)
+	visitorRepo := repository.NewVisitorRepository(db)
 
 	// Handlers
 	workH    := handler.NewWorkHandler(workRepo, storageClient)
@@ -65,9 +66,10 @@ func main() {
 	contactH := handler.NewContactHandler(contactRepo, mailClient)
 	authH    := handler.NewAuthHandler(cfg)
 	uploadH  := handler.NewUploadHandler(storageClient)
+	statsH   := handler.NewStatsHandler(visitorRepo, workRepo, labRepo, postRepo, contactRepo)
 
 	// Router
-	router := newRouter(workH, labH, postH, contactH, authH, uploadH, cfg.JWTSecret, cfg.AllowedOrigins)
+	router := newRouter(workH, labH, postH, contactH, authH, uploadH, statsH, visitorRepo, cfg.JWTSecret, cfg.AllowedOrigins)
 
 	// Server
 	srv := &http.Server{

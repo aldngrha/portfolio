@@ -127,6 +127,12 @@ func (r *postRepository) Delete(id string) error {
 	return err
 }
 
+func (r *postRepository) Count(ctx context.Context) (int, error) {
+	var count int
+	err := r.db.QueryRow(ctx, "SELECT COUNT(*) FROM posts").Scan(&count)
+	return count, err
+}
+
 func scanPost(row scanner) (*domain.Post, error) {
 	var p domain.Post
 	err := row.Scan(&p.ID, &p.Slug, &p.Title, &p.Excerpt, &p.Content, &p.Tags, &p.Category,

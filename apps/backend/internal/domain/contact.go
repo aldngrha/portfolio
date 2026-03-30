@@ -25,4 +25,5 @@ type ContactRepository interface {
 	Create(input CreateContactInput) (*ContactMessage, error)
 	MarkRead(id string) error
 	Delete(id string) error
+	CountUnread() (int, error)
 }

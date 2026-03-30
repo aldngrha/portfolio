@@ -25,8 +25,10 @@ export const actions: Actions = {
     try {
       await api.contact.send({ name, email, subject, message })
       return { success: true }
-    } catch {
-      return fail(500, { error: 'Failed to send message. Please try again.', name, email, subject, message })
+    } catch (err: any) {
+      const status = err.status || 500
+      const message = err.message || 'Failed to send message. Please try again.'
+      return fail(status, { error: message, name, email, subject, message: form.get('message')?.toString() })
     }
   },
 }

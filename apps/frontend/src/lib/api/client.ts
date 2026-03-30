@@ -183,6 +183,11 @@ export const adminApi = {
       }, token)
     },
   },
+
+  stats: {
+    get: (token: string) =>
+      request<import('$lib/types').AdminStats>('/api/v1/admin/stats', {}, token),
+  },
 }
 
 export { ApiClientError }

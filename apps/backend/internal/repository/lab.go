@@ -149,3 +149,9 @@ func (r *labRepository) Delete(id string) error {
 	_, err := r.db.Exec(context.Background(), "DELETE FROM labs WHERE id=$1", id)
 	return err
 }
+
+func (r *labRepository) Count(ctx context.Context) (int, error) {
+	var count int
+	err := r.db.QueryRow(ctx, "SELECT COUNT(*) FROM labs").Scan(&count)
+	return count, err
+}

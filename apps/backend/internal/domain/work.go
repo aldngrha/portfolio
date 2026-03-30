@@ -1,6 +1,9 @@
 package domain
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 type WorkStatus   string
 type WorkCategory string
@@ -97,4 +100,5 @@ type WorkRepository interface {
 	Create(input CreateWorkInput) (*Work, error)
 	Update(id string, input UpdateWorkInput) (*Work, error)
 	Delete(id string) error
+	Count(ctx context.Context) (int, error)
 }
