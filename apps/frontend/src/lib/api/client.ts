@@ -12,12 +12,6 @@ const API_BASE = browser
 
 // ─── Core Fetcher ────────────────────────────────────────────────────────────
 
-// Global variable to hold visitor info during SSR (set in +page.server.ts)
-export const ssrContext = {
-  ua: '',
-  ip: ''
-}
-
 class ApiClientError extends Error {
   constructor(
     public readonly status: number,
@@ -43,10 +37,19 @@ async function request<T>(
     ...(options.headers as Record<string, string>),
   }
 
-  // MANUAL FORWARDING: If we are on server and have ssrContext set
+  // SSR Header Forwarding (Safe & Request-scoped)
   if (!browser) {
-    if (ssrContext.ua) headers['X-Visitor-User-Agent'] = ssrContext.ua
-    if (ssrContext.ip) headers['X-Visitor-IP'] = ssrContext.ip
+    try {
+      // Import secara dinamis karena AsyncLocalStorage cuma ada di server
+      const { visitorStore } = await import('$lib/server/context');
+      const ctx = visitorStore.getStore();
+      if (ctx) {
+        if (ctx.ua) headers['X-Visitor-User-Agent'] = ctx.ua;
+        if (ctx.ip) headers['X-Visitor-IP'] = ctx.ip;
+      }
+    } catch (e) {
+      // Ignore in case of import errors in different environments
+    }
   }
 
   if (token) {

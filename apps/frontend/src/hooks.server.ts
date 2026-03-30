@@ -1,5 +1,15 @@
 import { redirect, type Handle } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
+import { visitorStore } from '$lib/server/context'
+
+const visitorHandler: Handle = async ({ event, resolve }) => {
+  const ua = event.request.headers.get('user-agent') ?? ''
+  let ip = ''
+  try { ip = event.getClientAddress() } catch { ip = '127.0.0.1' }
+
+  // Jalankan request di dalam "ruang lingkup" visitorStore
+  return visitorStore.run({ ua, ip }, () => resolve(event))
+}
 
 const themeHandler: Handle = async ({ event, resolve }) => {
   const theme = event.cookies.get('theme') ?? 'light'
@@ -31,4 +41,4 @@ const authGuard: Handle = async ({ event, resolve }) => {
   return resolve(event)
 }
 
-export const handle = sequence(themeHandler, authGuard)
+export const handle = sequence(visitorHandler, themeHandler, authGuard)
