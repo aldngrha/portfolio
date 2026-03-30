@@ -17,14 +17,6 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			ua := r.UserAgent()
 
-			// DEBUG LOG (Temporary)
-			slog.Info("visitor-tracker-start",
-				"method", r.Method,
-				"path", r.URL.Path,
-				"ua", ua,
-				"fua", r.Header.Get("X-Visitor-User-Agent"),
-				"fip", r.Header.Get("X-Visitor-IP"))
-
 			// 1. Handle identity (SSR vs Client)
 			// Priority 1: X-Visitor-User-Agent (set by our SvelteKit SSR)
 			fua := r.Header.Get("X-Visitor-User-Agent")
@@ -32,11 +24,9 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 
 			if fua != "" {
 				ua = fua
-				slog.Info("visitor-tracker-ua-forwarded", "ua", ua)
 			} else if isInternal {
 				// It's a request from our server WITHOUT a forwarded UA
 				// (e.g., startup checks, cron jobs, etc.) - Skip logging
-				slog.Info("visitor-tracker-skip-internal", "ua", ua)
 				next.ServeHTTP(w, r)
 				return
 			}
@@ -46,7 +36,6 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 			if r.Method != http.MethodGet ||
 			   strings.HasPrefix(r.URL.Path, "/api/v1/admin") ||
 			   r.URL.Path == "/health" {
-				slog.Info("visitor-tracker-skip-path", "method", r.Method, "path", r.URL.Path)
 				next.ServeHTTP(w, r)
 				return
 			}
@@ -60,11 +49,8 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 				ip = xvip
 			}
 
-			slog.Info("visitor-tracker-logging", "path", r.URL.Path, "ua", ua, "ip", ip)
-
 			// Hash IP for privacy
-			hash := sha256.Sum256([]byte(ip))
-			ipHash := fmt.Sprintf("%x", hash)
+			hash := sha256.Sum256([]byte(ip))			ipHash := fmt.Sprintf("%x", hash)
 
 			v := &domain.Visitor{
 				Path:      r.URL.Path,
