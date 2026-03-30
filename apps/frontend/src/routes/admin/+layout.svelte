@@ -2,13 +2,14 @@
   import { page } from '$app/stores'
   import { goto } from '$app/navigation'
   import { auth } from '$lib/stores'
-  import { LayoutDashboard, Briefcase, FlaskConical, PenLine, Mail, Settings, ExternalLink, LogOut } from '@lucide/svelte'
+  import { LayoutDashboard, Users, Briefcase, FlaskConical, PenLine, Mail, Settings, ExternalLink, LogOut } from '@lucide/svelte'
   import type { Snippet } from 'svelte'
 
   let { children }: { children?: Snippet } = $props()
 
   const navItems = [
     { label: 'Dashboard', href: '/admin',           icon: LayoutDashboard },
+    { label: 'Visitors',  href: '/admin/visitors',   icon: Users },
     { label: 'Works',     href: '/admin/works',      icon: Briefcase },
     { label: 'Labs',      href: '/admin/labs',       icon: FlaskConical },
     { label: 'Writing',   href: '/admin/writing',    icon: PenLine },

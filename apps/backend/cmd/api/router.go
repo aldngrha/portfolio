@@ -20,10 +20,11 @@ func newRouter(
 	authH    *handler.AuthHandler,
 	uploadH  *handler.UploadHandler,
 	statsH   *handler.StatsHandler,
+	visitorH *handler.VisitorHandler,
 	visitorRepo *repository.VisitorRepository,
 	jwtSecret       string,
 	allowedOrigins  string,
-) http.Handler {
+	) http.Handler {
 	r := chi.NewRouter()
 
 	// Global middleware
@@ -64,9 +65,11 @@ func newRouter(
 			// Stats
 			r.Get("/admin/stats", statsH.GetStats)
 
+			// Visitors
+			r.Get("/admin/visitors", visitorH.AdminList)
+
 			// Upload
 			r.Post("/admin/upload", uploadH.Upload)
-
 			// Works
 			r.Get("/admin/works",           workH.AdminList)
 			r.Post("/admin/works",          workH.AdminCreate)

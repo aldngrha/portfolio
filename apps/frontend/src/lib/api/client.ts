@@ -188,6 +188,11 @@ export const adminApi = {
     get: (token: string) =>
       request<import('$lib/types').AdminStats>('/api/v1/admin/stats', {}, token),
   },
+
+  visitors: {
+    list: (token: string, page = 1, perPage = 20) =>
+      request<PaginatedResponse<import('$lib/types').Visitor>>(`/api/v1/admin/visitors?page=${page}&per_page=${perPage}`, {}, token),
+  },
 }
 
 export { ApiClientError }

@@ -80,6 +80,38 @@ func (r *VisitorRepository) GetRecent(ctx context.Context, limit int) ([]domain.
 	return visitors, nil
 }
 
+func (r *VisitorRepository) FindAll(ctx context.Context, page, perPage int) ([]domain.Visitor, int, error) {
+	var total int
+	err := r.db.QueryRow(ctx, "SELECT COUNT(*) FROM visitors").Scan(&total)
+	if err != nil {
+		return nil, 0, err
+	}
+
+	offset := (page - 1) * perPage
+	query := `
+		SELECT id, path, method, ip_hash, user_agent, referer, created_at
+		FROM visitors
+		ORDER BY created_at DESC
+		LIMIT $1 OFFSET $2
+	`
+	rows, err := r.db.Query(ctx, query, perPage, offset)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var visitors []domain.Visitor
+	for rows.Next() {
+		var v domain.Visitor
+		err := rows.Scan(&v.ID, &v.Path, &v.Method, &v.IPHash, &v.UserAgent, &v.Referer, &v.CreatedAt)
+		if err != nil {
+			return nil, 0, err
+		}
+		visitors = append(visitors, v)
+	}
+	return visitors, total, nil
+}
+
 type DailyStat struct {
 	Date   string `json:"date"`
 	Hits   int    `json:"hits"`

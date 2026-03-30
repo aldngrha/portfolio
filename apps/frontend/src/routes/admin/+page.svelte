@@ -59,7 +59,10 @@
   </div>
 
   <div class="recent-visits">
-    <p class="section-label">Recent visits</p>
+    <div class="section-header">
+      <p class="section-label">Recent visits</p>
+      <a href="/admin/visitors" class="view-all">View all visits →</a>
+    </div>
     <div class="table-wrapper">
       <table class="recent-table">
         <thead>
@@ -141,6 +144,30 @@
 
   .recent-visits {
     margin-bottom: var(--space-10);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header .section-label {
+    margin-bottom: 0;
+  }
+
+  .view-all {
+    font-size: 11px;
+    color: var(--color-accent);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s ease;
+  }
+
+  .view-all:hover {
+    opacity: 0.7;
   }
 
   .table-wrapper {

@@ -67,9 +67,10 @@ func main() {
 	authH    := handler.NewAuthHandler(cfg)
 	uploadH  := handler.NewUploadHandler(storageClient)
 	statsH   := handler.NewStatsHandler(visitorRepo, workRepo, labRepo, postRepo, contactRepo)
+	visitorH := handler.NewVisitorHandler(visitorRepo)
 
 	// Router
-	router := newRouter(workH, labH, postH, contactH, authH, uploadH, statsH, visitorRepo, cfg.JWTSecret, cfg.AllowedOrigins)
+	router := newRouter(workH, labH, postH, contactH, authH, uploadH, statsH, visitorH, visitorRepo, cfg.JWTSecret, cfg.AllowedOrigins)
 
 	// Server
 	srv := &http.Server{
