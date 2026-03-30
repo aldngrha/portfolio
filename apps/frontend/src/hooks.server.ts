@@ -34,16 +34,22 @@ const authGuard: Handle = async ({ event, resolve }) => {
 
 export const handleFetch = async ({ event, request, fetch }) => {
   const url = new URL(request.url)
-  const isApiCall = url.pathname.includes('/api/v1')
+  // Check if it's our backend API
+  const isApiCall = url.href.includes('/api/v1')
 
   if (isApiCall) {
     const ua = event.request.headers.get('user-agent')
-    // Safe get client address (ignore errors during local dev if any)
     let ip = ''
     try { ip = event.getClientAddress() } catch { ip = '127.0.0.1' }
 
-    if (ua) request.headers.set('X-Visitor-User-Agent', ua)
-    if (ip) request.headers.set('X-Visitor-IP', ip)
+    if (ua) {
+      request.headers.set('X-Visitor-User-Agent', ua)
+      // Log for debugging
+      // console.log(`[SSR Fetch] Forwarding UA: ${ua.substring(0, 20)}... to ${url.pathname}`)
+    }
+    if (ip) {
+      request.headers.set('X-Visitor-IP', ip)
+    }
   }
 
   return fetch(request)

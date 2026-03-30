@@ -19,10 +19,13 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 
 			// If it's an SSR request from our server, we check for forwarded headers
 			isSSR := strings.HasPrefix(ua, "Bun/") || strings.HasPrefix(ua, "node") || strings.Contains(ua, "undici")
+			hasForwarded := false
+
 			if isSSR {
 				fua := r.Header.Get("X-Visitor-User-Agent")
 				if fua != "" {
 					ua = fua // Use the forwarded UA
+					hasForwarded = true
 				} else {
 					// No forwarded UA, likely internal startup/heartbeat
 					next.ServeHTTP(w, r)
@@ -31,13 +34,21 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 			}
 
 			// Skip for certain paths or methods (now AFTER we potentially replaced the UA)
-			if r.Method != http.MethodGet ||
-			   strings.HasPrefix(r.URL.Path, "/api/v1/admin") ||
-			   r.URL.Path == "/health" {
-				next.ServeHTTP(w, r)
-				return
-			}
-			ip := r.RemoteAddr
+			// BUT: If it's a forwarded SSR request, we WANT to log it if it's a public API call
+			if !hasForwarded {
+				if r.Method != http.MethodGet ||
+				   strings.HasPrefix(r.URL.Path, "/api/v1/admin") ||
+				   r.URL.Path == "/health" {
+					next.ServeHTTP(w, r)
+					return
+				}
+			} else {
+				// For forwarded SSR, still skip admin and health
+				if strings.HasPrefix(r.URL.Path, "/api/v1/admin") || r.URL.Path == "/health" {
+					next.ServeHTTP(w, r)
+					return
+				}
+			}			ip := r.RemoteAddr
 			if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
 				ip = xff
 			}
