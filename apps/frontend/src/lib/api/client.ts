@@ -12,6 +12,12 @@ const API_BASE = browser
 
 // ─── Core Fetcher ────────────────────────────────────────────────────────────
 
+// Global variable to hold visitor info during SSR (set in +page.server.ts)
+export const ssrContext = {
+  ua: '',
+  ip: ''
+}
+
 class ApiClientError extends Error {
   constructor(
     public readonly status: number,
@@ -37,10 +43,10 @@ async function request<T>(
     ...(options.headers as Record<string, string>),
   }
 
-  // Forward User Agent if we're on the server (SSR)
-  if (!browser && typeof process !== 'undefined') {
-    // This part requires us to pass the UA from hooks or page load
-    // For now, we'll check if a global UA is set or handled via options
+  // MANUAL FORWARDING: If we are on server and have ssrContext set
+  if (!browser) {
+    if (ssrContext.ua) headers['X-Visitor-User-Agent'] = ssrContext.ua
+    if (ssrContext.ip) headers['X-Visitor-IP'] = ssrContext.ip
   }
 
   if (token) {
