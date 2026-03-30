@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/aldngrha/portfolio/compare/v1.8.0...v1.8.1) (2026-03-30)
+
+
+### Bug Fixes
+
+* visitor agent ([0bb461b](https://github.com/aldngrha/portfolio/commit/0bb461b67b84cc8bead047b5f3e672ff21926c4f))
+
 # [1.8.0](https://github.com/aldngrha/portfolio/compare/v1.7.1...v1.8.0) (2026-03-30)
 
 
