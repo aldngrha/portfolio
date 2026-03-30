@@ -50,7 +50,8 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 			}
 
 			// Hash IP for privacy
-			hash := sha256.Sum256([]byte(ip))			ipHash := fmt.Sprintf("%x", hash)
+			hash := sha256.Sum256([]byte(ip))
+			ipHash := fmt.Sprintf("%x", hash)
 
 			v := &domain.Visitor{
 				Path:      r.URL.Path,
