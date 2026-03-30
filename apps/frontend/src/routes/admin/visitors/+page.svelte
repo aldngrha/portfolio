@@ -47,12 +47,24 @@
 
   function formatUA(ua: string | null) {
     if (!ua) return 'Unknown'
+
+    // Bots
+    const lowerUA = ua.toLowerCase()
+    if (lowerUA.includes('bot')) return 'Bot / Crawler'
+    if (lowerUA.includes('python')) return 'Python Script'
+    if (lowerUA.includes('go-http-client')) return 'Go Client'
+    if (lowerUA.includes('curl')) return 'Curl / CLI'
+
+    // Browsers/OS
     if (ua.includes('iPhone')) return 'iPhone'
     if (ua.includes('Android')) return 'Android'
+    if (ua.includes('Edg/')) return 'Edge'
     if (ua.includes('Chrome')) return 'Chrome'
     if (ua.includes('Firefox')) return 'Firefox'
     if (ua.includes('Safari')) return 'Safari'
-    return 'Other'
+
+    // Fallback: Show first part of UA instead of just 'Other'
+    return ua.split(' ')[0] || 'Other'
   }
 </script>
 
