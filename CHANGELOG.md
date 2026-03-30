@@ -1,3 +1,10 @@
+## [1.8.10](https://github.com/aldngrha/portfolio/compare/v1.8.9...v1.8.10) (2026-03-30)
+
+
+### Bug Fixes
+
+* error build ([2faf14a](https://github.com/aldngrha/portfolio/commit/2faf14aa2accb15231892be23b188f533f337cae))
+
 ## [1.8.9](https://github.com/aldngrha/portfolio/compare/v1.8.8...v1.8.9) (2026-03-30)
 
 
