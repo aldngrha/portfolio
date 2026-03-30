@@ -14,14 +14,19 @@ import (
 func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			ua := r.UserAgent()
+
 			// Skip for certain paths or methods
 			if r.Method != http.MethodGet ||
 			   strings.HasPrefix(r.URL.Path, "/api/v1/admin") ||
-			   r.URL.Path == "/health" {
+			   r.URL.Path == "/health" ||
+			   // SKIP INTERNAL SSR REQUESTS
+			   strings.HasPrefix(ua, "Bun/") ||
+			   strings.HasPrefix(ua, "node") ||
+			   strings.Contains(ua, "undici") {
 				next.ServeHTTP(w, r)
 				return
 			}
-
 			ip := r.RemoteAddr
 			if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
 				ip = xff

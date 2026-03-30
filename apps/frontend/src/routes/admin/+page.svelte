@@ -4,8 +4,33 @@
   import type { PageData } from './$types'
 
   let { data }: { data: PageData & AdminStats & { authenticated: boolean } } = $props()
-</script>
 
+  function formatUA(ua: string | null) {
+    if (!ua) return 'Unknown'
+    const lowerUA = ua.toLowerCase()
+    if (lowerUA.includes('bot')) return '🤖 Bot'
+    if (lowerUA.includes('python') || lowerUA.includes('go-http-client')) return '⚙️ Script'
+
+    let device = '💻'
+    if (lowerUA.includes('mobile') || lowerUA.includes('android') || lowerUA.includes('iphone')) {
+      device = '📱'
+    }
+
+    if (ua.includes('iPhone')) return `${device} iPhone`
+    if (ua.includes('Android')) return `${device} Android`
+    if (ua.includes('Chrome')) return `${device} Chrome`
+    if (ua.includes('Safari')) return `${device} Safari`
+    return `${device} Other`
+  }
+
+  function formatTime(date: string) {
+    return new Date(date).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    })
+  }
+</script>
 <svelte:head><title>Dashboard — Admin</title></svelte:head>
 
 <div class="dashboard">
@@ -68,6 +93,7 @@
         <thead>
           <tr>
             <th>Path</th>
+            <th>Device</th>
             <th>IP Hash</th>
             <th>Time</th>
           </tr>
@@ -75,9 +101,10 @@
         <tbody>
           {#each data.recent_visitors as v}
             <tr>
-              <td>{v.path}</td>
+              <td><span class="path-badge">{v.path}</span></td>
+              <td class="ua">{formatUA(v.user_agent)}</td>
               <td class="mono">{v.ip_hash.substring(0, 8)}...</td>
-              <td>{new Date(v.created_at).toLocaleString()}</td>
+              <td class="time">{formatTime(v.created_at)}</td>
             </tr>
           {/each}
         </tbody>
@@ -198,7 +225,19 @@
     padding: var(--space-3) var(--space-4);
     border-bottom: 0.5px solid var(--color-border);
     color: var(--color-text-2);
+    vertical-align: middle;
   }
+
+  .path-badge {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    background: var(--color-surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 0.5px solid var(--color-border);
+  }
+
+  .ua { font-size: 12px; color: var(--color-text-3); }
 
   .recent-table tr:last-child td { border-bottom: none; }
 

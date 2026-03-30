@@ -48,25 +48,30 @@
   function formatUA(ua: string | null) {
     if (!ua) return 'Unknown'
 
-    // Bots
     const lowerUA = ua.toLowerCase()
-    if (lowerUA.includes('bot')) return 'Bot / Crawler'
-    if (lowerUA.includes('python')) return 'Python Script'
-    if (lowerUA.includes('go-http-client')) return 'Go Client'
-    if (lowerUA.includes('curl')) return 'Curl / CLI'
 
-    // Browsers/OS
-    if (ua.includes('iPhone')) return 'iPhone'
-    if (ua.includes('Android')) return 'Android'
-    if (ua.includes('Edg/')) return 'Edge'
-    if (ua.includes('Chrome')) return 'Chrome'
-    if (ua.includes('Firefox')) return 'Firefox'
-    if (ua.includes('Safari')) return 'Safari'
+    // 1. Bots
+    if (lowerUA.includes('bot')) return '🤖 Bot'
+    if (lowerUA.includes('python') || lowerUA.includes('go-http-client') || lowerUA.includes('curl')) return '⚙️ Script/CLI'
 
-    // Fallback: Show first part of UA instead of just 'Other'
-    return ua.split(' ')[0] || 'Other'
-  }
-</script>
+    // 2. Device Type Detection
+    let device = '💻 Desktop'
+    if (lowerUA.includes('mobile') || lowerUA.includes('android') || lowerUA.includes('iphone') || lowerUA.includes('ipad')) {
+      device = '📱 Mobile'
+    }
+
+    // 3. Browser/OS Details
+    let details = 'Other'
+    if (ua.includes('iPhone')) details = 'iPhone'
+    else if (ua.includes('Android')) details = 'Android'
+    else if (ua.includes('Edg/')) details = 'Edge'
+    else if (ua.includes('Chrome')) details = 'Chrome'
+    else if (ua.includes('Firefox')) details = 'Firefox'
+    else if (ua.includes('Safari')) details = 'Safari'
+    else details = ua.split(' ')[0]
+
+    return `${device} (${details})`
+  }</script>
 
 <svelte:head><title>Visitor Logs — Admin</title></svelte:head>
 
