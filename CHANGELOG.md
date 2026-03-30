@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/aldngrha/portfolio/compare/v1.7.0...v1.7.1) (2026-03-30)
+
+
+### Bug Fixes
+
+* agent ([e56ac9f](https://github.com/aldngrha/portfolio/commit/e56ac9f1103ce59f92b7c116f90788efab782030))
+
 # [1.7.0](https://github.com/aldngrha/portfolio/compare/v1.6.2...v1.7.0) (2026-03-30)
 
 
