@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/aldngrha/portfolio/compare/v1.7.1...v1.8.0) (2026-03-30)
+
+
+### Features
+
+* implement visitor analytics and contact security ([a7d4b2d](https://github.com/aldngrha/portfolio/commit/a7d4b2db55216fb8ce632c59db62e51e350c673b))
+
 ## [1.7.1](https://github.com/aldngrha/portfolio/compare/v1.7.0...v1.7.1) (2026-03-30)
 
 
