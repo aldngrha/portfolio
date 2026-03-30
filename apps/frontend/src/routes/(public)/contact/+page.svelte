@@ -1,7 +1,7 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
   import Button from '$lib/components/ui/Button.svelte'
-  import { Github, Linkedin, Twitter, Send } from '@lucide/svelte'
+  import { Github, Linkedin, Send, Instagram } from '@lucide/svelte'
   import type { ActionData } from './$types'
 
   let { form }: { form?: ActionData } = $props()
@@ -9,7 +9,7 @@
   const socials = [
     { label: 'GitHub',    href: 'https://github.com/aldngrha', icon: Github },
     { label: 'LinkedIn',  href: 'https://linkedin.com/in/aldngrha', icon: Linkedin },
-    { label: 'Twitter/X', href: 'https://twitter.com/aldngrha', icon: Twitter },
+    { label: 'Instagram', href: 'https://instagram.com/aldngrha', icon: Instagram },
   ]
 
   let loading = $state(false)
