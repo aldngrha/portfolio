@@ -3,25 +3,29 @@
 
   let { stats }: { stats: DailyStat[] } = $props()
 
-  const padding = { top: 20, right: 10, bottom: 30, left: 40 }
+  const padding = { top: 20, right: 35, bottom: 30, left: 45 }
   const height = 240
-  let width = $state(600)
+  let width = $state(0) // Start at 0 to avoid initial flicker
 
   // Ensure we have data even if empty
-  const safeStats = $derived(stats && stats.length > 0 ? stats : [
+  const safeStats = $derived(stats && stats.length > 1 ? stats : [
+    { date: new Date(Date.now() - 86400000).toISOString(), hits: 0, unique: 0 },
     { date: new Date().toISOString(), hits: 0, unique: 0 }
   ])
 
   // Computed values
   const maxHits = $derived(Math.max(...safeStats.map(s => s.hits), 10))
+
   const points = $derived(safeStats.map((s, i) => {
-    const x = padding.left + (i / (safeStats.length - 1)) * (width - padding.left - padding.right)
+    const usableWidth = Math.max(width, 100) - padding.left - padding.right
+    const x = padding.left + (i / (safeStats.length - 1)) * usableWidth
     const y = height - padding.bottom - (s.hits / maxHits) * (height - padding.top - padding.bottom)
     return { x, y, ...s }
   }))
 
   const uniquePoints = $derived(safeStats.map((s, i) => {
-    const x = padding.left + (i / (safeStats.length - 1)) * (width - padding.left - padding.right)
+    const usableWidth = Math.max(width, 100) - padding.left - padding.right
+    const x = padding.left + (i / (safeStats.length - 1)) * usableWidth
     const y = height - padding.bottom - (s.unique / maxHits) * (height - padding.top - padding.bottom)
     return { x, y }
   }))
@@ -60,43 +64,45 @@
     </div>
   </div>
 
-  <svg {width} {height} viewBox="0 0 {width} {height}" preserveAspectRatio="none">
-    <!-- Gradients -->
-    <defs>
-      <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
-        <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.15" />
-        <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />
-      </linearGradient>
-    </defs>
+  {#if width > 0}
+    <svg width="100%" {height} viewBox="0 0 {width} {height}">
+      <!-- Gradients -->
+      <defs>
+        <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.15" />
+          <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />
+        </linearGradient>
+      </defs>
 
-    <!-- Grid lines (Y axis) -->
-    {#each Array(5) as _, i}
-      {@const y = padding.top + (i / 4) * (height - padding.top - padding.bottom)}
-      {@const val = Math.round(maxHits - (i / 4) * maxHits)}
-      <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} class="grid-line" />
-      <text x={padding.left - 10} y={y + 4} class="axis-text y-axis">{val}</text>
-    {/each}
+      <!-- Grid lines (Y axis) -->
+      {#each Array(5) as _, i}
+        {@const y = padding.top + (i / 4) * (height - padding.top - padding.bottom)}
+        {@const val = Math.round(maxHits - (i / 4) * maxHits)}
+        <line x1={padding.left} y1={y} x2={width - padding.right} y2={y} class="grid-line" />
+        <text x={padding.left - 10} y={y + 4} class="axis-text y-axis">{val}</text>
+      {/each}
 
-    <!-- Area under curve -->
-    <path d={areaPath} fill="url(#areaGradient)" />
+      <!-- Area under curve -->
+      <path d={areaPath} fill="url(#areaGradient)" />
 
-    <!-- Line (Total Hits) -->
-    <path d={linePath} fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linejoin="round" />
+      <!-- Line (Total Hits) -->
+      <path d={linePath} fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linejoin="round" />
 
-    <!-- Line (Unique Visitors) -->
-    <path d={uniqueLinePath} fill="none" stroke="var(--color-text-3)" stroke-width="1.5" stroke-dasharray="4 2" stroke-linejoin="round" />
+      <!-- Line (Unique Visitors) -->
+      <path d={uniqueLinePath} fill="none" stroke="var(--color-text-3)" stroke-width="1.5" stroke-dasharray="4 2" stroke-linejoin="round" />
 
-    <!-- Points and labels (X axis) -->
-    {#each points as p, i}
-      <text x={p.x} y={height - 5} class="axis-text x-axis" text-anchor="middle">
-        {formatDate(p.date)}
-      </text>
+      <!-- Points and labels (X axis) -->
+      {#each points as p, i}
+        <text x={p.x} y={height - 5} class="axis-text x-axis" text-anchor="middle">
+          {formatDate(p.date)}
+        </text>
 
-      <!-- Interactive points -->
-      <circle cx={p.x} cy={p.y} r="3" fill="var(--color-accent)" class="point" />
-      <circle cx={p.x} cy={uniquePoints[i].y} r="2.5" fill="var(--color-text-3)" class="point" />
-    {/each}
-  </svg>
+        <!-- Interactive points -->
+        <circle cx={p.x} cy={p.y} r="3" fill="var(--color-accent)" class="point" />
+        <circle cx={p.x} cy={uniquePoints[i].y} r="2.5" fill="var(--color-text-3)" class="point" />
+      {/each}
+    </svg>
+  {/if}
 </div>
 
 <style>
@@ -107,6 +113,8 @@
     border-radius: var(--radius-lg);
     padding: var(--space-6);
     margin-bottom: var(--space-8);
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .chart-header {
@@ -140,7 +148,7 @@
   .dot.unique { background: var(--color-text-3); border: 1px dashed var(--color-text-3); background: none; }
 
   svg {
-    overflow: visible;
+    display: block;
   }
 
   .grid-line {
@@ -153,6 +161,7 @@
     font-size: 10px;
     fill: var(--color-text-3);
     font-family: var(--font-mono);
+    pointer-events: none;
   }
 
   .y-axis { text-anchor: end; }
