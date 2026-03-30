@@ -1,3 +1,10 @@
+## [1.8.9](https://github.com/aldngrha/portfolio/compare/v1.8.8...v1.8.9) (2026-03-30)
+
+
+### Bug Fixes
+
+* visitor ([39f04dc](https://github.com/aldngrha/portfolio/commit/39f04dc5b98c5d8152c90a3ae4c64bd05a3ea6f1))
+
 ## [1.8.8](https://github.com/aldngrha/portfolio/compare/v1.8.7...v1.8.8) (2026-03-30)
 
 
