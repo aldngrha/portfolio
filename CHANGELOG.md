@@ -1,3 +1,10 @@
+## [1.8.6](https://github.com/aldngrha/portfolio/compare/v1.8.5...v1.8.6) (2026-03-30)
+
+
+### Bug Fixes
+
+* visitor ([0470f60](https://github.com/aldngrha/portfolio/commit/0470f600cc25797cc3dd968d578bef5cd8340c0f))
+
 ## [1.8.5](https://github.com/aldngrha/portfolio/compare/v1.8.4...v1.8.5) (2026-03-30)
 
 
