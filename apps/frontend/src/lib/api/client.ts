@@ -37,6 +37,12 @@ async function request<T>(
     ...(options.headers as Record<string, string>),
   }
 
+  // Forward User Agent if we're on the server (SSR)
+  if (!browser && typeof process !== 'undefined') {
+    // This part requires us to pass the UA from hooks or page load
+    // For now, we'll check if a global UA is set or handled via options
+  }
+
   if (token) {
     headers['Authorization'] = `Bearer ${token}`
   }

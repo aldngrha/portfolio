@@ -32,4 +32,19 @@ const authGuard: Handle = async ({ event, resolve }) => {
   return resolve(event)
 }
 
+export const handleFetch = async ({ event, request, fetch }) => {
+  const { pathname } = new URL(request.url)
+  const isApiCall = pathname.startsWith('/api/v1')
+
+  if (isApiCall) {
+    const ua = event.request.headers.get('user-agent')
+    const ip = event.getClientAddress()
+
+    if (ua) request.headers.set('X-Visitor-User-Agent', ua)
+    if (ip) request.headers.set('X-Visitor-IP', ip)
+  }
+
+  return fetch(request)
+}
+
 export const handle = sequence(themeHandler, authGuard)

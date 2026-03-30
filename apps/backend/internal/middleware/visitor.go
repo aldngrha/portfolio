@@ -16,22 +16,34 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			ua := r.UserAgent()
 
+			// If it's an SSR request from our server, we check for forwarded headers
+			if (strings.HasPrefix(ua, "Bun/") || strings.HasPrefix(ua, "node") || strings.Contains(ua, "undici")) {
+				fua := r.Header.Get("X-Visitor-User-Agent")
+				if fua != "" {
+					ua = fua
+				} else {
+					// It's a real system maintenance/startup request, skip it
+					next.ServeHTTP(w, r)
+					return
+				}
+			}
+
 			// Skip for certain paths or methods
 			if r.Method != http.MethodGet ||
 			   strings.HasPrefix(r.URL.Path, "/api/v1/admin") ||
-			   r.URL.Path == "/health" ||
-			   // SKIP INTERNAL SSR REQUESTS
-			   strings.HasPrefix(ua, "Bun/") ||
-			   strings.HasPrefix(ua, "node") ||
-			   strings.Contains(ua, "undici") {
+			   r.URL.Path == "/health" {
 				next.ServeHTTP(w, r)
 				return
 			}
+
 			ip := r.RemoteAddr
 			if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
 				ip = xff
 			}
-
+			// Priority: X-Visitor-IP (set by our SSR)
+			if xvip := r.Header.Get("X-Visitor-IP"); xvip != "" {
+				ip = xvip
+			}
 			// Hash IP for privacy
 			hash := sha256.Sum256([]byte(ip))
 			ipHash := fmt.Sprintf("%x", hash)
