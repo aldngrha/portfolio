@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"crypto/sha256"
 	"fmt"
 	"log/slog"
@@ -52,13 +53,13 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 				Path:      r.URL.Path,
 				Method:    r.Method,
 				IPHash:    ipHash,
-				UserAgent: r.UserAgent(),
+				UserAgent: ua,
 				Referer:   r.Referer(),
 			}
 
 			// We don't want to block the request for visitor tracking
 			go func() {
-				err := repo.Create(r.Context(), v)
+				err := repo.Create(context.Background(), v)
 				if err != nil {
 					slog.Error("failed to track visitor", "error", err)
 				}
