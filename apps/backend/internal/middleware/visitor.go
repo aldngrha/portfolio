@@ -48,7 +48,9 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 					next.ServeHTTP(w, r)
 					return
 				}
-			}			ip := r.RemoteAddr
+			}
+
+			ip := r.RemoteAddr
 			if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
 				ip = xff
 			}
