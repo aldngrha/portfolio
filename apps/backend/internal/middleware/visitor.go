@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"log/slog"
+	"net"
 	"net/http"
 	"strings"
 
@@ -18,21 +19,17 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 			ua := r.UserAgent()
 
 			// 1. Handle identity (SSR vs Client)
-			// Priority 1: X-Visitor-User-Agent (set by our SvelteKit SSR)
 			fua := r.Header.Get("X-Visitor-User-Agent")
 			isInternal := strings.HasPrefix(ua, "Bun/") || strings.HasPrefix(ua, "node") || strings.Contains(ua, "undici")
 
 			if fua != "" {
 				ua = fua
 			} else if isInternal {
-				// It's a request from our server WITHOUT a forwarded UA
-				// (e.g., startup checks, cron jobs, etc.) - Skip logging
 				next.ServeHTTP(w, r)
 				return
 			}
 
 			// 2. Skip logic for paths/methods
-			// We only want to log public GET requests
 			if r.Method != http.MethodGet ||
 			   strings.HasPrefix(r.URL.Path, "/api/v1/admin") ||
 			   r.URL.Path == "/health" {
@@ -40,13 +37,38 @@ func VisitorTracker(repo *repository.VisitorRepository) func(http.Handler) http.
 				return
 			}
 
-			// 3. Handle IP (Priority: Forwarded IP from SSR > X-Forwarded-For > RemoteAddr)
-			ip := r.RemoteAddr
-			if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
-				ip = xff
-			}
+			// 3. Robust IP Detection
+			var ip string
+
+			// Priority 1: Custom header from our SSR
 			if xvip := r.Header.Get("X-Visitor-IP"); xvip != "" {
 				ip = xvip
+			} else {
+				// Priority 2: Standard Proxy Headers
+				headers := []string{"CF-Connecting-IP", "X-Real-IP", "X-Forwarded-For"}
+				for _, h := range headers {
+					val := r.Header.Get(h)
+					if val != "" {
+						// X-Forwarded-For bisa berisi multiple IP (comma separated), ambil yang pertama
+						if h == "X-Forwarded-For" {
+							ips := strings.Split(val, ",")
+							ip = strings.TrimSpace(ips[0])
+						} else {
+							ip = val
+						}
+						break
+					}
+				}
+			}
+
+			// Priority 3: Fallback to RemoteAddr if no headers found
+			if ip == "" {
+				host, _, err := net.SplitHostPort(r.RemoteAddr)
+				if err == nil {
+					ip = host
+				} else {
+					ip = r.RemoteAddr
+				}
 			}
 
 			// Hash IP for privacy
