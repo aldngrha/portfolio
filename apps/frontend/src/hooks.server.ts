@@ -3,9 +3,13 @@ import { sequence } from '@sveltejs/kit/hooks'
 import { visitorStore } from '$lib/api/visitor-store'
 
 const visitorHandler: Handle = async ({ event, resolve }) => {
+  // Ambil IP asli dari header Nginx Proxy Manager (NPM) atau Cloudflare
+  const ip = event.request.headers.get('cf-connecting-ip') ||
+             event.request.headers.get('x-real-ip') ||
+             event.request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+             '127.0.0.1';
+
   const ua = event.request.headers.get('user-agent') ?? ''
-  let ip = ''
-  try { ip = event.getClientAddress() } catch { ip = '127.0.0.1' }
 
   // Jalankan request di dalam "ruang lingkup" visitorStore
   return visitorStore.run({ ua, ip }, () => resolve(event))
