@@ -1,3 +1,10 @@
+## [1.8.12](https://github.com/aldngrha/portfolio/compare/v1.8.11...v1.8.12) (2026-04-08)
+
+
+### Bug Fixes
+
+* ip hash ([115652c](https://github.com/aldngrha/portfolio/commit/115652c47b2743769a6dfda2372111f09cbaacc7))
+
 ## [1.8.11](https://github.com/aldngrha/portfolio/compare/v1.8.10...v1.8.11) (2026-04-08)
 
 
