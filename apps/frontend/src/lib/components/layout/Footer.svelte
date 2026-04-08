@@ -12,7 +12,13 @@
 
 <footer class="footer">
   <div class="container footer-inner">
-    <p class="copy">© {year} Aldi Nugraha</p>
+    <div class="footer-left">
+      <p class="copy">© {year} Aldi Nugraha</p>
+      <span class="separator" aria-hidden="true">•</span>
+      <p class="privacy-note">
+        Privacy-first: Anonymous (SHA256)
+      </p>
+    </div>
     <nav class="footer-links">
       {#each socials as s}
         <a href={s.href} target="_blank" rel="noopener noreferrer" class="footer-link">
@@ -37,9 +43,30 @@
     height: 56px;
   }
 
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .copy {
     font-size: 13px;
     color: var(--color-text-3);
+  }
+
+  .separator {
+    color: var(--color-border);
+    font-size: 10px;
+  }
+
+  .privacy-note {
+    font-size: 11px;
+    color: var(--color-text-3);
+    opacity: 0.8;
+    background: var(--color-bg-secondary);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    border: 0.5px solid var(--color-border);
   }
 
   .footer-links {
@@ -58,5 +85,31 @@
 
   .footer-link:hover {
     color: var(--color-text);
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      flex-direction: column;
+      height: auto;
+      padding: var(--space-6) 0;
+      gap: var(--space-4);
+    }
+
+    .footer-left {
+      flex-direction: column;
+      gap: var(--space-1);
+      text-align: center;
+    }
+
+    .privacy-note {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 10px;
+    }
+
+    .separator {
+      display: none;
+    }
   }
 </style>

@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { ArrowLeft, ExternalLink, Github, ChevronLeft, ChevronRight } from '@lucide/svelte'
+  import { ArrowLeft, ExternalLink, Github, ChevronLeft, ChevronRight, Maximize2 } from '@lucide/svelte'
   import Badge from '$lib/components/ui/Badge.svelte'
+  import Lightbox from '$lib/components/ui/Lightbox.svelte'
   import type { PageData } from './$types'
   import { marked } from 'marked'
   import DOMPurify from 'dompurify'
@@ -10,9 +11,14 @@
 
   const work = $derived(data.work)
   let activeImage = $state(0)
+  let isLightboxOpen = $state(false)
 
   function setImage(i: number) {
     activeImage = i
+  }
+
+  function openLightbox() {
+    isLightboxOpen = true
   }
 
   const currentImage = $derived(work.images[activeImage] ?? null)
@@ -76,13 +82,17 @@
       <p class="section-label">Gallery</p>
 
       <!-- Hero image -->
-      <div class="hero-img">
+      <button class="hero-img" onclick={openLightbox} aria-label="Open full screen gallery">
         {#if currentImage}
           <img src={currentImage.url} alt={currentImage.caption ?? work.title} />
+          <div class="zoom-hint">
+            <Maximize2 size={20} strokeWidth={1.5} />
+            <span>Click to enlarge</span>
+          </div>
         {:else}
           <div class="img-placeholder"></div>
         {/if}
-      </div>
+      </button>
 
       <!-- Thumbnails -->
       {#if work.images.length > 1}
@@ -101,6 +111,14 @@
       {/if}
     </div>
   </section>
+{/if}
+
+{#if isLightboxOpen}
+  <Lightbox
+    images={work.images}
+    index={activeImage}
+    onclose={() => (isLightboxOpen = false)}
+  />
 {/if}
 
 <!-- ─── Content + Sidebar ────────────────────────────────────────────────────── -->
@@ -268,13 +286,42 @@
     border: 0.5px solid var(--color-border);
     overflow: hidden;
     margin-bottom: var(--space-3);
+    padding: 0;
+    cursor: zoom-in;
+    position: relative;
+    background: none;
+    display: block;
   }
 
   .hero-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 300ms var(--ease);
+    transition: transform var(--duration) var(--ease);
+  }
+
+  .hero-img:hover img {
+    transform: scale(1.02);
+  }
+
+  .zoom-hint {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    color: white;
+    font-size: 13px;
+    opacity: 0;
+    transition: all var(--duration) var(--ease);
+  }
+
+  .hero-img:hover .zoom-hint {
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 1;
   }
 
   .img-placeholder {

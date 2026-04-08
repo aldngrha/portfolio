@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { ArrowLeft, Github, ExternalLink } from '@lucide/svelte'
+  import { ArrowLeft, Github, ExternalLink, Maximize2 } from '@lucide/svelte'
   import Badge from '$lib/components/ui/Badge.svelte'
+  import Lightbox from '$lib/components/ui/Lightbox.svelte'
   import type { PageData } from './$types'
   import { marked } from 'marked'
   import DOMPurify from 'dompurify'
@@ -10,7 +11,13 @@
   const lab = $derived(data.lab)
 
   let activeImage = $state(0)
+  let isLightboxOpen = $state(false)
+
   const currentImage = $derived(lab.images?.[activeImage] ?? null)
+
+  function openLightbox() {
+    isLightboxOpen = true
+  }
 
   function formatDate(d: string) {
     return new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(new Date(d))
@@ -77,13 +84,17 @@
   <section class="gallery-section">
     <div class="container">
       <p class="section-label">Gallery</p>
-      <div class="hero-img">
+      <button class="hero-img" onclick={openLightbox} aria-label="Open full screen gallery">
         {#if currentImage}
           <img src={currentImage.url} alt={currentImage.caption ?? lab.title} />
+          <div class="zoom-hint">
+            <Maximize2 size={20} strokeWidth={1.5} />
+            <span>Click to enlarge</span>
+          </div>
         {:else}
           <div class="img-placeholder"></div>
         {/if}
-      </div>
+      </button>
       {#if lab.images.length > 1}
         <div class="thumbs">
           {#each lab.images as img, i}
@@ -100,6 +111,14 @@
       {/if}
     </div>
   </section>
+{/if}
+
+{#if isLightboxOpen}
+  <Lightbox
+    images={lab.images}
+    index={activeImage}
+    onclose={() => (isLightboxOpen = false)}
+  />
 {/if}
 
 {#if lab.github_url || lab.demo_url}
@@ -154,8 +173,11 @@
 
   .gallery-section { padding: var(--space-8) 0; border-bottom: 0.5px solid var(--color-border); }
   .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-3); margin-bottom: var(--space-4); }
-  .hero-img { width: 100%; aspect-ratio: 16/7; border-radius: var(--radius-xl); border: 0.5px solid var(--color-border); overflow: hidden; margin-bottom: var(--space-3); }
-  .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-img { width: 100%; aspect-ratio: 16/7; border-radius: var(--radius-xl); border: 0.5px solid var(--color-border); overflow: hidden; margin-bottom: var(--space-3); padding: 0; cursor: zoom-in; position: relative; background: none; display: block; }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--duration) var(--ease); }
+  .hero-img:hover img { transform: scale(1.02); }
+  .zoom-hint { position: absolute; inset: 0; background: rgba(0, 0, 0, 0); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); color: white; font-size: 13px; opacity: 0; transition: all var(--duration) var(--ease); }
+  .hero-img:hover .zoom-hint { background: rgba(0, 0, 0, 0.2); opacity: 1; }
   .img-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--color-accent-soft), var(--color-bg-secondary)); }
   .thumbs { display: flex; gap: var(--space-2); flex-wrap: wrap; }
   .thumb { width: 80px; height: 54px; border-radius: var(--radius-md); border: 1.5px solid transparent; overflow: hidden; transition: border-color var(--duration) var(--ease); flex-shrink: 0; }
