@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/aldngrha/portfolio/compare/v1.8.12...v1.9.0) (2026-04-08)
+
+
+### Features
+
+* lightbox images ([308bfbb](https://github.com/aldngrha/portfolio/commit/308bfbb680446fcbd80129dd142cd3cdd35b220e))
+
 ## [1.8.12](https://github.com/aldngrha/portfolio/compare/v1.8.11...v1.8.12) (2026-04-08)
 
 
