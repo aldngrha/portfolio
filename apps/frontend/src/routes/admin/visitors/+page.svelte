@@ -6,7 +6,10 @@
 
   let { data }: { data: PageData } = $props()
 
-  let visitors = $state<Visitor[]>(data.visitors)
+  // Use extra state + derived to avoid syncing props to state
+  let extraVisitors = $state<Visitor[]>([])
+  const visitors = $derived([...data.visitors, ...extraVisitors])
+
   let page = $state(1)
   let loading = $state(false)
   let hasMore = $derived(visitors.length < data.total)
@@ -22,11 +25,10 @@
       const response = await adminApi.visitors.list(data.token, nextPage, 10)
 
       if (response.data.length > 0) {
-        visitors = [...visitors, ...response.data]
+        extraVisitors = [...extraVisitors, ...response.data]
         page = nextPage
       }
-    } catch (err) {
-      console.error('Failed to load more visitors:', err)
+    } catch (err) {      console.error('Failed to load more visitors:', err)
     } finally {
       loading = false
     }

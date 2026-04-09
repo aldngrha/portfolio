@@ -72,11 +72,12 @@ async function request<T>(
 
 export const api = {
   works: {
-    list: (params?: { category?: string; featured?: boolean; page?: number }) => {
+    list: (params?: { category?: string; featured?: boolean; page?: number; perPage?: number }) => {
       const search = new URLSearchParams()
       if (params?.category) search.set('category', params.category)
       if (params?.featured) search.set('featured', 'true')
       if (params?.page) search.set('page', params.page.toString())
+      if (params?.perPage) search.set('per_page', params.perPage.toString())
       return request<PaginatedResponse<import('$lib/types').Work>>(`/api/v1/works?${search.toString()}`)
     },
     get: (slug: string) =>
@@ -84,10 +85,11 @@ export const api = {
   },
 
   labs: {
-    list: (params?: { category?: string; page?: number }) => {
+    list: (params?: { category?: string; page?: number; perPage?: number }) => {
       const search = new URLSearchParams()
       if (params?.category) search.set('category', params.category)
       if (params?.page) search.set('page', params.page.toString())
+      if (params?.perPage) search.set('per_page', params.perPage.toString())
       return request<PaginatedResponse<import('$lib/types').Lab>>(`/api/v1/labs?${search.toString()}`)
     },
     get: (slug: string) =>
@@ -95,10 +97,11 @@ export const api = {
   },
 
   posts: {
-    list: (params?: { category?: string; page?: number }) => {
+    list: (params?: { category?: string; page?: number; perPage?: number }) => {
       const search = new URLSearchParams()
       if (params?.category) search.set('category', params.category)
       if (params?.page) search.set('page', params.page.toString())
+      if (params?.perPage) search.set('per_page', params.perPage.toString())
       return request<PaginatedResponse<import('$lib/types').Post>>(`/api/v1/posts?${search.toString()}`)
     },
     get: (slug: string) =>

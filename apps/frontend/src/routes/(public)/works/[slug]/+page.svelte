@@ -33,6 +33,24 @@
 <svelte:head>
   <title>{work.title} — Aldi Nugraha</title>
   <meta name="description" content={work.tagline} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aldinugraha.me/works/{work.slug}" />
+  <meta property="og:title" content="{work.title} — Aldi Nugraha" />
+  <meta property="og:description" content={work.tagline} />
+  {#if work.thumbnail_url}
+    <meta property="og:image" content={work.thumbnail_url} />
+  {/if}
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://aldinugraha.me/works/{work.slug}" />
+  <meta property="twitter:title" content="{work.title} — Aldi Nugraha" />
+  <meta property="twitter:description" content={work.tagline} />
+  {#if work.thumbnail_url}
+    <meta property="twitter:image" content={work.thumbnail_url} />
+  {/if}
 </svelte:head>
 
 <!-- ─── Breadcrumb nav ────────────────────────────────────────────────────── -->

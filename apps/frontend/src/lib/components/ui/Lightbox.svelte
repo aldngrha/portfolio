@@ -18,22 +18,25 @@
     onclose: () => void
   } = $props()
 
-  let currentIndex = $state(index)
-  let direction = $state(1) // 1 untuk next, -1 untuk prev
-  const currentImage = $derived(images[currentIndex])
+  // Writable $derived pattern:
+  let offset = $state(0)
+  let direction = $state(1)
 
-  $effect(() => {
-    currentIndex = index
+  const currentIndex = $derived.by(() => {
+    const i = (index + offset) % images.length
+    return i < 0 ? i + images.length : i
   })
+
+  const currentImage = $derived(images[currentIndex])
 
   function next() {
     direction = 1
-    currentIndex = (currentIndex + 1) % images.length
+    offset += 1
   }
 
   function prev() {
     direction = -1
-    currentIndex = (currentIndex - 1 + images.length) % images.length
+    offset -= 1
   }
 
   function handleKeydown(e: KeyboardEvent) {
@@ -127,14 +130,14 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100dvh; /* Kunci tinggi pake Dynamic Viewport Height */
+    height: 100dvh;
     background: rgba(0, 0, 0, 0.98);
     backdrop-filter: blur(25px);
     z-index: 999999;
     display: flex;
     flex-direction: column;
     cursor: zoom-out;
-    overscroll-behavior: none; /* Mencegah bounce scroll di iOS */
+    overscroll-behavior: none;
   }
 
   .lightbox-content {
