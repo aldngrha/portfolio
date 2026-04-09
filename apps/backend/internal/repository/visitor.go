@@ -39,13 +39,13 @@ func (r *VisitorRepository) GetStats(ctx context.Context) (*domain.VisitorStats,
 		return nil, err
 	}
 
-	// Hits and unique visitors (last 24 hours)
+	// Hits and unique visitors (Today)
 	queryLast24h := `
 		SELECT
 			COUNT(*),
 			COUNT(DISTINCT ip_hash)
 		FROM visitors
-		WHERE created_at > NOW() - INTERVAL '24 hours'
+		WHERE created_at >= CURRENT_DATE
 	`
 	err = r.db.QueryRow(ctx, queryLast24h).Scan(&stats.HitsLast24h, &stats.UniqueLast24h)
 	if err != nil {

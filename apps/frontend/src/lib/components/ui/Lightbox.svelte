@@ -22,6 +22,10 @@
   let direction = $state(1) // 1 untuk next, -1 untuk prev
   const currentImage = $derived(images[currentIndex])
 
+  $effect(() => {
+    currentIndex = index
+  })
+
   function next() {
     direction = 1
     currentIndex = (currentIndex + 1) % images.length
@@ -68,14 +72,12 @@
 >
   <div class="lightbox-content" onclick={e => e.stopPropagation()}>
 
-    <!-- Top Bar -->
     <header class="top-bar">
       <button class="close-btn" onclick={onclose} aria-label="Close">
         <X size={28} />
       </button>
     </header>
 
-    <!-- Main Viewport -->
     <main class="viewport">
       {#if images.length > 1}
         <button class="nav-btn prev" onclick={prev} aria-label="Previous">
@@ -102,7 +104,6 @@
       </div>
     </main>
 
-    <!-- Bottom Bar -->
     <footer class="bottom-bar">
       {#if currentImage.caption}
         <p class="caption" transition:fade={{ duration: 200 }}>{currentImage.caption}</p>
@@ -121,13 +122,19 @@
 <style>
   .lightbox-overlay {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100dvh; /* Kunci tinggi pake Dynamic Viewport Height */
     background: rgba(0, 0, 0, 0.98);
     backdrop-filter: blur(25px);
     z-index: 999999;
     display: flex;
     flex-direction: column;
     cursor: zoom-out;
+    overscroll-behavior: none; /* Mencegah bounce scroll di iOS */
   }
 
   .lightbox-content {
@@ -168,12 +175,12 @@
   }
 
   .image-wrapper {
-    position: absolute; /* Biar tumpang tindih pas transisi */
+    position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 100px; /* Ruang buat tombol nav */
+    padding: 0 100px;
   }
 
   .image-wrapper img {
@@ -185,13 +192,14 @@
   }
 
   .bottom-bar {
-    height: 160px;
+    height: auto;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--space-5);
-    padding: 0 var(--space-8) var(--space-6);
+    padding: var(--space-4) var(--space-8) calc(var(--space-10) + env(safe-area-inset-bottom));
     flex-shrink: 0;
     z-index: 20;
   }
@@ -263,8 +271,8 @@
 
   @media (max-width: 768px) {
     .image-wrapper { padding: 0 var(--space-4); }
-    .bottom-bar { height: 140px; }
+    .bottom-bar { min-height: 140px; padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom)); }
     .nav-btn { width: 60px; }
-    .nav-btn Ikon { size: 32; }
+    .caption { font-size: 14px; }
   }
 </style>

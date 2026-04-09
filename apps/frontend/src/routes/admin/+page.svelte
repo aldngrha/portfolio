@@ -73,11 +73,11 @@
         <p class="stat-value">{data.visitors.unique_visitors}</p>
       </div>
       <div class="stat-card">
-        <p class="stat-label">Hits (24h)</p>
+        <p class="stat-label">Hits (Today)</p>
         <p class="stat-value">{data.visitors.hits_last_24h}</p>
       </div>
       <div class="stat-card">
-        <p class="stat-label">Unique (24h)</p>
+        <p class="stat-label">Unique (Today)</p>
         <p class="stat-value">{data.visitors.unique_last_24h}</p>
       </div>
     </div>

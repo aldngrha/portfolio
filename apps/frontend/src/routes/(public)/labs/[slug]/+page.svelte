@@ -164,7 +164,6 @@
   .hero-main { display: flex; flex-direction: column; gap: var(--space-3); }
   .hero-top { display: flex; gap: var(--space-2); }
   .title { font-size: clamp(24px, 4vw, 36px); color: var(--color-text); line-height: 1.1; }
-  .desc { font-size: clamp(14px, 1.2vw, 16px); color: var(--color-text-2); line-height: 1.7; max-width: 520px; }
   .tags { display: flex; gap: var(--space-1); flex-wrap: wrap; }
   .hero-meta { display: flex; flex-direction: column; gap: var(--space-4); }
   .meta-item { display: flex; flex-direction: column; gap: 3px; }

@@ -16,7 +16,7 @@
       <p class="copy">© {year} Aldi Nugraha</p>
       <span class="separator" aria-hidden="true">•</span>
       <p class="privacy-note">
-        Privacy-first: Anonymous (SHA256)
+        Privacy-focused: Anonymous (SHA256) analytics without cookies.
       </p>
     </div>
     <nav class="footer-links">
@@ -106,6 +106,8 @@
       border: none;
       padding: 0;
       font-size: 10px;
+      max-width: 200px;
+      line-height: 1.4;
     }
 
     .separator {

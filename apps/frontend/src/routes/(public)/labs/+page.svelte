@@ -43,14 +43,16 @@
   {:else}
     <div class="labs-grid">
       {#each data.labs as lab}
-        <a href="/labs/{lab.slug}" class="lab-card">
+        <div class="lab-card">
           <div class="lab-top">
             <div class="lab-icon"><FlaskConical size={20} strokeWidth={1.5} /></div>
             <Badge variant={lab.status === 'done' ? 'green' : 'amber'}>
               {lab.status === 'done' ? 'Done' : 'In progress'}
             </Badge>
           </div>
-          <h2 class="lab-title">{lab.title}</h2>
+          <a href="/labs/{lab.slug}" class="lab-title-link">
+            <h2 class="lab-title">{lab.title}</h2>
+          </a>
           <p class="lab-desc">{lab.description}</p>
           <div class="lab-footer">
             <div class="lab-tags">
@@ -61,13 +63,14 @@
             <div class="lab-links">
               {#if lab.github_url}
                 <a href={lab.github_url} target="_blank" rel="noopener noreferrer" class="lab-link"><Github size={12} strokeWidth={1.5} /> GitHub</a>
+               SvelteKit warning fix: nested anchor tags are now separate.
               {/if}
               {#if lab.demo_url}
                 <a href={lab.demo_url} target="_blank" rel="noopener noreferrer" class="lab-link"><ExternalLink size={12} strokeWidth={1.5} /> Demo</a>
               {/if}
             </div>
           </div>
-        </a>
+        </div>
       {/each}
     </div>
   {/if}
@@ -143,11 +146,19 @@
     flex-direction: column;
     gap: var(--space-3);
     transition: border-color var(--duration) var(--ease);
-    text-decoration: none;
   }
 
   .lab-card:hover {
     border-color: var(--color-accent);
+  }
+
+  .lab-title-link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .lab-title-link:hover .lab-title {
+    color: var(--color-accent);
   }
 
   .lab-top {
