@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/aldngrha/portfolio/compare/v1.9.0...v1.9.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* lightbox ([3881508](https://github.com/aldngrha/portfolio/commit/3881508763f8b90f06928b459875a38ffc4107bc))
+
 # [1.9.0](https://github.com/aldngrha/portfolio/compare/v1.8.12...v1.9.0) (2026-04-08)
 
 
