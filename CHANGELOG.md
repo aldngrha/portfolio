@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/aldngrha/portfolio/compare/v1.9.1...v1.10.0) (2026-04-09)
+
+
+### Features
+
+* add image lightbox and enhance SEO ([959d8b8](https://github.com/aldngrha/portfolio/commit/959d8b87c25df0c9b92bdf058baaca64ff4f3a5b))
+
 ## [1.9.1](https://github.com/aldngrha/portfolio/compare/v1.9.0...v1.9.1) (2026-04-09)
 
 
