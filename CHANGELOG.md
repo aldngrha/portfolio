@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/aldngrha/portfolio/compare/v1.10.1...v1.10.2) (2026-04-13)
+
+
+### Bug Fixes
+
+* error avatar ([b05384b](https://github.com/aldngrha/portfolio/commit/b05384bfc133b90bfcb888221f07425d06769c1a))
+
 ## [1.10.1](https://github.com/aldngrha/portfolio/compare/v1.10.0...v1.10.1) (2026-04-13)
 
 
