@@ -18,7 +18,7 @@
 <section class="hero">
   <div class="container hero-inner">
     <div aria-hidden="true">
-      <img class="avatar" src={data.settings.avatarUrl} alt="Aldi Nugraha" />
+      <img class="avatar" src={settings.avatarUrl} alt="Aldi Nugraha" />
     </div>
     <div class="hero-text">
       <h1 class="name">Aldi Nugraha</h1>
