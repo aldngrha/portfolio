@@ -4,7 +4,7 @@
   import { MapPin, Download, Gamepad2, Dumbbell, BookOpen, Brain } from '@lucide/svelte'
   import type { PageData } from './$types'
 
-  let { data }: { data: PageData } = $props()
+  let { data }: { data: PageData & { settings: { avatarUrl: string, resumeUrl: string } } } = $props()
   const settings = $derived(data.settings)
 
   const experience = [

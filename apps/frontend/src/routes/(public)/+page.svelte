@@ -4,9 +4,9 @@
   import { FlaskConical, ArrowRight } from '@lucide/svelte'
   import type { PageData } from './$types'
 
-  let { data }: { data: PageData } = $props()
+  let { data }: { data: PageData & { settings: { avatarUrl: string, resumeUrl: string } } } = $props()
 
-  const { works, labs, posts } = $derived(data)
+  const { works, labs, posts, settings } = $derived(data)
 </script>
 
 <svelte:head>
@@ -18,7 +18,7 @@
 <section class="hero">
   <div class="container hero-inner">
     <div aria-hidden="true">
-      <img class="avatar" src="https://lh3.googleusercontent.com/a/ACg8ocICvuHzhHQjZ_24PcQxwZyxK109oqVr7UPpumM0mwZhIPWBT0QTwg=s576-c-no" alt="Aldi Nugraha" />
+      <img class="avatar" src={data.settings.avatarUrl} alt="Aldi Nugraha" />
     </div>
     <div class="hero-text">
       <h1 class="name">Aldi Nugraha</h1>
