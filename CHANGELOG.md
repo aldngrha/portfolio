@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/aldngrha/portfolio/compare/v1.10.0...v1.10.1) (2026-04-13)
+
+
+### Bug Fixes
+
+* avatar url ([27290ad](https://github.com/aldngrha/portfolio/commit/27290ad03a5dc703d59e2dc8f85b6b0518df8bd5))
+
 # [1.10.0](https://github.com/aldngrha/portfolio/compare/v1.9.1...v1.10.0) (2026-04-09)
 
 
